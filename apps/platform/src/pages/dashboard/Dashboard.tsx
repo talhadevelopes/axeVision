@@ -17,7 +17,6 @@ import type {
 import {
   Globe,
   Camera,
-  AlertCircle,
   Users,
   Shield,
   AlertTriangle,
@@ -25,6 +24,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { LineChart, Line, ResponsiveContainer } from "recharts";
+import { PageBackground } from "../../components";
 
 export default function Dashboard() {
   const { user, token, logout } = useAuthStore();
@@ -134,8 +134,7 @@ export default function Dashboard() {
     const last7Days = Array.from({ length: 7 }, (_, i) => {
       const date = new Date(Date.now() - i * 24 * 60 * 60 * 1000);
       const dayIssues = accessibilityIssues.filter((issue) => {
-        //@ts-ignore
-        const issueDate = new Date(issue.createdAt);
+        const issueDate = new Date((issue as any).createdAt || (issue as any).capturedAt);
         return issueDate.toDateString() === date.toDateString();
       }).length;
       return { value: dayIssues };
@@ -160,77 +159,12 @@ export default function Dashboard() {
     isLoadingSnapshots ||
     isLoadingAccessibility ||
     isLoadingMembers;
-  const error = websitesError || membersError;
-
-  if (!user || !token) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-green-50/30 to-emerald-50/50 relative overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-gradient-to-br from-green-200/30 to-emerald-300/20 blur-3xl animate-pulse" />
-          <div
-            className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full bg-gradient-to-br from-green-100/40 to-teal-200/30 blur-3xl animate-pulse"
-            style={{ animationDelay: "1s" }}
-          />
-        </div>
-        <div className="relative z-10 flex items-center justify-center min-h-screen p-4">
-          <div className="max-w-md w-full">
-            <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-green-100/50 p-8 text-center">
-              <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shadow-xl">
-                <Shield className="w-10 h-10 text-white" />
-              </div>
-              <h1 className="text-3xl font-bold font-heading bg-gradient-to-r from-green-700 to-emerald-600 bg-clip-text text-transparent mb-4">
-                Welcome to axeVision
-              </h1>
-              <p className="text-slate-600 mb-8">
-                Please sign in to view your monitoring dashboard.
-              </p>
-              <Link
-                to="/login"
-                className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 text-white font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200"
-              >
-                Sign In to Continue
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-green-50/30 to-emerald-50/50 relative overflow-hidden">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-gradient-to-br from-green-200/30 to-emerald-300/20 blur-3xl animate-pulse" />
-        <div
-          className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full bg-gradient-to-br from-green-100/40 to-teal-200/30 blur-3xl animate-pulse"
-          style={{ animationDelay: "1s" }}
-        />
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full bg-gradient-to-br from-green-50/50 to-emerald-100/30 blur-2xl animate-pulse"
-          style={{ animationDelay: "2s" }}
-        />
-      </div>
-
-      <div className="absolute inset-0 opacity-30">
-        <div
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(34, 197, 94, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(34, 197, 94, 0.1) 1px, transparent 1px)",
-            backgroundSize: "40px 40px",
-          }}
-        />
-      </div>
+      <PageBackground />
 
       <div className="relative z-10 p-4 py-8 mt-20 max-w-7xl mx-auto">
-        {error && (
-          <div className="bg-red-100/80 backdrop-blur-sm border border-red-200 text-red-700 px-6 py-4 rounded-2xl mb-6 flex items-center gap-3">
-            <AlertCircle className="w-5 h-5 flex-shrink-0" />
-            <span>
-              {error instanceof Error ? error.message : "An error occurred"}
-            </span>
-          </div>
-        )}
-
         {isLoading ? (
           <div className="flex items-center justify-center py-16">
             <div className="text-center">
@@ -245,7 +179,6 @@ export default function Dashboard() {
           </div>
         ) : (
           <>
-            {/* Enhanced Summary Cards with Sparkline Charts */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
               {/* Websites Card */}
               <div className="group relative overflow-hidden bg-gradient-to-br from-white/90 to-white/60 backdrop-blur-2xl rounded-3xl border border-white/60 shadow-2xl hover:shadow-3xl hover:-translate-y-2 transition-all duration-500 p-6">
@@ -337,8 +270,8 @@ export default function Dashboard() {
                         <span className="font-bold text-slate-800">
                           {snapshots.length > 0
                             ? new Date(
-                                snapshots[0]?.capturedAt
-                              ).toLocaleDateString()
+                              snapshots[0]?.capturedAt
+                            ).toLocaleDateString()
                             : "N/A"}
                         </span>
                       </p>
@@ -600,11 +533,10 @@ export default function Dashboard() {
                             </p>
                           </div>
                           <div
-                            className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                              member.type === "Admin"
-                                ? "bg-purple-100 border border-purple-300 text-purple-700"
-                                : "bg-blue-100 border border-blue-300 text-blue-700"
-                            }`}
+                            className={`px-3 py-1 rounded-full text-xs font-semibold ${member.type === "Admin"
+                              ? "bg-purple-100 border border-purple-300 text-purple-700"
+                              : "bg-blue-100 border border-blue-300 text-blue-700"
+                              }`}
                           >
                             {member.type}
                           </div>
@@ -635,24 +567,6 @@ export default function Dashboard() {
                 </div>
               </div>
             )}
-
-            {/* Footer Info */}
-            <div className="mt-16 pt-8 border-t border-slate-200/30">
-              <div className="flex items-center justify-center gap-8 text-sm text-slate-600">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-emerald-500" />
-                  <span>AI-Powered Monitoring</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-emerald-500" />
-                  <span>Real-time Updates</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-emerald-500" />
-                  <span>Secure & Reliable</span>
-                </div>
-              </div>
-            </div>
           </>
         )}
       </div>

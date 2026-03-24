@@ -17,7 +17,7 @@ const Login: React.FC = () => {
   const { updateAuthData } = useAuthStore()
   const navigate = useNavigate()
 
-  // ✅ login mutation
+  // login mutation
   const loginMutation = useLoginMutation({
     onSuccess: (data) => {
       try {
@@ -44,7 +44,7 @@ const Login: React.FC = () => {
     },
   })
 
-  // ✅ select member mutation
+  // select member mutation
   const selectMemberMutation = useSelectMemberMutation({
     onSuccess: (data) => {
       try {

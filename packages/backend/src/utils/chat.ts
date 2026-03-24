@@ -1,8 +1,8 @@
 import type { Server, Socket } from 'socket.io';
-import type { RedisClientType } from 'redis';
+import type { Redis } from '@upstash/redis';
 import { ChatMessage } from '../models';
 import { Member } from '../models';
-import { verifyToken } from '../utils/jwt';
+import { verifyToken } from './jwt';
 
 interface JwtPayload {
   userId: string;
@@ -14,7 +14,7 @@ const ORG_ROOM = (userId: string) => `org:${userId}`;
 const MEMBER_ROOM = (memberId: string) => `member:${memberId}`;
 const DM_KEY = (a: string, b: string) => [a, b].sort().join(':');
 
-export const initChatSockets = (io: Server, redis: RedisClientType) => {
+export const initChatSockets = (io: Server, redis: Redis) => {
   // Authenticate every socket connection
   io.use((socket, next) => {
     try {
@@ -59,12 +59,12 @@ export const initChatSockets = (io: Server, redis: RedisClientType) => {
       const after = await redis.incr(connKey);
       await redis.set(`last_seen:${memberId}`, nowIso);
       if (after === 1) {
-        await redis.sAdd(onlineKey, memberId);
+        await redis.sadd(onlineKey, memberId);
         // Notify others in org that this member just came online
         socket.to(orgRoom).emit('presence:online', { memberId });
       }
       // Send current online list to the connecting client
-      const online = await redis.sMembers(onlineKey);
+      const online = await redis.smembers(onlineKey);
       socket.emit('presence:list', { online });
     } catch (e) {
       console.error('presence setup error', e);
@@ -204,7 +204,7 @@ export const initChatSockets = (io: Server, redis: RedisClientType) => {
         await redis.set(`last_seen:${memberId}`, nowIso);
         if (remaining <= 0) {
           await redis.del(connKey);
-          await redis.sRem(onlineKey, memberId);
+          await redis.srem(onlineKey, memberId);
           socket.to(orgRoom).emit('presence:offline', { memberId });
         }
       } catch (e) {

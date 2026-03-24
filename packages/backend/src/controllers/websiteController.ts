@@ -1,9 +1,8 @@
 import { Response } from "express";
 import { AuthRequest } from "../middleware/authMiddleware";
-import { Website, Snapshot } from "../models";
 import { sendError, sendSuccess } from "../types/response";
 import type { WebsiteDTO } from "@axeVision/shared";
-import { redisClient } from "../utils/redis";
+import { WebsiteService } from "../services/websiteService";
 
 //this is the parent container for all snapshots and accessibility
 export class WebsiteController {
@@ -32,10 +31,7 @@ export class WebsiteController {
       }
 
       console.log("Checking for existing website...");
-      const existingWebsite = await Website.findOne({
-        url: cleanUrl,
-        userId: req.userId,
-      });
+      const existingWebsite = await WebsiteService.findWebsiteByUrl(cleanUrl, req.userId);
 
       if (existingWebsite) {
         console.log("Website already exists:", existingWebsite.id);
@@ -66,21 +62,7 @@ export class WebsiteController {
 
       console.log("Website data to save:", websiteData);
 
-      const website = await Website.create(websiteData);
-
-      //invalidate cached websites list for this user so the new website shows up immediately
-      try {
-        const cacheKey = `websites:${req.userId}`;
-        if (redisClient?.isOpen) {
-          await redisClient.del(cacheKey);
-          console.log("Invalidated websites cache for user", req.userId);
-        }
-      } catch (redisErr: any) {
-        console.warn(
-          "Failed to invalidate websites cache:",
-          redisErr?.message || redisErr
-        );
-      }
+      const website = await WebsiteService.createWebsite(websiteData);
 
       console.log("Website created successfully:", website.id);
       const data: WebsiteDTO = {
@@ -125,79 +107,18 @@ export class WebsiteController {
   static async getWebsites(req: AuthRequest, res: Response) {
     try {
       //try to use Redis cache
-      const cacheKey = `websites:${req.userId}`;
-      if (redisClient?.isOpen) {
-        try {
-          const cachedData = await redisClient.get(cacheKey);
-          if (cachedData) {
-            console.log("Cache HIT for websites");
-            try {
-              const parsed = JSON.parse(cachedData);
-              return sendSuccess(res, parsed, "Websites retrieved from cache");
-            } catch (parseErr) {
-              console.warn(
-                "Failed to parse cached websites JSON, ignoring cache:",
-                parseErr
-              );
-              // fall through to DB fetch
-            }
-          } else {
-            console.log("Cache MISS for websites");
-          }
-        } catch (redisErr: any) {
-          console.warn(
-            "Redis get failed, continuing without cache:",
-            redisErr?.message || redisErr
-          );
-          // fall through to DB fetch
-        }
+      const cachedData = await WebsiteService.getCachedUserWebsites(req.userId!);
+      if (cachedData) {
+        console.log("Cache HIT for websites");
+        return sendSuccess(res, cachedData, "Websites retrieved from cache");
       } else {
-        console.log("Redis client not open, skipping cache");
+        console.log("Cache MISS for websites");
       }
 
-      const websites = await Website.find({
-        userId: req.userId,
-        isActive: true,
-      });
-
-      const websitesWithSnapshots = await Promise.all(
-        websites.map(async (website) => {
-          const latestSnapshot = await Snapshot.findOne(
-            { websiteId: website._id.toString(), userId: req.userId },
-            { capturedAt: 1 }
-          ).sort({ capturedAt: -1 });
-          return {
-            ...website.toObject(),
-            latestSnapshot: latestSnapshot?.capturedAt || null,
-          };
-        })
-      );
-
-      const data: WebsiteDTO[] = websitesWithSnapshots.map((website) => ({
-        id: website._id.toString(),
-        url: website.url,
-        name: website.name,
-        createdAt: website.createdAt.toISOString(),
-        latestSnapshot: website.latestSnapshot
-          ? website.latestSnapshot.toISOString()
-          : null,
-      }));
+      const data = await WebsiteService.getUserWebsites(req.userId!);
 
       //cache the response for 10 minutes (600 seconds)
-      try {
-        if (redisClient?.isOpen) {
-          await redisClient.setEx(
-            `websites:${req.userId}`,
-            600,
-            JSON.stringify(data)
-          );
-        }
-      } catch (redisErr: any) {
-        console.warn(
-          "Failed to set websites cache, ignoring:",
-          redisErr?.message || redisErr
-        );
-      }
+      await WebsiteService.cacheUserWebsites(req.userId!, data);
 
       return sendSuccess(res, data, "Websites retrieved successfully");
     } catch (error: any) {

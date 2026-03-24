@@ -2,7 +2,7 @@ import type React from "react";
 import { useEffect, useState } from "react";
 import { useAuthStore } from "../../stores/authStore";
 import { useMemberStore } from "../../stores/memberStore";
-import { useMemberQueries } from "../../hooks/useMemberQueries";
+import { useMembers } from "../../hooks/useMembers";
 import {
   User,
   UserPlus,
@@ -44,7 +44,7 @@ const TeamManagementPage: React.FC = () => {
     isCreating: isCreatingMutation,
     isUpdating,
     isDeleting,
-  } = useMemberQueries();
+  } = useMembers();
 
   // Set team lead when members change
   useEffect(() => {

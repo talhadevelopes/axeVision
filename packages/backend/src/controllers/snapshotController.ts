@@ -2,12 +2,8 @@ import { Response } from "express";
 import { AuthRequest } from "../middleware/authMiddleware";
 import { Snapshot } from "../models";
 import { sendError, sendSuccess } from "../types/response";
-import { gzip, gunzip } from "node:zlib";
-import { promisify } from "node:util";
 import { redisClient } from "../utils/redis";
-
-const gzipAsync = promisify(gzip);
-const gunzipAsync = promisify(gunzip);
+import { SnapshotService } from "../services/snapshotService";
 
 export class SnapshotController {
 
@@ -33,71 +29,30 @@ export class SnapshotController {
       console.log("Received structuredContent:", !!structuredContent);
       console.log("================================");
 
-      //counting elements directly from the request body
-      let elementCount = 0;
-      if (structuredContent) {
-        elementCount =
-          (structuredContent.headings?.length || 0) +
-          (structuredContent.paragraphs?.length || 0) +
-          (structuredContent.links?.length || 0) +
-          (structuredContent.inputs?.length || 0) +
-          (structuredContent.buttons?.length || 0);
-      }
-
-      //formatting the complete metadata object properly
-      const completeMetadata = {
-        ...(metadata || {}),
-        structuredContent: structuredContent || null,
-        elementCounts: {
-          headings: structuredContent?.headings?.length || 0,
-          paragraphs: structuredContent?.paragraphs?.length || 0,
-          links: structuredContent?.links?.length || 0,
-          inputs: structuredContent?.inputs?.length || 0,
-          buttons: structuredContent?.buttons?.length || 0,
-          forms: structuredContent?.forms?.length || 0,
-        },
-        performance: metadata?.performance || null,
-      };
-
-      //compress metadata for storage
-      const metadataString = JSON.stringify(completeMetadata);
-      const metadataBuffer = Buffer.from(metadataString, "utf8");
-      const compressedMetadata = await gzipAsync(metadataBuffer);
+      // Prepare snapshot data using the service (handles compression and metadata formatting)
+      const snapshotData = await SnapshotService.prepareSnapshotData({
+        content,
+        structuredContent,
+        capturedAt,
+        title,
+        url,
+        metadata,
+        websiteId,
+        userId: userId!,
+      });
 
       console.log("=== METADATA COMPRESSION ===");
-      console.log(`Original metadata size: ${metadataBuffer.length} bytes`);
+      console.log(`Original metadata size: ${snapshotData.metadataSize} bytes`);
       console.log(
-        `Compressed metadata size: ${compressedMetadata.length} bytes`
+        `Compressed metadata size: ${snapshotData.metadataCompressedSize} bytes`
       );
       console.log(
-        `Compression ratio: ${((1 - compressedMetadata.length / metadataBuffer.length) * 100).toFixed(1)}%`
+        `Compression ratio: ${((1 - snapshotData.metadataCompressedSize / snapshotData.metadataSize) * 100).toFixed(1)}%`
       );
       console.log("============================");
 
-      //compress content for storage
-      const originalBuffer = Buffer.from(content, "utf8");
-      const compressedBuffer = await gzipAsync(originalBuffer);
-      const originalSize = originalBuffer.length;
-      const compressedSize = compressedBuffer.length;
-
-      //create snapshot and store compressed content and metadata
-      const snapshot = await Snapshot.create({
-        websiteId,
-        userId: userId!,
-        capturedAt: capturedAt ? new Date(capturedAt) : new Date(),
-        contentPreview: content.substring(0, 500),
-        title: title?.substring(0, 255),
-        url: url?.substring(0, 255),
-        //store compressed metadata only
-        metadataCompressed: compressedMetadata,
-        metadataEncoding: "gzip",
-        metadataSize: metadataBuffer.length,
-        metadataCompressedSize: compressedMetadata.length,
-        contentCompressed: compressedBuffer,
-        contentEncoding: "gzip",
-        contentSize: originalSize,
-        contentCompressedSize: compressedSize,
-      });
+      // create snapshot using the prepared data
+      const snapshot = await Snapshot.create(snapshotData);
 
       console.log("=== SNAPSHOT CREATED ===");
       console.log("Snapshot ID:", snapshot.id);
@@ -110,11 +65,23 @@ export class SnapshotController {
           id: snapshot._id.toString(),
           capturedAt: snapshot.capturedAt.toISOString(),
           contentLength: content.length,
-          structuredElementCount: elementCount,
+          structuredElementCount:
+            (structuredContent?.headings?.length || 0) +
+            (structuredContent?.paragraphs?.length || 0) +
+            (structuredContent?.links?.length || 0) +
+            (structuredContent?.inputs?.length || 0) +
+            (structuredContent?.buttons?.length || 0),
           debug: {
             metadataReceived: !!metadata,
             performanceReceived: !!metadata?.performance,
-            elementCountsCalculated: completeMetadata.elementCounts,
+            elementCountsCalculated: {
+              headings: structuredContent?.headings?.length || 0,
+              paragraphs: structuredContent?.paragraphs?.length || 0,
+              links: structuredContent?.links?.length || 0,
+              inputs: structuredContent?.inputs?.length || 0,
+              buttons: structuredContent?.buttons?.length || 0,
+              forms: structuredContent?.forms?.length || 0,
+            },
           },
         },
         "Snapshot created",
@@ -146,9 +113,10 @@ export class SnapshotController {
 
       if (cachedData) {
         console.log("Cache HIT for snapshots");
+        const parsed = typeof cachedData === 'string' ? JSON.parse(cachedData) : cachedData;
         return sendSuccess(
           res,
-          JSON.parse(cachedData),
+          parsed,
           "Snapshots retrieved from cache"
         );
       }
@@ -192,10 +160,9 @@ export class SnapshotController {
             snapshot.metadataEncoding === "gzip"
           ) {
             try {
-              const decompressedMetadata = await gunzipAsync(
+              metadata = await SnapshotService.decompressMetadata(
                 Buffer.from(snapshot.metadataCompressed as any)
               );
-              metadata = JSON.parse(decompressedMetadata.toString("utf8"));
             } catch (e) {
               console.error(
                 "Failed to decompress snapshot metadata",
@@ -213,10 +180,9 @@ export class SnapshotController {
             snapshot.contentEncoding === "gzip"
           ) {
             try {
-              const decompressed = await gunzipAsync(
+              contentOut = await SnapshotService.decompressContent(
                 Buffer.from(snapshot.contentCompressed as any)
               );
-              contentOut = decompressed.toString("utf8");
             } catch (e) {
               console.error(
                 "Failed to decompress snapshot content",
@@ -242,7 +208,7 @@ export class SnapshotController {
       );
 
       //cache the results for 10 minutes
-      await redisClient.setEx(cacheKey, 600, JSON.stringify(results));
+      await redisClient.setex(cacheKey, 600, JSON.stringify(results));
 
       return sendSuccess(res, results);
     } catch (error: any) {

@@ -1,13 +1,12 @@
 import { Request, Response } from "express";
 import { AuthRequest } from "../middleware/authMiddleware";
-import { Snapshot, AccessibilityIssue } from "../models";
 import {
   AccessibilityService,
 } from "../services/accessibilityService";
 import { AccessibilityAIRecommendationService } from "../services/aiService";
+import { AccessibilityService as AccessibilityDataService } from "../services/accessibilityDataService";
 import dotenv from "dotenv";
 import { sendError, sendSuccess } from "../types/response";
-import { redisClient } from "../utils/redis";
 dotenv.config();
 
 export class AccessibilityController {
@@ -70,83 +69,14 @@ export class AccessibilityController {
 
       console.log("Looking for existing snapshot...");
 
-      //finding exisiting snapshots first
-      const existingSnapshot = await Snapshot.findOne({
+      const snapshot = await AccessibilityDataService.saveAccessibilityResults({
         websiteId: req.params.websiteId,
         userId: req.userId,
-      }).sort({ capturedAt: -1 });
+        issues,
+        analyzedAt,
+      });
 
-      let snapshot: any;
-      //finding exisiting snapshots first
-      if (existingSnapshot) {
-        console.log(
-          "Found existing snapshot:",
-          existingSnapshot._id.toString()
-        );
-        console.log("Updating with accessibility issues...");
-
-        //delete existing accessibility issues first
-        await AccessibilityIssue.deleteMany({
-          snapshotId: existingSnapshot._id.toString(),
-        });
-
-        //create new accessibility issues
-        await AccessibilityIssue.insertMany(
-          issues.map((issue: any) => ({
-            snapshotId: existingSnapshot._id.toString(),
-            type: issue.type || "unknown",
-            message: issue.message || issue.description || "No description",
-            source: issue.source,
-            context: issue.context,
-            selector: issue.selector,
-          }))
-        );
-
-        //update the snapshot's analyzedAt
-        snapshot = await Snapshot.findByIdAndUpdate(
-          existingSnapshot._id,
-          { analyzedAt: new Date(analyzedAt) },
-          { new: true }
-        );
-
-        // Get accessibility issues separately
-        const accessibilityIssues = await AccessibilityIssue.find({
-          snapshotId: existingSnapshot._id.toString(),
-        });
-        snapshot = { ...snapshot!.toObject(), accessibilityIssues };
-
-        console.log("Snapshot updated successfully");
-      } else {
-        console.log("No existing snapshot found, creating new one...");
-
-        //create a new snapshot with accessibility results
-        snapshot = await Snapshot.create({
-          websiteId: req.params.websiteId,
-          userId: req.userId,
-          capturedAt: new Date(),
-          contentPreview: "Accessibility analysis results",
-          analyzedAt: new Date(analyzedAt),
-        });
-
-        // Create accessibility issues
-        const accessibilityIssues = await AccessibilityIssue.insertMany(
-          issues.map((issue: any) => ({
-            snapshotId: snapshot._id.toString(),
-            type: issue.type || "unknown",
-            message: issue.message || issue.description || "No description",
-            source: issue.source,
-            context: issue.context,
-            selector: issue.selector,
-          }))
-        );
-
-        snapshot = { ...snapshot.toObject(), accessibilityIssues };
-
-        console.log(
-          "New snapshot created with accessibility data:",
-          snapshot._id.toString()
-        );
-      }
+      console.log("Snapshot updated successfully");
 
       return sendSuccess(
         res,
@@ -190,59 +120,17 @@ export class AccessibilityController {
       }
 
       // Check cache first
-      const cacheKey = `accessibility:${req.userId}:${req.params.websiteId}`;
-      if (redisClient?.isOpen) {
-        try {
-          const cachedData = await redisClient.get(cacheKey);
-          if (cachedData) {
-            console.log("Cache HIT for accessibility results");
-            try {
-              const parsed = JSON.parse(cachedData);
-              return sendSuccess(
-                res,
-                parsed,
-                "Accessibility results retrieved from cache"
-              );
-            } catch (parseErr) {
-              console.warn(
-                "Failed to parse cached accessibility JSON, ignoring cache:",
-                parseErr
-              );
-              // fall through to DB fetch
-            }
-          } else {
-            console.log("Cache MISS for accessibility results");
-          }
-        } catch (redisErr: any) {
-          console.warn(
-            "Redis get failed for accessibility cache, continuing without cache:",
-            redisErr?.message || redisErr
-          );
-          // fall through to DB fetch
-        }
+      const cachedData = await AccessibilityDataService.getCachedAccessibilityResults(req.params.websiteId, req.userId!);
+      if (cachedData) {
+        console.log("Cache HIT for accessibility results");
+        return sendSuccess(res, cachedData, "Accessibility results retrieved from cache");
       } else {
-        console.log("Redis client not open, skipping accessibility cache");
+        console.log("Cache MISS for accessibility results");
       }
 
-      //find snapshot with accessibility issues
-      const snapshot = await Snapshot.findOne({
-        websiteId: req.params.websiteId,
-        userId: req.userId,
-        analyzedAt: { $exists: true },
-      }).sort({ analyzedAt: -1 });
+      const responseData = await AccessibilityDataService.getAccessibilityResults(req.params.websiteId, req.userId!);
 
-      let accessibilityIssues: any[] = [];
-      if (snapshot) {
-        accessibilityIssues = await AccessibilityIssue.find({
-          snapshotId: snapshot._id.toString(),
-        });
-      }
-
-      if (
-        !snapshot ||
-        !accessibilityIssues ||
-        accessibilityIssues.length === 0
-      ) {
+      if (!responseData) {
         console.log("No accessibility results found");
         return sendError(
           res,
@@ -254,17 +142,12 @@ export class AccessibilityController {
 
       console.log(
         "Found accessibility results:",
-        accessibilityIssues.length,
+        responseData.issues.length,
         "issues"
       );
 
-      const responseData = {
-        issues: accessibilityIssues,
-        analyzedAt: snapshot.analyzedAt,
-      };
-
       //cache the response for 10 minutes
-      await redisClient.setEx(cacheKey, 600, JSON.stringify(responseData));
+      await AccessibilityDataService.cacheAccessibilityResults(req.params.websiteId, req.userId!, responseData);
 
       return sendSuccess(res, responseData);
     } catch (error: any) {

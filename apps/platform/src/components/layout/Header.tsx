@@ -11,7 +11,7 @@ import {
 import { Button } from "@axeVision/shared/components/button";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../../stores/authStore";
-import { useMembersQuery } from "../../queries/useMemberQueries";
+import { useMembersQuery } from "../../hooks/useMembers";
 
 export default function Header(): JSX.Element {
   const location = useLocation();

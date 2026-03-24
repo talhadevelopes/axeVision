@@ -58,8 +58,7 @@ export default function Footer(): JSX.Element {
                 Ship higher-quality web experiences
               </h3>
               <p className="text-sm text-slate-600 max-w-xl">
-                One-click snapshots, AI-powered accessibility insights and PDF
-                reports — built for teams that care about quality.
+                One-click snapshots, AI-powered accessibility insights, built for teams that care about quality.
               </p>
             </div>
           </div>
@@ -73,79 +72,8 @@ export default function Footer(): JSX.Element {
               <Rocket className="w-4 h-4" />
               Install Extension
             </a>
-
-           axeVision
           </div>
         </motion.div>
-      </div>
-
-      {/* Main footer area */}
-      <div className="container mx-auto px-6 pt-6 pb-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Brand & quick stats (terminal-like) */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-emerald-600 flex items-center justify-center text-white font-bold">
-                PF
-              </div>
-              <div>
-                <div className="text-lg font-semibold text-slate-900">
-                  axeVision
-                </div>
-                <div className="text-sm text-slate-600">
-                  AI-first QA · Accessibility · Snapshots & Diff
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-3 p-3 bg-slate-50 rounded-lg border border-slate-100 font-mono text-sm text-slate-700">
-              <div className="flex items-center justify-between">
-                <span>Snapshots</span>
-                <strong className="text-emerald-600">
-                  {snapshots.toLocaleString()}
-                </strong>
-              </div>
-              <div className="flex items-center justify-between mt-2">
-                <span>Issues flagged</span>
-                <strong className="text-amber-600">
-                  {issues.toLocaleString()}
-                </strong>
-              </div>
-              <div className="flex items-center justify-between mt-2">
-                <span>Teams</span>
-                <strong className="text-slate-800">
-                  {teams.toLocaleString()}
-                </strong>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom row */}
-        <div className="mt-8 border-t border-slate-100 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3 text-sm text-slate-600">
-            <Shield className="w-4 h-4 text-emerald-500" />
-            <span>Enterprise-grade security · GDPR compliant</span>
-          </div>
-
-          <div className="flex items-center gap-6">
-            <a
-              className="text-sm text-slate-500 hover:text-emerald-600"
-              href="#privacy"
-            >
-              Privacy
-            </a>
-            <a
-              className="text-sm text-slate-500 hover:text-emerald-600"
-              href="#terms"
-            >
-              Terms
-            </a>
-            <span className="text-sm text-slate-500">
-              © {new Date().getFullYear()} axeVision
-            </span>
-          </div>
-        </div>
       </div>
     </footer>
   );

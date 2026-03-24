@@ -1,22 +1,14 @@
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
-  AlertCircle,
-  User,
-  Shield,
   Globe,
   Calendar,
-  Camera,
-  Zap,
   TrendingUp,
   BarChart3,
   TreePine,
   Layers,
   Lightbulb,
-  ArrowLeft,
-  ExternalLink,
   Activity,
-  Clock,
 } from "lucide-react";
 import {
   CustomTabs,
@@ -30,7 +22,6 @@ import {
   ElementStatistics,
   CustomContentTreemap,
   TreeVisualization,
-  ErrorDisplay,
   LoadingDisplay,
 } from "../../components";
 import { parseHTMLContent, toD3Node } from "../../utils/dom-utils";
@@ -39,7 +30,7 @@ export default function WebsiteMindPage() {
   const { websiteId } = useParams<{ websiteId: string }>();
   const [snapshot, setSnapshot] = useState<Snapshot | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [_error, setError] = useState<string | null>(null);
   const [parsedDOM, setParsedDOM] = useState<any>(null);
   const [elementCounts, setElementCounts] = useState<Record<string, number>>(
     {}
@@ -102,68 +93,6 @@ export default function WebsiteMindPage() {
 
   if (loading) {
     return <LoadingDisplay message="Loading website data..." />;
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-red-50/30 to-rose-50/50 relative overflow-hidden">
-        {/* Animated background elements */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-gradient-to-br from-red-200/30 to-rose-300/20 blur-3xl animate-pulse" />
-        </div>
-
-        <div className="relative z-10 flex items-center justify-center min-h-screen p-4">
-          <div className="max-w-md w-full">
-            <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-red-100/50 p-8 text-center">
-              <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-red-500 to-rose-600 flex items-center justify-center shadow-xl">
-                <AlertCircle className="w-10 h-10 text-white" />
-              </div>
-              <h1 className="text-2xl font-bold font-heading text-slate-800 mb-4">
-                Unable to Load DOM
-              </h1>
-              <p className="text-red-600 font-medium mb-6">{error}</p>
-              {error.includes("login") && (
-                <Link
-                  to="/login"
-                  className="inline-flex items-center gap-3 mb-6 px-8 py-4 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 text-white font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200"
-                >
-                  <User className="w-5 h-5" />
-                  Go to Login
-                </Link>
-              )}
-              <div className="flex gap-4 justify-center">
-                <Link
-                  to="/websites"
-                  className="text-green-600 hover:text-green-700 font-medium flex items-center gap-2"
-                >
-                  <ArrowLeft className="w-4 h-4" />
-                  Back to Websites
-                </Link>
-                {websiteId && (
-                  <Link
-                    to={`/websites/${websiteId}`}
-                    className="text-blue-600 hover:text-blue-700 font-medium flex items-center gap-2"
-                  >
-                    <ExternalLink className="w-4 h-4" />
-                    Website Details
-                  </Link>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (!snapshot || !parsedDOM) {
-    return (
-      <ErrorDisplay
-        title="No Snapshot Available"
-        message="No valid DOM structure available for this website. Please capture a snapshot first using the browser extension."
-        icon={<Camera className="w-10 h-10 text-white" />}
-      />
-    );
   }
 
   return (
@@ -367,45 +296,6 @@ export default function WebsiteMindPage() {
                     <span>Modern HTML5 best practices</span>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Navigation Footer */}
-        <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-green-100/50 p-6">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex gap-4">
-              <Link
-                to="/websites"
-                className="flex items-center gap-2 px-4 py-2 text-green-600 hover:text-green-700 font-medium transition-colors"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                Back to Websites
-              </Link>
-              {websiteId && (
-                <Link
-                  to={`/websites/${websiteId}`}
-                  className="flex items-center gap-2 px-4 py-2 text-blue-600 hover:text-blue-700 font-medium transition-colors"
-                >
-                  <ExternalLink className="w-4 h-4" />
-                  Website Details
-                </Link>
-              )}
-            </div>
-
-            <div className="flex items-center gap-6 text-xs text-slate-500">
-              <div className="flex items-center gap-2">
-                <Zap className="w-4 h-4 text-green-500" />
-                <span>AI-Powered Analysis</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Shield className="w-4 h-4 text-green-500" />
-                <span>Secure Processing</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4 text-green-500" />
-                <span>Real-time Insights</span>
               </div>
             </div>
           </div>

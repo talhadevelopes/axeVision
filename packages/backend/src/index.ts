@@ -11,7 +11,7 @@ import helmet from "helmet";
 import mongoSanitize from "express-mongo-sanitize";
 import { createServer } from "http";
 import { Server } from "socket.io";
-import { initChatSockets } from "./sockets/chat";
+import { initChatSockets } from "./utils/chat";
 
 dotenv.config();
 
@@ -48,7 +48,6 @@ export const startServer = async () => {
         if (mongoose.connection.readyState !== 1) {
           throw new Error("Database not connected");
         }
-        await redisClient.ping();
 
         return sendSuccess(
           res,
@@ -67,14 +66,19 @@ export const startServer = async () => {
       }
     });
 
-    app.use("/api/auth", routes.auth);
+    // Base website routes
     app.use("/api/websites", routes.websites);
+    
+    // Website sub-resource routes
     app.use("/api/websites", routes.snapshots);
     app.use("/api/websites", routes.accessibility);
+    
+    // Specialized standalone routes
     app.use("/api/accessibility", routes.accessibility);
     app.use("/api/members", routes.members);
     app.use("/api/chat", routes.chatbot);
     app.use("/api/messages", routes.messages);
+    app.use("/api/auth", routes.auth);
 
     app.use("*", (req, res) => {
       return sendError(res, 404, "Route not found", "NOT_FOUND", {
@@ -126,11 +130,8 @@ export const startServer = async () => {
           await mongoose.disconnect();
           console.log("Database disconnected");
 
-          // Disconnect Redis
-          if (redisClient.isOpen) {
-            await redisClient.disconnect();
-            console.log("Redis disconnected");
-          }
+          // Upstash redis doesn't need to disconnect
+          console.log("Redis ready to exit");
 
           process.exit(0);
         } catch (error) {

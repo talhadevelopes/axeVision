@@ -18,7 +18,7 @@ export default function ExtensionCarousel() {
       name: "A11y Co-Pilot",
       description: "AI-Powered Accessibility Assistant",
       component: (
-        <axeVisionAIExtension
+        <AxeVisionAIExtension
           inputValue={inputValue}
           setInputValue={setInputValue}
           charCount={charCount}
@@ -26,9 +26,9 @@ export default function ExtensionCarousel() {
       ),
     },
     {
-      name: "WebLenses",
+      name: "Axe Vision Extension",
       description: "DOM Snapshot & Accessibility Tool",
-      component: <axeVisionExtension />,
+      component: <AxeVisionExtension />,
     },
   ];
 
@@ -115,7 +115,7 @@ export default function ExtensionCarousel() {
 }
 
 // A11y Co-Pilot Component (Dashboard Chatbot UI)
-function axeVisionAIExtension({ inputValue, setInputValue }: any) {
+function AxeVisionAIExtension({ inputValue, setInputValue }: any) {
   const [messages] = useState([
     {
       role: "assistant",
@@ -275,7 +275,7 @@ function axeVisionAIExtension({ inputValue, setInputValue }: any) {
 }
 
 // WebLenses Extension Component (Keep as is)
-function axeVisionExtension() {
+function AxeVisionExtension() {
   const [activeTab, setActiveTab] = useState("snapshot");
 
   return (
@@ -593,7 +593,7 @@ function axeVisionExtension() {
           50% { transform: translateY(-10px); }
         }
         .animate-float-delayed {
-          animation: float-animation: float-delayed 6s ease-in-out infinite;
+          animation: float-delayed 6s ease-in-out infinite;
           animation-delay: 0.5s;
         }
       `}</style>

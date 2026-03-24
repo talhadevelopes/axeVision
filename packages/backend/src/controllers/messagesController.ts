@@ -1,13 +1,13 @@
 import type { Response } from 'express';
 import type { AuthRequest } from '../middleware/authMiddleware';
 import { ChatMessage } from '../models';
-import { RedisClientType } from 'redis';
+import { Redis } from '@upstash/redis';
 
 const parseBefore = (before?: string) => (before ? new Date(before) : undefined);
 
 // We will pass a bound redis client accessor to avoid circular deps
-let redis: RedisClientType | null = null;
-export const bindPresenceRedis = (client: RedisClientType) => {
+let redis: Redis | null = null;
+export const bindPresenceRedis = (client: Redis) => {
   redis = client;
 };
 
@@ -65,7 +65,7 @@ export class MessagesController {
         if (!redis) return res.status(500).json({ success: false, message: 'Presence not initialized' });
         const userId = req.userId!;
         const key = `online:${userId}`;
-        const members = await redis.sMembers(key);
+        const members = await redis.smembers(key);
         return res.json({ success: true, data: { online: members } });
       } catch (err) {
         console.error('getOnline error', err);

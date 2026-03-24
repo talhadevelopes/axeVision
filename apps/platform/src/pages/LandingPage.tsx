@@ -1,54 +1,13 @@
 import { Button } from "@axeVision/shared/components/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@axeVision/shared/components/card";
+
 import { Badge } from "@axeVision/shared/components/badge";
 import Footer from "../components/layout/Footer";
 import {
   Shield,
-  Eye,
-  Users,
-  FileText,
   Chrome,
-  CheckCircle,
-  Layers,
-  TrendingUp,
-  Terminal,
   Cpu,
-  Braces,
-  Scan,
-  BrainCircuit,
-  Sparkles,
   Target,
-  Workflow,
   Star,
-  MessageSquare,
-  BarChart3,
-  Microscope,
-  Camera,
-  Bot,
-  Key,
-  UserCheck,
-  TreePine,
-  Zap,
-  Settings,
-  Lock,
-  Globe,
-  Gauge,
-  FileCode,
-  Lightbulb,
-  Search,
-  AlertTriangle,
-  Plus,
-  Minus,
-  GitCompare,
-  Calendar,
-  Award,
-  Briefcase,
 } from "lucide-react";
 import Header from "../components/layout/Header";
 import ExtensionCarousel from "../components/pages/landing/ExtensionCarousel";
@@ -96,23 +55,6 @@ export default function LandingPage() {
           <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[85vh]">
             {/* Left Side - Content */}
             <div className="space-y-8 animate-slide-up">
-              <div className="inline-flex items-center bg-gradient-to-r from-green-50 to-emerald-50 rounded-full px-6 py-3 border border-green-200/50 shadow-lg backdrop-blur-sm">
-                <div className="flex items-center space-x-3">
-                  <div className="relative">
-                    <BrainCircuit className="w-5 h-5 text-green-600" />
-                    <div className="absolute inset-0 bg-green-400/30 rounded-full animate-ping"></div>
-                    <div className="absolute inset-0 bg-green-400/20 rounded-full animate-pulse"></div>
-                  </div>
-                  <span className="text-sm text-green-800 font-medium">
-                    Enterprise QA Platform
-                  </span>
-                  <Badge className="bg-gradient-to-r from-green-600 to-emerald-600 text-white text-xs shadow-md">
-                    <Sparkles className="w-3 h-3 mr-1" />
-                    AI-Powered
-                  </Badge>
-                </div>
-              </div>
-
               {/* Main Headline */}
               <div className="space-y-6">
                 <h1 className="text-5xl lg:text-7xl font-heading font-bold text-gray-900 leading-tight">

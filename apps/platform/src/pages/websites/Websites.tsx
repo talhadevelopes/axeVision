@@ -14,18 +14,11 @@ import {
   Calendar,
   Camera,
   ExternalLink,
-  Shield,
-  Zap,
   Eye,
   Plus,
-  TrendingUp,
-  Clock,
-  Sparkles,
   Search,
-  Filter,
   X,
-  Brain,
-  Chrome,
+  Sparkles,
 } from "lucide-react";
 import {
   AuthRequiredError,
@@ -310,24 +303,6 @@ export default function Websites() {
             </div>
           </div>
         )}
-
-        {/* Bottom tech badges */}
-        <div className="mt-8 text-center opacity-80">
-          <div className="flex items-center justify-center gap-6 text-xs text-slate-500">
-            <div className="flex items-center gap-2">
-              <Zap className="w-4 h-4 text-green-500" />
-              <span>AI-Powered Monitoring</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Shield className="w-4 h-4 text-green-500" />
-              <span>Secure & Reliable</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Clock className="w-4 h-4 text-green-500" />
-              <span>Real-time Updates</span>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );

@@ -9,6 +9,7 @@ export { TreeVisualization } from './pages/mind/TreeVisualization';
 // Error Display
 export { NotFoundError, AuthRequiredError, ErrorDisplay, type ErrorDisplayProps } from './shared/ErrorDisplay'
 export { type LoadingDisplayProps, LoadingDisplay, WebsiteLoadingDisplay, SnapshotLoadingDisplay, DashboardLoadingDisplay } from './shared/LoaderDisplay'
+export { default as PageBackground } from './shared/PageBackground'
 
 
 // Websites Page Components

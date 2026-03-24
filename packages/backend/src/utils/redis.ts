@@ -1,30 +1,13 @@
-import { createClient, RedisClientType } from 'redis';
+import { Redis } from '@upstash/redis';
+import dotenv from 'dotenv';
+dotenv.config();
 
-const redisUrl = process.env.REDIS_URL || 'redis://localhost:6379';
-let socketOptions: any = undefined;
-try {
-  const parsed = new URL(redisUrl);
-  if (parsed.protocol === 'rediss:') {
-    socketOptions = {
-      tls: true,
-      rejectUnauthorized: false,
-      servername: parsed.hostname,
-    };
-  }
-} catch (err) {
-  console.warn('Invalid REDIS_URL format:', process.env.REDIS_URL, err);
-}
-
-export const redisClient: RedisClientType = createClient({
-  url: redisUrl,
-  socket: socketOptions,
+export const redisClient = new Redis({
+  url: process.env.UPSTASH_REDIS_REST_URL as string,
+  token: process.env.UPSTASH_REDIS_REST_TOKEN as string,
 });
 
-redisClient.on('error', (err) => console.error('Redis Client Error:', err));
-
 export const connectRedis = async () => {
-  if (!redisClient.isOpen) {
-    await redisClient.connect();
-    console.log('Connected to Redis');
-  }
+  // Upstash Redis uses REST API so it is connectionless
+  console.log('Upstash Redis ready');
 };
