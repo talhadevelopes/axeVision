@@ -8,12 +8,12 @@ import {
   accessibilityService,
   memberService,
 } from "../../services/api";
-import type { Member } from "@a11yguard/shared";
+import type { Member } from "@axeVision/shared";
 import type {
   AccessibilityIssue,
   Snapshot,
   WebsiteDTO,
-} from "@a11yguard/shared";
+} from "@axeVision/shared";
 import {
   Globe,
   Camera,
@@ -179,7 +179,7 @@ export default function Dashboard() {
                 <Shield className="w-10 h-10 text-white" />
               </div>
               <h1 className="text-3xl font-bold font-heading bg-gradient-to-r from-green-700 to-emerald-600 bg-clip-text text-transparent mb-4">
-                Welcome to a11yguard
+                Welcome to axeVision
               </h1>
               <p className="text-slate-600 mb-8">
                 Please sign in to view your monitoring dashboard.

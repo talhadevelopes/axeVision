@@ -1,4 +1,5 @@
 import { Snapshot, AccessibilityIssue } from "../models";
+import { AccessibilityAIRecommendationService } from "./aiService";
 
 interface ChatContext {
   snapshotId: string;
@@ -33,8 +34,10 @@ export class ChatbotService {
       );
 
       // 4. Call Gemini API
-      const response = await this.callGeminiAPI(messages);
-
+      const response = await AccessibilityAIRecommendationService.callGeminiAPI(
+        messages,
+        "GEMINI_API_KEY"
+      );
       return response;
     } catch (error: any) {
       console.error("Chatbot service error:", error);
@@ -112,7 +115,7 @@ export class ChatbotService {
   private static buildSystemPrompt(accessibilityContext: any): string {
     const { currentSnapshot, issues } = accessibilityContext;
 
-    return `You are an expert accessibility assistant for A11yGuard, a platform that helps teams fix accessibility issues.
+    return `You are an expert accessibility assistant for axeVision, a platform that helps teams fix accessibility issues.
 
 **Current Context:**
 - Website analyzed: ${currentSnapshot?.url || "Unknown"}
@@ -139,8 +142,8 @@ export class ChatbotService {
 
 **Issue Categories Found:**
 ${Object.entries(issues.categories)
-  .map(([category, count]) => `- ${category}: ${count} issues`)
-  .join("\n")}
+        .map(([category, count]) => `- ${category}: ${count} issues`)
+        .join("\n")}
 
 Be helpful, actionable, and focus on solving the developer's immediate problem.`;
   }
@@ -173,59 +176,6 @@ Be helpful, actionable, and focus on solving the developer's immediate problem.`
     });
 
     return messages;
-  }
-
-  //call gemini helper function
-  private static async callGeminiAPI(messages: any[]): Promise<string> {
-    const apiKey = process.env.AI_API_KEY_CHATBOT;
-    if (!apiKey) {
-      throw new Error("Missing AI_API_KEY_CHATBOT environment variable");
-    }
-
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          contents: messages,
-          generationConfig: {
-            temperature: 0.7,
-            maxOutputTokens: 800, // Keep responses concise
-            topP: 0.95,
-          },
-        }),
-      }
-    );
-
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      console.error("Gemini API error:", errorData);
-
-      if (response.status === 429) {
-        throw new Error("Rate limit exceeded. Please try again in a moment.");
-      }
-      if (response.status === 503) {
-        throw new Error("AI service temporarily unavailable.");
-      }
-
-      throw new Error(
-        `Gemini API error: ${response.status} - ${
-          errorData?.error?.message || response.statusText
-        }`
-      );
-    }
-
-    const data = await response.json();
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-
-    if (!text || text.trim().length === 0) {
-      throw new Error("AI returned empty response");
-    }
-
-    return text.trim();
   }
 
   private static calculateSeverityBreakdown(

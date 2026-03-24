@@ -1,4 +1,4 @@
-import type { AccessibilityIssue } from "@a11yguard/shared";
+import type { AccessibilityIssue } from "@axeVision/shared";
 import AiResponseRenderer from "../../shared/AiResponseRenderer";
 
 interface AccessibilitySectionProps {

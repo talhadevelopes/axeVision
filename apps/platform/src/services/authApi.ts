@@ -1,6 +1,6 @@
 import axios from "axios";
 import { API_BASE_URL, setupInterceptors } from "./api";
-import type { LoginResponse, OnboardResponse, RegisterResponse, SelectMemberResponse } from "@a11yguard/shared";
+import type { LoginResponse, OnboardResponse, RegisterResponse, SelectMemberResponse } from "@axeVision/shared";
 
 export const authApi = {
   login: async (email: string, password: string): Promise<LoginResponse> => {
@@ -12,7 +12,6 @@ export const authApi = {
       });
       return response.data.data;
     } catch (error: any) {
-      // Improve error handling
       if (error.response?.data?.message) {
         throw new Error(error.response.data.message);
       } else if (error.response?.status === 401) {

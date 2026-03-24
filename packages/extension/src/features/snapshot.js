@@ -104,31 +104,31 @@ async function captureSnapshot() {
             forms: [],
           };
 
-          // Extract headings (OPTIMIZED: Reduced limit)
+          // Extract headings
           const headings = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
           console.log(`Found ${headings.length} headings`);
           headings.forEach((h, index) => {
-            if (index < 150) { // Reduced from 500 to 150
+            if (index < 150) { 
               content.headings.push({
                 level: parseInt(h.tagName.substring(1)),
-                text: h.textContent?.trim().substring(0, 150) || "", // Reduced from 200 to 150
+                text: h.textContent?.trim().substring(0, 150) || "",
               });
             }
           });
 
-          // Extract paragraphs (OPTIMIZED: Reduced limit)
+          // Extract paragraphs
           const paragraphs = document.querySelectorAll("p");
           console.log(`Found ${paragraphs.length} paragraphs`);
           paragraphs.forEach((p, index) => {
-            if (index < 100) { // Reduced from 300 to 100
+            if (index < 100) { 
               const text = p.textContent?.trim() || "";
               if (text.length > 20) {
-                content.paragraphs.push({ text: text.substring(0, 250) }); // Slightly reduced text length
+                content.paragraphs.push({ text: text.substring(0, 250) }); 
               }
             }
           });
 
-          // Extract links (OPTIMIZED: Smart filtering + reduced limit)
+          // Extract links
           const links = document.querySelectorAll("a[href]");
           console.log(`Found ${links.length} links`);
           
@@ -140,15 +140,12 @@ async function captureSnapshot() {
             
             const text = link.textContent?.trim() || "";
             
-            // Priority 1: Navigation links (short text, likely menus)
             if (text.length > 0 && text.length < 50) {
               importantLinks.push({ link, href, text, priority: 1 });
             }
-            // Priority 2: Internal links (relative URLs)
             else if (!href.startsWith('http')) {
               importantLinks.push({ link, href, text, priority: 2 });
             }
-            // Priority 3: Important external links (avoid social/ads)
             else if (!href.includes('facebook.com') && !href.includes('twitter.com') && 
                      !href.includes('instagram.com') && !href.includes('ads') && 
                      !href.includes('tracking')) {
@@ -156,7 +153,6 @@ async function captureSnapshot() {
             }
           });
           
-          // Sort by priority and limit to 75 (reduced from 1000)
           importantLinks
             .sort((a, b) => a.priority - b.priority)
             .slice(0, 75)
@@ -170,30 +166,30 @@ async function captureSnapshot() {
           console.log(`Stored ${content.links.length} important links (filtered from ${links.length})`);
         
 
-          // Extract inputs (OPTIMIZED: Reduced limit)
+          // Extract inputs
           const inputs = document.querySelectorAll("input, textarea, select");
           console.log(`Found ${inputs.length} inputs`);
           inputs.forEach((input, index) => {
-            if (index < 50) { // Reduced from 100 to 50
+            if (index < 50) {
               content.inputs.push({
                 type: input.type || null,
-                name: input.name?.substring(0, 50) || null, // Limit name length
-                placeholder: input.placeholder?.substring(0, 100) || null, // Limit placeholder length
+                name: input.name?.substring(0, 50) || null,
+                placeholder: input.placeholder?.substring(0, 100) || null,
               });
             }
           });
 
-          // Extract buttons (OPTIMIZED: Reduced limit)
+          // Extract buttons
           const buttons = document.querySelectorAll(
             'button, input[type="submit"]'
           );
           console.log(`Found ${buttons.length} buttons`);
           buttons.forEach((btn, index) => {
-            if (index < 30) { // Reduced from 50 to 30
+            if (index < 30) {
               content.buttons.push({
                 text: (btn.textContent || btn.value || "")
                   .trim()
-                  .substring(0, 80), // Reduced from 100 to 80
+                  .substring(0, 80),
               });
             }
           });
@@ -240,19 +236,18 @@ async function captureSnapshot() {
         });
         console.log("=====================");
 
-        // IMPORTANT: Return performance metrics here
         return {
           structuredContent,
           title: document.title,
           captureTime,
-          totalElements, // Add this line
+          totalElements, 
         };
       },
     });
 
     if (progressFill) progressFill.style.width = "60%";
 
-    // FIXED: Extract all values from the result
+    //Extract all values from the result
     const { structuredContent, title, captureTime, totalElements } =
       results[0].result;
 

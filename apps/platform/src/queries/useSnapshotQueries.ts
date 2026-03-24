@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import type { Snapshot } from "@a11yguard/shared";
+import type { Snapshot } from "@axeVision/shared";
 import { snapshotService } from "../services/api";
 import { useAuthStore } from "../stores/authStore";
 

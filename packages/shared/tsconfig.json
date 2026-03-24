@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@a11yguard/shared/*": ["./src/*"]
+      "@axeVision/shared/*": ["./src/*"]
     }
   },
   "include": ["."],

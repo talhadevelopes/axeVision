@@ -1,5 +1,5 @@
 import { Response, NextFunction } from 'express';
-import { AuthRequest } from '../middleware/auth';
+import { AuthRequest } from '../middleware/authMiddleware';
 import { Website } from '../models';
 
 export const validateWebsiteExists = async (

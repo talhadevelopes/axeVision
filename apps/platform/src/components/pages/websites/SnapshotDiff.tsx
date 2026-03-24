@@ -4,7 +4,7 @@ import {
   extractHeadContent,
   type DiffType,
 } from "../../../utils/diff-utils";
-import type { Snapshot } from "@a11yguard/shared";
+import type { Snapshot } from "@axeVision/shared";
 import { CodeComparison } from "../../../utils/code-comparison";
 import { diffLines } from "diff";
 

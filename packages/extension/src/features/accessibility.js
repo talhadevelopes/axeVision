@@ -4,7 +4,7 @@ async function captureAccessibilityIssues(tabId) {
     func: () => {
       const issues = [];
 
-      // 🔹 Missing lang
+      // Missing lang
       if (!/<html[^>]*\blang=/.test(document.documentElement.outerHTML)) {
         issues.push({
           type: "Critical",
@@ -13,7 +13,7 @@ async function captureAccessibilityIssues(tabId) {
         });
       }
 
-      // 🔹 Images without alt
+      //Images without alt
       const images = document.querySelectorAll("img:not([alt])");
       if (images.length) {
         issues.push({
@@ -26,7 +26,7 @@ async function captureAccessibilityIssues(tabId) {
         });
       }
 
-      // 🔹 Inputs without labels
+      // Inputs without labels
       const unlabeledInputs = Array.from(
         document.querySelectorAll("input,select,textarea")
       ).filter(
@@ -48,7 +48,7 @@ async function captureAccessibilityIssues(tabId) {
         });
       }
 
-      // 🔹 Empty headings
+      // Empty headings
       const emptyHeadings = Array.from(
         document.querySelectorAll("h1,h2,h3,h4,h5,h6")
       ).filter((h) => !h.textContent.trim());
@@ -60,7 +60,7 @@ async function captureAccessibilityIssues(tabId) {
         });
       }
 
-      // 🔹 Missing title
+      // Missing title
       if (!document.title) {
         issues.push({
           type: "Medium",
@@ -284,5 +284,4 @@ document.addEventListener("DOMContentLoaded", () => {
   if (runButton) runButton.addEventListener("click", runAccessibilityCheck);
 });
 
-// Expose globally
 //window.initializeAccessibility = runAccessibilityCheck;

@@ -9,5 +9,5 @@
       }
     }
   ],
-  "buildCommand": "pnpm build --filter @a11yguard/platform"
+  "buildCommand": "pnpm build --filter @axeVision/platform"
 }

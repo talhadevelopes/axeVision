@@ -3,7 +3,7 @@ import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { Terminal, Shield, Code2, Eye, EyeOff, ArrowRight, GitBranch, Zap, User, Crown } from "lucide-react"
 import { useAuthStore } from "../../stores/authStore"
-import type { MemberProfile } from "@a11yguard/shared"
+import type { MemberProfile } from "@axeVision/shared"
 import { useLoginMutation, useSelectMemberMutation } from "../../mutations/useAuthMutations"
 
 const Login: React.FC = () => {
@@ -128,20 +128,6 @@ const Login: React.FC = () => {
       </div>
 
       <div className="w-full max-w-md relative z-10">
-        {/* Logo and branding */}
-        <div className="text-center mb-8">
-          <div className="relative inline-block">
-            <div className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-green-500 via-green-600 to-emerald-600 flex items-center justify-center shadow-2xl">
-              <Shield className="w-10 h-10 text-white" />
-            </div>
-            <div className="absolute -inset-2 rounded-2xl bg-green-400/20 blur-lg animate-pulse opacity-60" />
-          </div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-green-700 via-green-600 to-emerald-600 bg-clip-text text-transparent font-heading">
-            a11yguard
-          </h1>
-          <p className="text-slate-600 font-medium mt-2">AI-Powered Quality Assurance Platform</p>
-        </div>
-
         {/* Main card */}
         <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-green-100/50 p-8 relative overflow-hidden transition-all duration-300 hover:shadow-3xl hover:-translate-y-2">
           {/* Card background pattern */}
@@ -222,7 +208,7 @@ const Login: React.FC = () => {
             <div className="relative z-10">
               <div className="text-center mb-8">
                 <h2 className="text-2xl font-bold font-heading text-slate-800 mb-2">Welcome Back</h2>
-                <p className="text-slate-600">Sign in to your a11yguard dashboard</p>
+                <p className="text-slate-600">Sign in to your axeVision dashboard</p>
               </div>
 
               <form onSubmit={handleSubmit} noValidate className="space-y-6">
@@ -301,7 +287,7 @@ const Login: React.FC = () => {
                 </button>
 
                 <div className="flex items-center justify-center gap-2 text-sm">
-                  <span className="text-slate-600">New to a11yguard?</span>
+                  <span className="text-slate-600">New to axeVision?</span>
                   <Link
                     to="/signup"
                     className="font-semibold text-green-600 hover:text-green-700 transition-colors relative group"

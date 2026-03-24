@@ -3,9 +3,9 @@ class AuthManager {
   constructor() {
     this.token = null
     this.isAuthenticated = false
-    this.userId = null // Added to store userId
-    this.memberId = null // Added to store active memberId
-    this.memberType = null // Added to store active memberType
+    this.userId = null 
+    this.memberId = null 
+    this.memberType = null 
   }
 
   // Check if user is authenticated
@@ -50,10 +50,9 @@ class AuthManager {
         // Multiple members found, store userId and members for in-extension selection
         await window.chrome.storage.local.set({
           userId: body.userId,
-          membersToSelect: body.members, // Store members for in-extension selection
-          teamCredentials: { email, password }, // Store for auto-login
+          membersToSelect: body.members, 
+          teamCredentials: { email, password }, 
         })
-        // Do NOT set authToken, memberId, memberType here. Popup will handle selection.
         return { success: false, needsMemberSelection: true, userId: body.userId, members: body.members }
       } else if (body && body.token) {
         // Single member or non-onboarded user, token is directly provided
@@ -65,7 +64,7 @@ class AuthManager {
 
         await window.chrome.storage.local.set({
           authToken: body.token,
-          teamCredentials: { email, password }, // Store for auto-login
+          teamCredentials: { email, password },
           userId: body.userId,
           memberId: body.memberId,
           memberType: body.memberType,
@@ -95,7 +94,7 @@ class AuthManager {
       "userId",
       "memberId",
       "memberType",
-      "membersToSelect", // Clear this on logout too
+      "membersToSelect", 
     ])
   }
 
@@ -159,7 +158,7 @@ class AuthManager {
     }
   }
 
-  // NEW: Function to select a member profile within the extension
+  //Function to select a member profile within the extension
   async selectMember(userId, memberId) {
     try {
       const settings = await this.getSettings()

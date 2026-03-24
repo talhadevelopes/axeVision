@@ -7,7 +7,7 @@ import type {
   LoginResponse,
   SelectMemberResponse,
   OnboardResponse,
-} from "@a11yguard/shared";
+} from "@axeVision/shared";
 
 interface AuthState {
   user: User | null;
@@ -65,16 +65,14 @@ export const useAuthStore = create<AuthState>()(
           isAuthenticated: typeof newToken === "string" && newToken.length > 0,
         });
 
-        // ⚡ Save token to localStorage so generatePdfReport can read it
         if (typeof newToken === "string" && newToken.length > 0) {
           localStorage.setItem("token", newToken);
         }
 
-        // Send message to content script (browser extension)
         if (typeof window !== "undefined" && window.parent === window) {
           window.postMessage(
             {
-              type: "a11yguard_AUTH_UPDATE",
+              type: "axeVision_AUTH_UPDATE",
               payload: {
                 token: newToken,
                 userId: newUserId,
@@ -115,7 +113,6 @@ export const useAuthStore = create<AuthState>()(
   )
 );
 
-// Export types for use in components
 export type {
   User,
   MemberProfile,

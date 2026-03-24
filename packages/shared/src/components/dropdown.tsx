@@ -1,6 +1,6 @@
 import * as React from "react"
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu"
-import { cn } from "@a11yguard/shared/lib/utils"
+import { cn } from "@axeVision/shared/lib/utils"
 
 // Radix roots
 const DropdownMenu = DropdownMenuPrimitive.Root

@@ -28,6 +28,3 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     )
   }
 })
-
-// You might have other background tasks here, e.g., for context menus, alarms, etc.
-// For now, this is the essential part for syncing auth.

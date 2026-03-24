@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { authenticate } from "../middleware/auth";
+import { authenticate } from "../middleware/authMiddleware";
 import { validateWebsiteExists } from "../validations/websiteValidation";
-import { SnapshotController } from "../controllers/snapshot.controller";
+import { SnapshotController } from "../controllers/snapshotController";
 
-const router : Router = Router();
+const router: Router = Router();
 
 // POST /api/websites/:websiteId/snapshots - Create a new snapshot
 router.post(

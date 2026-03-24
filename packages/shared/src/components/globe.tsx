@@ -4,7 +4,7 @@ import createGlobe, { COBEOptions } from "cobe";
 import { useMotionValue, useSpring } from "motion/react";
 import { useEffect, useRef } from "react";
 
-import { cn } from "@a11yguard/shared/lib/utils";
+import { cn } from "@axeVision/shared/lib/utils";
 
 const MOVEMENT_DAMPING = 1400;
 

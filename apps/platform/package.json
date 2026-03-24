@@ -1,7 +1,7 @@
 {
-  "name": "@a11yguard/platform",
+  "name": "@axeVision/platform",
   "version": "1.0.0",
-  "description": "a11yguard web platform",
+  "description": "axeVision web platform",
   "type": "module",
   "private": true,
   "scripts": {
@@ -12,7 +12,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@a11yguard/shared": "workspace:*",
+    "@axeVision/shared": "workspace:*",
     "@shikijs/transformers": "^3.17.0",
     "@tailwindcss/vite": "^4.1.11",
     "@tanstack/react-query": "^5.83.0",

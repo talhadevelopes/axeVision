@@ -2,13 +2,13 @@ import { Link } from "react-router-dom";
 import { useState, useMemo } from "react";
 import { useAuthStore } from "../../stores/authStore";
 import { useWebsitesQuery } from "../../queries/useWebsiteQueries";
-import type { WebsiteDTO } from "@a11yguard/shared";
+import type { WebsiteDTO } from "@axeVision/shared";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
   DropdownMenuItem,
-} from "@a11yguard/shared/components/dropdown";
+} from "@axeVision/shared/components/dropdown";
 import {
   Globe,
   Calendar,

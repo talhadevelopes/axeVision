@@ -1,13 +1,13 @@
-# 🛡️⚡ A11yGuard - AI-Powered Accessibility Compliance Platform
+# 🛡️⚡ axeVision - AI-Powered Accessibility Compliance Platform
 
 <div align="center">
 
-![A11yGuard Banner](./docs/assets/banner.png)
+![axeVision Banner](./docs/assets/banner.png)
 
 **Catch Accessibility Violations Before They Become Lawsuits**
 
-[![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-Try_Now-success?style=for-the-badge)](https://a11yguard-platform.vercel.app/)
-[![Backend API](https://img.shields.io/badge/⚡_Backend_API-Live-blue?style=for-the-badge)](https://a11yguard-backend.fly.dev)
+[![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-Try_Now-success?style=for-the-badge)](https://axeVision-platform.vercel.app/)
+[![Backend API](https://img.shields.io/badge/⚡_Backend_API-Live-blue?style=for-the-badge)](https://axeVision-backend.fly.dev)
 
 [✨ Features](#-core-features) • [🎮 Demo](#-live-demo--quick-start) • [🏗️ Architecture](#%EF%B8%8F-system-architecture) • [📖 API Docs](#-api-documentation) • [🚀 Quick Start](#-installation--setup)
 
@@ -52,7 +52,7 @@
 
 ---
 
-## 🚀 **What Makes A11yGuard Special?**
+## 🚀 **What Makes axeVision Special?**
 
 <div align="center">
 
@@ -235,7 +235,7 @@ Snapshot 2 → Snapshot 1
 ```
 👤 User: "What should I fix first on this Wikipedia page?"
 
-🤖 A11yGuard: "Based on your scan of Wikiversity.org with 18 issues:
+🤖 axeVision: "Based on your scan of Wikiversity.org with 18 issues:
 
 1️⃣ PRIORITY: Fix the heading-order violation
    └─ Broken heading hierarchies severely impact screen reader navigation
@@ -245,7 +245,7 @@ Snapshot 2 → Snapshot 1
    └─ Affects users with low vision or color deficiencies
    └─ Quick wins: Update span elements with proper background colors
 
-3️⃣ STRATEGY: Fix heading first, then re-run A11yGuard to get a clearer 
+3️⃣ STRATEGY: Fix heading first, then re-run axeVision to get a clearer 
    picture of remaining issues after DOM structure is corrected.
 
 Would you like specific code examples for the heading fix?"
@@ -382,7 +382,7 @@ Response: {
 ### 📦 **Monorepo Structure**
 
 ```bash
-a11yguard/
+axeVision/
 ├── packages/
 │   ├── backend/              # Node.js + Express API
 │   │   ├── src/
@@ -566,8 +566,8 @@ Version Control:
 
 <div align="center">
 
-[![Open Dashboard](https://img.shields.io/badge/🚀_Open_Dashboard-a11yguard.vercel.app-brightgreen?style=for-the-badge)](https://a11yguard-platform.vercel.app/)
-[![API Status](https://img.shields.io/badge/⚡_API_Status-Online-blue?style=for-the-badge)](https://a11yguard-backend.fly.dev/api/health)
+[![Open Dashboard](https://img.shields.io/badge/🚀_Open_Dashboard-axeVision.vercel.app-brightgreen?style=for-the-badge)](https://axeVision-platform.vercel.app/)
+[![API Status](https://img.shields.io/badge/⚡_API_Status-Online-blue?style=for-the-badge)](https://axeVision-backend.fly.dev/api/health)
 
 </div>
 
@@ -590,8 +590,8 @@ Password: testuser123
 
 **Step 1:** Clone the repository
 ```bash
-git clone https://github.com/yourusername/a11yguard.git
-cd a11yguard
+git clone https://github.com/yourusername/axeVision.git
+cd axeVision
 ```
 
 **Step 2:** Open Chrome Extensions
@@ -603,7 +603,7 @@ chrome://extensions/
 
 **Step 4:** Click "Load unpacked" → Select `packages/extension` folder
 
-**Step 5:** Visit any website → Click A11yGuard icon
+**Step 5:** Visit any website → Click axeVision icon
 
 **Step 6:** Click two buttons:
 ```
@@ -631,8 +631,8 @@ Google Gemini API Key
 
 ```bash
 # 1️⃣ Clone repository
-git clone https://github.com/yourusername/a11yguard.git
-cd a11yguard
+git clone https://github.com/yourusername/axeVision.git
+cd axeVision
 
 # 2️⃣ Install dependencies
 pnpm install
@@ -663,9 +663,9 @@ CLIENT_URL=http://localhost:5173
 JWT_SECRET=your_super_secret_jwt_key_min_32_chars
 
 # Database
-MONGO_URI=mongodb://localhost:27017/a11yguard
+MONGO_URI=mongodb://localhost:27017/axeVision
 # OR use MongoDB Atlas:
-# MONGO_URI=mongodb+srv://user:pass@cluster.mongodb.net/a11yguard
+# MONGO_URI=mongodb+srv://user:pass@cluster.mongodb.net/axeVision
 
 # Redis Cache
 REDIS_URL=redis://localhost:6379
@@ -706,12 +706,12 @@ docker-compose down
 **Option 2: Individual Containers**
 ```bash
 # Build backend
-docker build -t a11yguard-backend -f packages/backend/Dockerfile .
-docker run -p 4000:4000 --env-file packages/backend/.env a11yguard-backend
+docker build -t axeVision-backend -f packages/backend/Dockerfile .
+docker run -p 4000:4000 --env-file packages/backend/.env axeVision-backend
 
 # Build frontend
-docker build -t a11yguard-platform -f packages/platform/Dockerfile .
-docker run -p 80:80 a11yguard-platform
+docker build -t axeVision-platform -f packages/platform/Dockerfile .
+docker run -p 80:80 axeVision-platform
 ```
 
 ### 🧪 **Run Tests**
@@ -863,7 +863,7 @@ jobs:
           context: .
           file: ./packages/backend/Dockerfile
           push: true
-          tags: talhadevelopes/a11yguard-backend:latest
+          tags: talhadevelopes/axeVision-backend:latest
 
   build-frontend:
     runs-on: ubuntu-latest
@@ -883,7 +883,7 @@ jobs:
           context: .
           file: ./packages/platform/Dockerfile
           push: true
-          tags: talhadevelopes/a11yguard-platform:latest
+          tags: talhadevelopes/axeVision-platform:latest
           build-args: |
             VITE_PUBLIC_BACKEND_URL=${{ vars.VITE_PUBLIC_BACKEND_URL }}
 ```
@@ -892,8 +892,8 @@ jobs:
 
 <div align="center">
 
-[![Docker Backend](https://img.shields.io/badge/🐳_Backend-talhadevelopes%2Fa11yguard--backend-blue?style=flat-square&logo=docker)](https://hub.docker.com/r/talhadevelopes/a11yguard-backend)
-[![Docker Frontend](https://img.shields.io/badge/🐳_Frontend-talhadevelopes%2Fa11yguard--platform-blue?style=flat-square&logo=docker)](https://hub.docker.com/r/talhadevelopes/a11yguard-platform)
+[![Docker Backend](https://img.shields.io/badge/🐳_Backend-talhadevelopes%2FaxeVision--backend-blue?style=flat-square&logo=docker)](https://hub.docker.com/r/talhadevelopes/axeVision-backend)
+[![Docker Frontend](https://img.shields.io/badge/🐳_Frontend-talhadevelopes%2FaxeVision--platform-blue?style=flat-square&logo=docker)](https://hub.docker.com/r/talhadevelopes/axeVision-platform)
 
 </div>
 
@@ -1039,7 +1039,7 @@ Security:
 ```bash
 # Before pushing to production
 1. Developer visits staging site
-2. Opens A11yGuard extension
+2. Opens axeVision extension
 3. Clicks "Capture Snapshot"
 4. Clicks "Analyze Accessibility"
 5. Receives instant feedback on 18 issues
@@ -1075,7 +1075,7 @@ Security:
 
 ```mermaid
 gantt
-    title A11yGuard Development Roadmap
+    title axeVision Development Roadmap
     dateFormat YYYY-MM-DD
     section Core Features
     Real-time WebSockets      :2025-01-01, 2025-02-15
@@ -1125,7 +1125,7 @@ gantt
 
 **We welcome contributions!** 🎉
 
-[![Fork on GitHub](https://img.shields.io/badge/Fork-on_GitHub-blue?style=for-the-badge&logo=github)](https://github.com/yourusername/a11yguard/fork)
+[![Fork on GitHub](https://img.shields.io/badge/Fork-on_GitHub-blue?style=for-the-badge&logo=github)](https://github.com/yourusername/axeVision/fork)
 
 ### 🚀 **Quick Start for Contributors**
 
@@ -1133,8 +1133,8 @@ gantt
 # 1. Fork the repository on GitHub
 
 # 2. Clone your fork
-git clone https://github.com/YOUR_USERNAME/a11yguard.git
-cd a11yguard
+git clone https://github.com/YOUR_USERNAME/axeVision.git
+cd axeVision
 
 # 3. Create a feature branch
 git checkout -b feature/amazing-feature
@@ -1171,7 +1171,7 @@ git push origin feature/amazing-feature
 
 | 📚 **Documentation** | 🐛 **Report Bug** | ✨ **Request Feature** |
 |:---:|:---:|:---:|
-| [Read Docs](https://github.com/yourusername/a11yguard#readme) | [Open Issue](https://github.com/yourusername/a11yguard/issues/new?template=bug_report.md) | [Suggest Feature](https://github.com/yourusername/a11yguard/issues/new?template=feature_request.md) |
+| [Read Docs](https://github.com/yourusername/axeVision#readme) | [Open Issue](https://github.com/yourusername/axeVision/issues/new?template=bug_report.md) | [Suggest Feature](https://github.com/yourusername/axeVision/issues/new?template=feature_request.md) |
 
 ### 📧 **Contact**
 
@@ -1193,9 +1193,9 @@ Copyright © 2025 WebLenses / allyGuard. All rights reserved.
 
 ### 🚀 **Start Your Accessibility Journey Today!**
 
-[![Try Demo](https://img.shields.io/badge/🎮_Try_Demo-Free_Access-brightgreen?style=for-the-badge)](https://a11yguard-platform.vercel.app/)
-[![Star Repo](https://img.shields.io/badge/⭐_Star_Repo-Show_Support-yellow?style=for-the-badge)](https://github.com/yourusername/a11yguard)
-[![Fork Project](https://img.shields.io/badge/🔱_Fork_Project-Contribute-blue?style=for-the-badge)](https://github.com/yourusername/a11yguard/fork)
+[![Try Demo](https://img.shields.io/badge/🎮_Try_Demo-Free_Access-brightgreen?style=for-the-badge)](https://axeVision-platform.vercel.app/)
+[![Star Repo](https://img.shields.io/badge/⭐_Star_Repo-Show_Support-yellow?style=for-the-badge)](https://github.com/yourusername/axeVision)
+[![Fork Project](https://img.shields.io/badge/🔱_Fork_Project-Contribute-blue?style=for-the-badge)](https://github.com/yourusername/axeVision/fork)
 
 ---
 
@@ -1203,8 +1203,8 @@ Copyright © 2025 WebLenses / allyGuard. All rights reserved.
 
 *Making the web accessible, one scan at a time* 🌐✨
 
-**[⬆️ Back to Top](#%EF%B8%8F-a11yguard---ai-powered-accessibility-compliance-platform)**
+**[⬆️ Back to Top](#%EF%B8%8F-axeVision---ai-powered-accessibility-compliance-platform)**
 
 ---
 
-*Made with ❤️ for a more accessible web | © 2025 A11yGuard*
+*Made with ❤️ for a more accessible web | © 2025 axeVision*

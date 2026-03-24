@@ -1,4 +1,4 @@
-import type { Snapshot } from "@a11yguard/shared";
+import type { Snapshot } from "@axeVision/shared";
 import SnapshotList from "./SnapshotList";
 import SnapshotDiff from "./SnapshotDiff";
 import { useSnapshotDisplay } from "../../../hooks/useSnapshotDisplay";

@@ -23,7 +23,7 @@ jobs:
           context: .
           file: ./packages/backend/Dockerfile
           push: true
-          tags: talhadevelopes/a11yguard-backend:latest
+          tags: talhadevelopes/axevision-backend:latest
 
   build-frontend:
     runs-on: ubuntu-latest
@@ -42,6 +42,6 @@ jobs:
           context: .
           file: ./apps/platform/Dockerfile
           push: true
-          tags: talhadevelopes/a11yguard-platform:latest
+          tags: talhadevelopes/axevision-platform:latest
           build-args: |
             VITE_PUBLIC_BACKEND_URL=${{ vars.VITE_PUBLIC_BACKEND_URL }}

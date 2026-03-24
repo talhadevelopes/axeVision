@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { memberService } from "../services/api";
-import type { Member } from "@a11yguard/shared";
+import type { Member } from "@axeVision/shared";
 import { useAuthStore } from "../stores/authStore";
 
 export const useMembersQuery = () => {

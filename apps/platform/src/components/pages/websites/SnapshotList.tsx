@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import type { Snapshot } from "@a11yguard/shared";
+import type { Snapshot } from "@axeVision/shared";
 import PerformanceCharts from "./PerformanceCharts";
 import { 
   Calendar, 

@@ -1,4 +1,4 @@
-import type { Snapshot } from "@a11yguard/shared";
+import type { Snapshot } from "@axeVision/shared";
 import { MousePointer2, AlignLeft, Link2, FormInput } from "lucide-react";
 
 interface InteractiveElementsProps {

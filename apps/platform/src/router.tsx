@@ -24,7 +24,7 @@ export const router = createBrowserRouter([
       { path: "manage", element: <TeamManagementPage /> },
       { path: "onboard", element: <OnboardingPage /> },
       { path: "chat", element: <ChatPage /> },
-      { path: "websites", element: <Websites /> },  // ← CHANGED THIS
+      { path: "websites", element: <Websites /> },
       { path: "websites/:id", element: <WebsiteDetails /> },
       { path: "mind/:websiteId", element: <WebsiteMindPage /> },
     ],

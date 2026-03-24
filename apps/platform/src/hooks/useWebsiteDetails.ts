@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import { useWebsiteSnapshots } from "../queries/useSnapshotQueries";
 import { useWebsiteAccessibilityIssues } from "../queries/useAccessibilityQueries";
 import { useGenerateAIRecommendationsMutation } from "../mutations/useAiMutations";
-import type { Snapshot, AccessibilityIssue } from "@a11yguard/shared";
+import type { Snapshot, AccessibilityIssue } from "@axeVision/shared";
 import type { DiffType } from "../utils/diff-utils";
 
 interface UseWebsiteDetailsParams {
   websiteId: string;
-  token?: string | null; // kept for backward compatibility (unused)
+  token?: string | null; 
   logout?: () => void;   // kept for backward compatibility (unused)
 }
 

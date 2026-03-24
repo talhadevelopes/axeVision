@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@a11yguard/shared/lib/utils";
+import { cn } from "@axeVision/shared/lib/utils";
 import {
   transformerNotationDiff,
   transformerNotationFocus,

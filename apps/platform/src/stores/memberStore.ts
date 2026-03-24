@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { Member } from "@a11yguard/shared";
+import type { Member } from "@axeVision/shared";
 
 
 interface MemberState {

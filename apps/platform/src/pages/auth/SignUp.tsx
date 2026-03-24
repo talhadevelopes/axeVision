@@ -73,7 +73,7 @@ const Signup: React.FC = () => {
 
       {/* Floating grid pattern */}
       <div className="absolute inset-0 opacity-30">
-        <div 
+        <div
           className="w-full h-full"
           style={{
             backgroundImage: 'linear-gradient(rgba(34, 197, 94, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(34, 197, 94, 0.1) 1px, transparent 1px)',
@@ -83,19 +83,7 @@ const Signup: React.FC = () => {
       </div>
 
       <div className="w-full max-w-md relative z-10">
-        {/* Logo and branding */}
-        <div className="text-center mb-8">
-          <div className="relative inline-block">
-            <div className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-green-500 via-green-600 to-emerald-600 flex items-center justify-center shadow-2xl">
-              <UserPlus className="w-10 h-10 text-white" />
-            </div>
-            <div className="absolute -inset-2 rounded-2xl bg-green-400/20 blur-lg animate-pulse opacity-60" />
-          </div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-green-700 via-green-600 to-emerald-600 bg-clip-text text-transparent font-heading">
-            Join a11yguard
-          </h1>
-          <p className="text-slate-600 font-medium mt-2">Create your account to start testing</p>
-        </div>
+
 
         {/* Main card */}
         <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-green-100/50 p-8 relative overflow-hidden transition-all duration-300 hover:shadow-3xl hover:-translate-y-2">
@@ -174,27 +162,25 @@ const Signup: React.FC = () => {
                   </button>
                   <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-green-500/0 via-green-500/5 to-emerald-500/0 opacity-0 focus-within:opacity-100 transition-opacity pointer-events-none" />
                 </div>
-                
+
                 {/* Password strength indicator */}
                 {password && (
                   <div className="mt-2">
                     <div className="flex items-center gap-2 mb-1">
                       <div className="flex-1 h-2 bg-slate-200 rounded-full overflow-hidden">
-                        <div 
-                          className={`h-full transition-all duration-300 ${
-                            passwordStrength.strength === 1 ? 'bg-red-400 w-1/4' :
-                            passwordStrength.strength === 2 ? 'bg-yellow-400 w-2/4' :
-                            passwordStrength.strength === 3 ? 'bg-blue-400 w-3/4' :
-                            passwordStrength.strength === 4 ? 'bg-green-400 w-full' : 'w-0'
-                          }`}
+                        <div
+                          className={`h-full transition-all duration-300 ${passwordStrength.strength === 1 ? 'bg-red-400 w-1/4' :
+                              passwordStrength.strength === 2 ? 'bg-yellow-400 w-2/4' :
+                                passwordStrength.strength === 3 ? 'bg-blue-400 w-3/4' :
+                                  passwordStrength.strength === 4 ? 'bg-green-400 w-full' : 'w-0'
+                            }`}
                         />
                       </div>
-                      <span className={`text-xs font-medium ${
-                        passwordStrength.strength === 1 ? 'text-red-600' :
-                        passwordStrength.strength === 2 ? 'text-yellow-600' :
-                        passwordStrength.strength === 3 ? 'text-blue-600' :
-                        passwordStrength.strength === 4 ? 'text-green-600' : ''
-                      }`}>
+                      <span className={`text-xs font-medium ${passwordStrength.strength === 1 ? 'text-red-600' :
+                          passwordStrength.strength === 2 ? 'text-yellow-600' :
+                            passwordStrength.strength === 3 ? 'text-blue-600' :
+                              passwordStrength.strength === 4 ? 'text-green-600' : ''
+                        }`}>
                         {passwordStrength.label}
                       </span>
                     </div>
@@ -209,20 +195,18 @@ const Signup: React.FC = () => {
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <CheckCircle2 className={`w-5 h-5 transition-colors ${
-                      confirmPassword && password === confirmPassword ? 'text-green-500' : 'text-slate-400'
-                    }`} />
+                    <CheckCircle2 className={`w-5 h-5 transition-colors ${confirmPassword && password === confirmPassword ? 'text-green-500' : 'text-slate-400'
+                      }`} />
                   </div>
                   <input
                     type={showConfirmPassword ? "text" : "password"}
                     id="confirmPassword"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className={`w-full pl-10 pr-12 py-3 rounded-xl border bg-white/80  focus:outline-none focus:ring-2 focus:ring-green-500/50 transition-all duration-200 placeholder:text-slate-400 ${
-                      confirmPassword && password !== confirmPassword 
-                        ? 'border-red-300 focus:border-red-400' 
+                    className={`w-full pl-10 pr-12 py-3 rounded-xl border bg-white/80  focus:outline-none focus:ring-2 focus:ring-green-500/50 transition-all duration-200 placeholder:text-slate-400 ${confirmPassword && password !== confirmPassword
+                        ? 'border-red-300 focus:border-red-400'
                         : 'border-green-200/50 focus:border-green-400'
-                    }`}
+                      }`}
                     placeholder="Confirm your password"
                     required
                   />
@@ -291,29 +275,11 @@ const Signup: React.FC = () => {
         <div className="mt-8 text-center">
           <div className="flex items-center justify-center gap-2 mb-4">
             <div className="w-2 h-2 rounded-full bg-green-500"></div>
-            
+
             <div className="w-8 h-0.5 bg-green-300"></div>
             <div className="w-2 h-2 rounded-full bg-green-300"></div>
           </div>
           <p className="text-xs text-slate-500">Step 1 of 2 • Profile Setup</p>
-        </div>
-
-        {/* Bottom features */}
-        <div className="mt-8 text-center opacity-80">
-          <div className="flex items-center justify-center gap-6 text-xs text-slate-500">
-            <div className="flex items-center gap-2">
-              <Zap className="w-4 h-4 text-green-500" />
-              <span>AI-Powered</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Shield className="w-4 h-4 text-green-500" />
-              <span>Secure</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Code2 className="w-4 h-4 text-green-500" />
-              <span>Developer-First</span>
-            </div>
-          </div>
         </div>
       </div>
     </div>

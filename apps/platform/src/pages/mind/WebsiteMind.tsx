@@ -23,8 +23,8 @@ import {
   CustomTabsList,
   CustomTabsTrigger,
   CustomTabsContent,
-} from "@a11yguard/shared/components/CustomTabs";
-import type { Snapshot } from "@a11yguard/shared";
+} from "@axeVision/shared/components/CustomTabs";
+import type { Snapshot } from "@axeVision/shared";
 import { useWebsiteSnapshots } from "../../queries/useSnapshotQueries";
 import {
   ElementStatistics,

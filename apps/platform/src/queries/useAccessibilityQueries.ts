@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import type { AccessibilityIssue } from "@a11yguard/shared";
+import type { AccessibilityIssue } from "@axeVision/shared";
 import { accessibilityService } from "../services/api";
 import { useAuthStore } from "../stores/authStore";
 

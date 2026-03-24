@@ -1,10 +1,10 @@
 import type { Response } from "express";
-import type { AuthRequest } from "../middleware/auth";
+import type { AuthRequest } from "../middleware/authMiddleware";
 import { v4 as uuidv4 } from "uuid";
 import { generateToken } from "../utils/jwt";
 import { User, Member, MemberType } from "../models";
-import { sendError, sendSuccess } from "../types/response.types";
-import type { MemberDTO } from "@a11yguard/shared";
+import { sendError, sendSuccess } from "../types/response";
+import type { MemberDTO } from "@axeVision/shared";
 import {
   createMemberValidation,
   updateMemberValidation,
@@ -126,6 +126,7 @@ export class MembersController {
       return sendError(res, 500, "Server error", "SERVER_ERROR");
     }
   };
+
   //get all members
   static getMembersByUser = async (req: AuthRequest, res: Response) => {
     try {
@@ -279,6 +280,7 @@ export class MembersController {
       return sendError(res, 500, "Server error", "SERVER_ERROR");
     }
   };
+
   //delete member
   static deleteMember = async (req: AuthRequest, res: Response) => {
     try {

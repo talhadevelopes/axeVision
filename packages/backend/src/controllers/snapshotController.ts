@@ -1,7 +1,7 @@
 import { Response } from "express";
-import { AuthRequest } from "../middleware/auth";
+import { AuthRequest } from "../middleware/authMiddleware";
 import { Snapshot } from "../models";
-import { sendError, sendSuccess } from "../types/response.types";
+import { sendError, sendSuccess } from "../types/response";
 import { gzip, gunzip } from "node:zlib";
 import { promisify } from "node:util";
 import { redisClient } from "../utils/redis";
@@ -10,6 +10,7 @@ const gzipAsync = promisify(gzip);
 const gunzipAsync = promisify(gunzip);
 
 export class SnapshotController {
+
   //to create a snapshot - used in extension
   static async createSnapshot(req: AuthRequest, res: Response) {
     try {

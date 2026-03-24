@@ -2,9 +2,9 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
-import routes from "./routes/index.routes";
+import routes from "./routes";
 import { connectDatabase } from "./utils/database";
-import { sendError, sendSuccess } from "./types/response.types";
+import { sendError, sendSuccess } from "./types/response";
 import { redisClient, connectRedis } from "./utils/redis"; // Import from redis.ts
 import hpp from "hpp";
 import helmet from "helmet";
@@ -12,7 +12,6 @@ import mongoSanitize from "express-mongo-sanitize";
 import { createServer } from "http";
 import { Server } from "socket.io";
 import { initChatSockets } from "./sockets/chat";
-import { bindPresenceRedis } from "./controllers/presence.controller";
 
 dotenv.config();
 
@@ -76,7 +75,6 @@ export const startServer = async () => {
     app.use("/api/members", routes.members);
     app.use("/api/chat", routes.chatbot);
     app.use("/api/messages", routes.messages);
-    app.use("/api/presence", routes.presence);
 
     app.use("*", (req, res) => {
       return sendError(res, 404, "Route not found", "NOT_FOUND", {
@@ -112,7 +110,6 @@ export const startServer = async () => {
       },
     });
     initChatSockets(io, redisClient);
-    bindPresenceRedis(redisClient);
 
     const server = httpServer.listen(PORT, () => {
       console.log(`Server running on http://localhost:${PORT}`);
@@ -120,7 +117,7 @@ export const startServer = async () => {
     });
 
     const gracefulShutdown = async (signal: string) => {
-      console.log(`\n🛑 ${signal} received. Shutting down gracefully...`);
+      console.log(`\n${signal} received. Shutting down gracefully...`);
 
       server.close(async () => {
         console.log("Server closed");
@@ -144,7 +141,7 @@ export const startServer = async () => {
 
       // Force shutdown after 10 seconds if graceful shutdown hangs
       setTimeout(() => {
-        console.error("⚠️ Forcing shutdown after timeout");
+        console.error("Forcing shutdown after timeout");
         process.exit(1);
       }, 10000);
     };

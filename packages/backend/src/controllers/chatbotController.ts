@@ -1,7 +1,7 @@
 import { Response } from "express";
-import { AuthRequest } from "../middleware/auth";
-import { ChatbotService } from "../services/chatbot.service";
-import { sendError, sendSuccess } from "../types/response.types";
+import { AuthRequest } from "../middleware/authMiddleware";
+import { ChatbotService } from "../services/chatbotService";
+import { sendError, sendSuccess } from "../types/response";
 
 interface ChatMessage {
   role: "user" | "assistant";
@@ -44,10 +44,6 @@ export class ChatbotController {
         );
       }
 
-      console.log(`Chat query: "${query.substring(0, 50)}..."`);
-      console.log(`Snapshot ID: ${snapshotId}`);
-      console.log(`History length: ${history.length}`);
-
       // Get website ID from snapshot (you'll need to fetch this)
       const websiteId = req.params.websiteId || req.body.websiteId;
 
@@ -70,8 +66,6 @@ export class ChatbotController {
         },
         history
       );
-
-      console.log(`Generated response (${response.length} chars)`);
 
       return sendSuccess(res, {
         response,

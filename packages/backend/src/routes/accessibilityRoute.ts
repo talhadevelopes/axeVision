@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { authenticate } from "../middleware/auth";
+import { authenticate } from "../middleware/authMiddleware";
 import { validateWebsiteExists } from "../validations/websiteValidation";
 import {
   AccessibilityAIServiceController,
   AccessibilityController,
-} from "../controllers/accessibility.controller";
+} from "../controllers/accessibilityController";
 
 const router: Router = Router();
 

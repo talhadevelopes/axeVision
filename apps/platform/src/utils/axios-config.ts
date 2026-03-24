@@ -14,14 +14,11 @@ instance.interceptors.request.use((config) => {
   return config
 })
 
-// Optional: Add response interceptor to handle auth errors
 instance.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      // Token expired or invalid, clear auth state
       useAuthStore.getState().clearAuth()
-      // Optionally redirect to login
       if (typeof window !== "undefined") {
         window.location.href = "/login"
       }

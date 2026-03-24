@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { ChatbotController } from "../controllers/chatbot.controller";
-import { authenticate } from "../middleware/auth";
+import { ChatbotController } from "../controllers/chatbotController";
+import { authenticate } from "../middleware/authMiddleware";
 const router: Router = Router();
 
 // POST /api/chat - Send chat message
-router.post("/", authenticate,ChatbotController.chat);
+router.post("/", authenticate, ChatbotController.chat);
 
 // GET /api/chat/suggestions/:snapshotId - Get suggested questions
 router.get(

@@ -1,7 +1,7 @@
 
 import * as React from "react"
 
-import { cn } from "@a11yguard/shared/lib/utils"
+import { cn } from "@axeVision/shared/lib/utils"
 
 function Table({ className, ...props }: React.ComponentProps<"table">) {
   return (

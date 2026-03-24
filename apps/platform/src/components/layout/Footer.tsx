@@ -74,13 +74,7 @@ export default function Footer(): JSX.Element {
               Install Extension
             </a>
 
-            <a
-              href="#demo"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-md border border-emerald-200 text-emerald-700 hover:bg-emerald-50"
-              aria-label="Request demo"
-            >
-              Request Demo
-            </a>
+           axeVision
           </div>
         </motion.div>
       </div>
@@ -96,7 +90,7 @@ export default function Footer(): JSX.Element {
               </div>
               <div>
                 <div className="text-lg font-semibold text-slate-900">
-                  a11yguard
+                  axeVision
                 </div>
                 <div className="text-sm text-slate-600">
                   AI-first QA · Accessibility · Snapshots & Diff
@@ -124,120 +118,6 @@ export default function Footer(): JSX.Element {
                 </strong>
               </div>
             </div>
-
-            <div className="flex items-center gap-3 mt-2">
-              <a
-                className="p-2 rounded hover:bg-slate-100"
-                href="#"
-                aria-label="GitHub"
-              >
-                <Github className="w-5 h-5 text-slate-700" />
-              </a>
-              <a
-                className="p-2 rounded hover:bg-slate-100"
-                href="#"
-                aria-label="Twitter"
-              >
-                <Twitter className="w-5 h-5 text-slate-700" />
-              </a>
-              <a
-                className="p-2 rounded hover:bg-slate-100"
-                href="#"
-                aria-label="Slack"
-              >
-                <Slack className="w-5 h-5 text-slate-700" />
-              </a>
-              <a
-                className="p-2 rounded hover:bg-slate-100"
-                href="#"
-                aria-label="Contact"
-              >
-                <Mail className="w-5 h-5 text-slate-700" />
-              </a>
-            </div>
-          </div>
-
-          {/* Product links */}
-          <div>
-            <h4 className="text-sm font-medium text-slate-900 mb-3">Product</h4>
-            <ul className="space-y-2 text-sm text-slate-600">
-              <li>
-                <a className="hover:text-emerald-600" href="#features">
-                  Features
-                </a>
-              </li>
-              <li>
-                <a className="hover:text-emerald-600" href="#extension">
-                  Chrome Extension
-                </a>
-              </li>
-              <li>
-                <a className="hover:text-emerald-600" href="#docs">
-                  API Docs
-                </a>
-              </li>
-              <li>
-                <a className="hover:text-emerald-600" href="#integrations">
-                  Integrations
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Developers */}
-          <div>
-            <h4 className="text-sm font-medium text-slate-900 mb-3">
-              Developers
-            </h4>
-            <ul className="space-y-2 text-sm text-slate-600">
-              <li>
-                <a className="hover:text-emerald-600" href="#docs">
-                  Documentation
-                </a>
-              </li>
-              <li>
-                <a className="hover:text-emerald-600" href="#cli">
-                  CLI Tools
-                </a>
-              </li>
-              <li>
-                <a className="hover:text-emerald-600" href="#sdk">
-                  SDK
-                </a>
-              </li>
-              <li>
-                <a className="hover:text-emerald-600" href="#github">
-                  GitHub
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Support & legal */}
-          <div>
-            <h4 className="text-sm font-medium text-slate-900 mb-3">Support</h4>
-            <ul className="space-y-2 text-sm text-slate-600">
-              <li>
-                <a className="hover:text-emerald-600" href="#help">
-                  Help Center
-                </a>
-              </li>
-              <li>
-                <a className="hover:text-emerald-600" href="#community">
-                  Community
-                </a>
-              </li>
-              <li>
-                <a className="hover:text-emerald-600" href="#status">
-                  Status
-                </a>
-              </li>
-              <li>
-                <a className="hover:text-emerald-600" href="#contact">
-                  Contact
-                </a>
-              </li>
-            </ul>
           </div>
         </div>
 
@@ -262,7 +142,7 @@ export default function Footer(): JSX.Element {
               Terms
             </a>
             <span className="text-sm text-slate-500">
-              © {new Date().getFullYear()} a11yguard
+              © {new Date().getFullYear()} axeVision
             </span>
           </div>
         </div>

@@ -1,12 +1,12 @@
-import { Button } from "@a11yguard/shared/components/button";
+import { Button } from "@axeVision/shared/components/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@a11yguard/shared/components/card";
-import { Badge } from "@a11yguard/shared/components/badge";
+} from "@axeVision/shared/components/card";
+import { Badge } from "@axeVision/shared/components/badge";
 import Footer from "../components/layout/Footer";
 import {
   Shield,

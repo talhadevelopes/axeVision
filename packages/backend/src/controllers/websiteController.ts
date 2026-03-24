@@ -1,8 +1,8 @@
 import { Response } from "express";
-import { AuthRequest } from "../middleware/auth";
+import { AuthRequest } from "../middleware/authMiddleware";
 import { Website, Snapshot } from "../models";
-import { sendError, sendSuccess } from "../types/response.types";
-import type { WebsiteDTO } from "@a11yguard/shared";
+import { sendError, sendSuccess } from "../types/response";
+import type { WebsiteDTO } from "@axeVision/shared";
 import { redisClient } from "../utils/redis";
 
 //this is the parent container for all snapshots and accessibility
@@ -31,7 +31,7 @@ export class WebsiteController {
         return sendError(res, 401, "User not authenticated", "UNAUTHORIZED");
       }
 
-      console.log("🔍 Checking for existing website...");
+      console.log("Checking for existing website...");
       const existingWebsite = await Website.findOne({
         url: cleanUrl,
         userId: req.userId,

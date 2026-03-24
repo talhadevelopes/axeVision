@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "a11yguard",
+  "name": "axeVision",
   "version": "1.0",
   "description": "Monitor website changes and analyze accessibility with AI.",
   "permissions": ["activeTab", "scripting", "tabs", "storage"],

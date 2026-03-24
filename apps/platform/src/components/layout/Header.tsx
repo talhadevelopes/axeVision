@@ -8,7 +8,7 @@ import {
   Bell,
   User as UserIcon,
 } from "lucide-react";
-import { Button } from "@a11yguard/shared/components/button";
+import { Button } from "@axeVision/shared/components/button";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../../stores/authStore";
 import { useMembersQuery } from "../../queries/useMemberQueries";
@@ -49,7 +49,7 @@ export default function Header(): JSX.Element {
 
               <div className="flex flex-col leading-tight">
                 <span className="text-base font-semibold text-slate-900">
-                  a11yguard
+                  axeVision
                 </span>
                 <span className="text-xs text-slate-500">
                   AI · QA · Accessibility
@@ -119,23 +119,6 @@ export default function Header(): JSX.Element {
                 </span>
               )}
 
-              {/* search */}
-              <button
-                aria-label="Search"
-                className="p-2 rounded-md hover:bg-slate-100 transition-colors"
-              >
-                <Search className="w-4 h-4 text-slate-700" />
-              </button>
-
-              {/* notifications */}
-              <button
-                aria-label="Notifications"
-                className="relative p-2 rounded-md hover:bg-slate-100 transition-colors"
-              >
-                <Bell className="w-4 h-4 text-slate-700" />
-                
-              </button>
-
               {/* account */}
               <button
                 aria-label="Account"
@@ -176,7 +159,7 @@ export default function Header(): JSX.Element {
                 </button>
               ) : (
                 <>
-                  <Link to="/signin">
+                  <Link to="/login">
                     <Button
                       variant="outline"
                       className="border-green-200 cursor-pointer text-green-700 hover:bg-green-50 bg-transparent font-mono shadow-sm hover:shadow-md transition-all duration-300"

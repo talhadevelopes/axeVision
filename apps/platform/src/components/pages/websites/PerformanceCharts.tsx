@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import type { Snapshot } from "@a11yguard/shared";
+import type { Snapshot } from "@axeVision/shared";
 
 import {
   ResponsiveContainer,

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { websiteService } from "../services/api";
-import type { WebsiteDTO } from "@a11yguard/shared";
+import type { WebsiteDTO } from "@axeVision/shared";
 import { useAuthStore } from "../stores/authStore";
 
 export const useWebsitesQuery = () => {
@@ -15,7 +15,6 @@ export const useWebsitesQuery = () => {
       }
       const data = await websiteService.getWebsites();
       const list = Array.isArray(data) ? (data as any[]) : (data && Array.isArray((data as any).websites) ? (data as any).websites : []);
-      // Normalize: ensure id exists (map _id -> id)
       return (list as any[]).map((w) => {
         const id = w.id || w._id || w.websiteId;
         return {

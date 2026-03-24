@@ -1,16 +1,17 @@
 import { Request, Response } from "express";
-import { AuthRequest } from "../middleware/auth";
+import { AuthRequest } from "../middleware/authMiddleware";
 import { Snapshot, AccessibilityIssue } from "../models";
 import {
-  AccessibilityAIRecommendationService,
   AccessibilityService,
-} from "../services/accessibility.service";
+} from "../services/accessibilityService";
+import { AccessibilityAIRecommendationService } from "../services/aiService";
 import dotenv from "dotenv";
-import { sendError, sendSuccess } from "../types/response.types";
+import { sendError, sendSuccess } from "../types/response";
 import { redisClient } from "../utils/redis";
 dotenv.config();
 
 export class AccessibilityController {
+
   // takes HTML code and checks it for accessibility problems RIGHT NOW, but doesn't save anything to the database.
   // this is for extension
   static async analyzeAccessibility(req: Request, res: Response) {
@@ -35,11 +36,6 @@ export class AccessibilityController {
   //Takes accessibility issues that were ALREADY analyzed from the extension and saves them to the database.
   static async saveAccessibilityResults(req: AuthRequest, res: Response) {
     try {
-      console.log("=== Accessibility Save Request ===");
-      console.log("Website ID:", req.params.websiteId);
-      console.log("User ID:", req.userId);
-      console.log("Request body:", req.body);
-
       const { issues, analyzedAt } = req.body;
       if (!issues || !analyzedAt || !Array.isArray(issues)) {
         console.log("Missing issues or analyzedAt or issues is not an array");
@@ -72,7 +68,7 @@ export class AccessibilityController {
         );
       }
 
-      console.log("🔍 Looking for existing snapshot...");
+      console.log("Looking for existing snapshot...");
 
       //finding exisiting snapshots first
       const existingSnapshot = await Snapshot.findOne({

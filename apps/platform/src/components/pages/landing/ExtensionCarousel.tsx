@@ -18,7 +18,7 @@ export default function ExtensionCarousel() {
       name: "A11y Co-Pilot",
       description: "AI-Powered Accessibility Assistant",
       component: (
-        <A11yGuardAIExtension
+        <axeVisionAIExtension
           inputValue={inputValue}
           setInputValue={setInputValue}
           charCount={charCount}
@@ -28,7 +28,7 @@ export default function ExtensionCarousel() {
     {
       name: "WebLenses",
       description: "DOM Snapshot & Accessibility Tool",
-      component: <A11yGuardExtension />,
+      component: <axeVisionExtension />,
     },
   ];
 
@@ -115,7 +115,7 @@ export default function ExtensionCarousel() {
 }
 
 // A11y Co-Pilot Component (Dashboard Chatbot UI)
-function A11yGuardAIExtension({ inputValue, setInputValue }: any) {
+function axeVisionAIExtension({ inputValue, setInputValue }: any) {
   const [messages] = useState([
     {
       role: "assistant",
@@ -275,7 +275,7 @@ function A11yGuardAIExtension({ inputValue, setInputValue }: any) {
 }
 
 // WebLenses Extension Component (Keep as is)
-function A11yGuardExtension() {
+function axeVisionExtension() {
   const [activeTab, setActiveTab] = useState("snapshot");
 
   return (

@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { accessibilityService, chatService } from "../services/api";
-import type { AccessibilityIssue } from "@a11yguard/shared";
+import type { AccessibilityIssue } from "@axeVision/shared";
 
 interface ChatMessage {
   role: "user" | "assistant";
@@ -25,7 +25,6 @@ export const useGenerateAIRecommendationsMutation = (websiteId: string) => {
     mutationFn: async (issues: AccessibilityIssue[]) => {
       if (!websiteId) throw new Error("Invalid website ID for AI recommendations.");
       const data = await accessibilityService.generateAccessibilityRecommendations(websiteId, { issues });
-      // backend returns { recommendations: string }
       if (typeof data === "string") return data as string;
       return (data?.recommendations as string) ?? "";
     },

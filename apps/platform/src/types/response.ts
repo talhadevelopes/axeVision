@@ -1,4 +1,4 @@
-import type { Member, WebsiteDTO } from "@a11yguard/shared";
+import type { Member, WebsiteDTO } from "@axeVision/shared";
 
 export interface ApiResponse {
   members?: Member[];

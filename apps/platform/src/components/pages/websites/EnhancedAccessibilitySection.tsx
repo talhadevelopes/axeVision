@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { utilityService } from '../../../services/api';
-import type { AccessibilityIssue } from "@a11yguard/shared";
+import type { AccessibilityIssue } from "@axeVision/shared";
 import AiResponseRenderer from "../../shared/AiResponseRenderer";
 import { 
   AlertCircle, 

@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useAuthStore } from '../../stores/authStore';
 import { memberService, messagesService, presenceService } from '../../services/api';
 import { getChatSocket } from '../../services/chatSocket';
-import type { Member } from '@a11yguard/shared';
+import type { Member } from '@axeVision/shared';
 import { Search, Phone, Video, User, Send, Paperclip, Smile } from 'lucide-react';
 
 interface ChatMessage {

@@ -1,8 +1,8 @@
-app = "a11yguard-backend"
+app = "axe-vision-backend"
 primary_region = "bom"
 
 [build]
-  image = "talhadevelopes/a11yguard-backend:latest"
+  image = "talhadevelopes/axevision-backend:latest"
 
 [env]
   NODE_ENV = "production"

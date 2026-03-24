@@ -2,14 +2,14 @@ import type { Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import { generateToken } from "../utils/jwt";
 import { User, Member, MemberType } from "../models";
-import { sendError, sendSuccess } from "../types/response.types";
+import { sendError, sendSuccess } from "../types/response";
 import type {
   LoginMultipleMembersDTO,
   LoginSingleMemberDTO,
   RegisterDTO,
   SelectMemberDTO,
   MemberDTO,
-} from "@a11yguard/shared";
+} from "@axeVision/shared";
 import {
   loginValidation,
   registerValidation,

@@ -17,27 +17,24 @@ export interface ParseHTMLResult {
   elementCounts: Record<string, number>;
 }
 
-/**
- * Parse HTML content and return both the DOM tree and element counts
- */
+//Parse HTML content and return both the DOM tree and element counts
 export const parseHTMLContent = (htmlContent: string): ParseHTMLResult => {
   const parser = new DOMParser();
   const doc = parser.parseFromString(htmlContent, "text/html");
-  
+
   if (!doc.documentElement) {
     throw new Error("Failed to parse HTML: Invalid document");
   }
-  
+
   const domTree = convertDOMToTree(doc.documentElement);
   const elementCounts: Record<string, number> = {};
   countElements(domTree, elementCounts);
-  
+
   return { domTree, elementCounts };
 };
 
-/**
- * Count all elements in the DOM tree by type
- */
+
+// Count all elements in the DOM tree by type
 export const countElements = (node: DOMNode, counts: Record<string, number>): void => {
   if (node.type !== "#text") {
     counts[node.type] = (counts[node.type] || 0) + 1;
@@ -49,9 +46,7 @@ export const countElements = (node: DOMNode, counts: Record<string, number>): vo
   }
 };
 
-/**
- * Convert a DOM Element into a structured tree object
- */
+// Convert a DOM Element into a structured tree object
 export const convertDOMToTree = (node: Element, index = 0): DOMNode => {
   const nodeData: DOMNode = {
     type: node.nodeName.toLowerCase(),
@@ -103,9 +98,7 @@ export const convertDOMToTree = (node: Element, index = 0): DOMNode => {
   return nodeData;
 };
 
-/**
- * Convert DOM node to D3 tree format
- */
+// Convert DOM node to D3 tree format
 export const toD3Node = (node: DOMNode): RawNodeDatum => {
   const idPart = node.id ? `#${node.id}` : "";
   const classPart = node.className

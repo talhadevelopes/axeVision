@@ -23,7 +23,7 @@ const OnboardingPage: React.FC = () => {
         data.member.memberId,
         data.member.type
       )
-      alert("Onboarding complete! Welcome to a11yguard.")
+      alert("Onboarding complete! Welcome to axeVision.")
       navigate("/dashboard")
     },
     onError: (err: unknown) => {
@@ -98,7 +98,7 @@ const OnboardingPage: React.FC = () => {
             <div className="absolute -inset-2 rounded-2xl bg-green-400/20 blur-lg animate-pulse opacity-60" />
           </div>
           <h1 className="text-3xl font-bold bg-gradient-to-r from-green-700 via-green-600 to-emerald-600 bg-clip-text text-transparent font-heading">
-            Welcome to a11yguard
+            Welcome to axeVision
           </h1>
           <p className="text-slate-600 font-medium mt-2">Let's set up your profile to get started</p>
         </div>

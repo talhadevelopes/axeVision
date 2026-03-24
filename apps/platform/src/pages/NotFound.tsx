@@ -1,4 +1,4 @@
-import { Button } from "@a11yguard/shared/components/button";
+import { Button } from "@axeVision/shared/components/button";
 import { Link } from "react-router-dom";
 
 const NotFound = () => {

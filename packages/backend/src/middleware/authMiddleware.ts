@@ -1,9 +1,7 @@
 import type { Request, Response, NextFunction } from "express";
 import { MemberType } from "../models";
 import { verifyToken } from "../utils/jwt";
-import { sendError } from "../types/response.types";
-
-const JWT_SECRET = process.env.JWT_SECRET || "changeme";
+import { sendError } from "../types/response";
 
 interface JwtPayload {
   userId: string;
@@ -43,7 +41,7 @@ export const authenticate = (
     req.userId = decoded.userId;
     req.memberId = decoded.memberId;
     req.memberType = decoded.memberType;
-    console.log("Authenticated userId:", req.userId); 
+    console.log("Authenticated userId:", req.userId);
     next();
   } catch (err) {
     console.error("Authentication error:", err);
@@ -66,11 +64,11 @@ export const requireMember = (
 
 export const authorizeRoles =
   (...allowedTypes: MemberType[]) =>
-  (req: AuthRequest, res: Response, next: NextFunction) => {
-    if (!req.memberType || !allowedTypes.includes(req.memberType)) {
-      return res
-        .status(403)
-        .json({ error: "Forbidden: Insufficient permissions" });
-    }
-    next();
-  };
+    (req: AuthRequest, res: Response, next: NextFunction) => {
+      if (!req.memberType || !allowedTypes.includes(req.memberType)) {
+        return res
+          .status(403)
+          .json({ error: "Forbidden: Insufficient permissions" });
+      }
+      next();
+    };

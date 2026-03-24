@@ -1,6 +1,6 @@
 import { useMutation, type MutationOptions, type UseMutationResult } from "@tanstack/react-query";
-import { authApi } from "../services/auth.api";
-import type { LoginResponse, SelectMemberResponse, RegisterResponse, OnboardResponse } from "@a11yguard/shared";
+import { authApi } from "../services/authApi";
+import type { LoginResponse, SelectMemberResponse, RegisterResponse, OnboardResponse } from "@axeVision/shared";
 
 export const useLoginMutation = (
   options?: MutationOptions<LoginResponse, any, { email: string; password: string }>
