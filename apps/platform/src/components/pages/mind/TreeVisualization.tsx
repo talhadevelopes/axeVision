@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Tree from "react-d3-tree";
 
 interface Props {
-  data: any; // parsed DOM tree converted by parent
+  data: any;
   onClose: () => void;
 }
 

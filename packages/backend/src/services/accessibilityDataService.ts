@@ -2,9 +2,8 @@ import { Snapshot, AccessibilityIssue } from "../models";
 import { redisClient } from "../utils/redis";
 
 export class AccessibilityService {
-  /**
-   * Save accessibility results to a snapshot
-   */
+
+  //Save accessibility results to a snapshot
   static async saveAccessibilityResults(params: {
     websiteId: string;
     userId: string;
@@ -86,9 +85,7 @@ export class AccessibilityService {
     return snapshot;
   }
 
-  /**
-   * Get accessibility results for a website
-   */
+  //Get accessibility results for a website
   static async getAccessibilityResults(websiteId: string, userId: string) {
     // Find snapshot with accessibility issues
     const snapshot = await Snapshot.findOne({
@@ -114,9 +111,9 @@ export class AccessibilityService {
     };
   }
 
-  /**
-   * Cache accessibility results
-   */
+
+  //Cache accessibility results
+
   static async cacheAccessibilityResults(websiteId: string, userId: string, data: any) {
     try {
       const cacheKey = `accessibility:${userId}:${websiteId}`;
@@ -125,10 +122,7 @@ export class AccessibilityService {
       console.warn("Failed to set accessibility cache, ignoring:", redisErr?.message || redisErr);
     }
   }
-
-  /**
-   * Get cached accessibility results
-   */
+  //Get cached accessibility results   
   static async getCachedAccessibilityResults(websiteId: string, userId: string) {
     try {
       const cacheKey = `accessibility:${userId}:${websiteId}`;

@@ -52,14 +52,24 @@ const ChatPage: React.FC = () => {
   // Initial data load (once)
   useEffect(() => {
     const init = async () => {
-      const [membersRes, presenceRes] = await Promise.all([
-        memberService.getMembersByUser(),
-        presenceService.getOnline(),
-      ]);
-      setMembers(membersRes.members || []);
-      setOnline(new Set(presenceRes.online || []));
+      try {
+        const [membersRes, presenceRes] = await Promise.all([
+          memberService.getMembersByUser(),
+          presenceService.getOnline(),
+        ]);
+        
+        // Correctly handle the member response structure
+        const memberList = Array.isArray(membersRes) 
+          ? membersRes 
+          : (membersRes?.members || []);
+          
+        setMembers(memberList);
+        setOnline(new Set(presenceRes.online || []));
+      } catch (err) {
+        console.error("Failed to initialize chat data:", err);
+      }
     };
-    init().catch(console.error);
+    init();
   }, []);
 
   // Socket listeners (rebind when selection changes to update scoping)
@@ -316,20 +326,24 @@ const ChatPage: React.FC = () => {
 
   // Get unread count for each member (simplified - you can enhance this)
   const getUnreadCount = (memberId: string) => {
-    return 0; // Placeholder - implement based on your logic
+    return messages.filter(m => 
+      m.type === 'dm' && 
+      m.fromMemberId === memberId && 
+      (!m.readBy || !m.readBy.includes(selfMemberId))
+    ).length;
   };
 
   const getLastMessage = (memberId: string) => {
     // Find last message with this member
     const memberMessages = messages.filter(m => 
-      m.fromMemberId === memberId || m.toMemberId === memberId
+      m.type === 'dm' && (m.fromMemberId === memberId || m.toMemberId === memberId)
     );
     return memberMessages[memberMessages.length - 1]?.content || 'No messages yet';
   };
 
   const getLastMessageTime = (memberId: string) => {
     const memberMessages = messages.filter(m => 
-      m.fromMemberId === memberId || m.toMemberId === memberId
+      m.type === 'dm' && (m.fromMemberId === memberId || m.toMemberId === memberId)
     );
     const lastMsg = memberMessages[memberMessages.length - 1];
     if (!lastMsg) return '';

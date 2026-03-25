@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
           chrome.action.openPopup()
         }, 1500)
       } else {
-        showMessage(result.error || "Authentication failed", "error")
+        showMessage(result.error || "Authentication Successful", "error")
       }
     } catch (error) {
       showMessage("Network error. Please try again.", "error")

@@ -72,7 +72,6 @@ function CustomContentTreemapComponent({ counts }: Props) {
         </button>
       </div>
 
-      {/* Chart with horizontal scroll for large sets */}
       <div className="w-full h-[420px] overflow-x-auto">
         <div style={{ width: Math.max(600, data.length * 60) }} className="h-full">
           <ResponsiveContainer width="100%" height="100%">

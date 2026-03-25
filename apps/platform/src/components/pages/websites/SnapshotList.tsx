@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import type { Snapshot } from "@axeVision/shared";
-import PerformanceCharts from "./PerformanceCharts";
 import { 
   Calendar, 
   Clock, 
@@ -9,7 +8,6 @@ import {
   ChevronDown,
   FileCode,
   Camera,
-  TrendingUp,
   Layers,
   AlertCircle
 } from "lucide-react";
@@ -108,20 +106,6 @@ export default function SnapshotList({
     (s) => s.id === selectedSnapshotForPreview
   );
 
-  if (!snapshots || snapshots.length === 0) {
-    return (
-      <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-green-100/50 p-12 text-center">
-        <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-gradient-to-br from-slate-200 to-slate-300 flex items-center justify-center">
-          <Camera className="w-8 h-8 text-slate-500" />
-        </div>
-        <p className="text-lg font-medium text-slate-800 mb-2">No snapshots found</p>
-        <p className="text-sm text-slate-500">
-          Use the browser extension to capture snapshots for this website.
-        </p>
-      </div>
-    );
-  }
-
   const displayedSnapshots = showAll ? snapshots : snapshots.slice(0, 2);
 
   return (
@@ -208,10 +192,6 @@ export default function SnapshotList({
                       </p>
                     </div>
                   )}
-                  
-                  {/* <div className="mt-4">
-                    <PM snapshot={snapshot} />
-                  </div> */}
                 </div>
                 
                 <div className="absolute -top-2 -right-2 flex gap-1 opacity-60">

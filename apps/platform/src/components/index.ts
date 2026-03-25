@@ -11,10 +11,8 @@ export { NotFoundError, AuthRequiredError, ErrorDisplay, type ErrorDisplayProps 
 export { type LoadingDisplayProps, LoadingDisplay, WebsiteLoadingDisplay, SnapshotLoadingDisplay, DashboardLoadingDisplay } from './shared/LoaderDisplay'
 export { default as PageBackground } from './shared/PageBackground'
 
-
 // Websites Page Components
 export { default as AccessibilityChatbot } from './pages/websites/AccessibilityChatbot';
-export { default as AccessibilitySection } from './pages/websites/AccessibilitySection';
 export { default as EnhancedAccessibilitySection } from './pages/websites/EnhancedAccessibilitySection';
 export { default as InteractiveElements } from './pages/websites/InteractiveElements';
 export { default as PerformanceCharts } from './pages/websites/PerformanceCharts';

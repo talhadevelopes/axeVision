@@ -62,9 +62,7 @@ export class AccessibilityService {
     }
   }
 
-  /**
-   * Run axe-core analysis on HTML string using Puppeteer
-   */
+  //Run axe-core analysis on HTML string using Puppeteer
   private static async runAxeOnHtml(html: string): Promise<any> {
     let browser;
     try {
@@ -95,10 +93,7 @@ export class AccessibilityService {
       }
     }
   }
-
-  /**
-   * Fallback regex-based accessibility checks
-   */
+  // Fallback regex-based accessibility checks
   private static runBasicAccessibilityChecks(html: string): any {
     const issues = {
       violations: [] as any[],
@@ -163,9 +158,7 @@ export class AccessibilityService {
     return issues;
   }
 
-  /**
-   * Map axe-core severity levels to our DTO types
-   */
+  //Map axe-core severity levels to our DTO types
   private static mapAxeSeverityToType(impact: string | undefined): string {
     switch (impact) {
       case "critical":

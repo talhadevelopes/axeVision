@@ -6,17 +6,15 @@ import {
   Globe,
   Gauge,
   Layers,
-  ScanLine,
   TrendingUp,
   CheckCircle2,
   AlertCircle,
-  Sparkles,
   Eye,
   Activity,
+  Brain,
 } from "lucide-react";
 import {
   PerformanceCharts,
-  InteractiveElements,
   SnapshotDisplay,
   EnhancedAccessibilitySection,
   AccessibilityChatbot,
@@ -104,10 +102,13 @@ export default function WebsiteDetailsPage() {
 
               {/* Quick action button */}
               <div className="hidden sm:flex items-center gap-3">
-                <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-green-50 text-green-700 border border-green-200">
-                  <CheckCircle2 className="w-4 h-4" />
-                  <span className="text-sm font-medium">Active</span>
-                </div>
+                <Link
+                  to={`/mind/${websiteId}`}
+                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-purple-50 text-purple-700 border border-purple-200 hover:bg-purple-100 transition-colors"
+                >
+                  <Brain className="w-4 h-4" />
+                  <span className="text-sm font-medium">View Mind</span>
+                </Link>
               </div>
             </div>
           </div>
@@ -152,7 +153,7 @@ export default function WebsiteDetailsPage() {
         )}
 
         {/* summary cards with better styling */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           <SummaryCard
             icon={Layers}
             iconColor="from-blue-500 to-indigo-600"
@@ -173,17 +174,6 @@ export default function WebsiteDetailsPage() {
             statusColor={(accessibilityIssues?.length || 0) > 0 ? "text-amber-600" : "text-green-600"}
             statusIcon={Eye}
             trendIcon={Activity}
-          />
-
-          <SummaryCard
-            icon={ScanLine}
-            iconColor="from-purple-500 to-pink-600"
-            title="AI Recommendations"
-            value={aiRecommendations ? "Ready" : "Generate"}
-            status={aiRecommendations ? "Available" : "Click to generate"}
-            statusColor="text-purple-600"
-            statusIcon={Sparkles}
-            trendIcon={Sparkles}
           />
         </div>
 

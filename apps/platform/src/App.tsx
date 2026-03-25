@@ -1,7 +1,6 @@
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useAuthStore } from "./stores/authStore";
-import { ThemeProvider } from "./components/providers/ThemeProvider";
 import './App.css'
 import Header from "./components/layout/Header";
 
@@ -34,10 +33,8 @@ export default function App() {
 
   return (
     <>
-      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         {shouldShowHeader && <Header />}
         <Outlet />
-      </ThemeProvider>
     </>
   );
 }

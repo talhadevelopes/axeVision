@@ -5,7 +5,6 @@ import { useSnapshotDisplay } from "../../../hooks/useSnapshotDisplay";
 import { 
   Camera, 
   TrendingUp, 
-  Layers, 
   Sparkles, 
 } from "lucide-react";
 import InteractiveElements from "./InteractiveElements";

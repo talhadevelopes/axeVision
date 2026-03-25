@@ -48,9 +48,9 @@ export default function SnapshotDiff({ snapshots }: SnapshotDiffProps) {
         ? extractHeadContent(selectedSnapshotA.content)
         : selectedSnapshotA.content;
 
-    // IMPORTANT: use raw line diff to preserve newlines/formatting
+    //use raw line diff to preserve newlines/formatting
     const parts = diffLines(oldContent, newContent);
-    // Build git-style diff strings so Shiki's diff transformer can color +/-
+    // Build Shiki's diff transformer color +/-
     const before = parts
       .map((p) => {
         if (p.added) return "";
@@ -60,7 +60,6 @@ export default function SnapshotDiff({ snapshots }: SnapshotDiffProps) {
             .map((line) => (line.length ? `- ${line}` : ""))
             .join("\n");
         }
-        // unchanged: keep as-is
         return p.value;
       })
       .join("");
@@ -74,14 +73,12 @@ export default function SnapshotDiff({ snapshots }: SnapshotDiffProps) {
             .map((line) => (line.length ? `+ ${line}` : ""))
             .join("\n");
         }
-        // unchanged: keep as-is
         return p.value;
       })
       .join("");
     return { beforeCode: before, afterCode: after };
   }, [selectedSnapshotA, selectedSnapshotB, diffView]);
 
-  // Filter to only the changed lines when toggled on
   const filteredBefore = useMemo(() => {
     if (!onlyChanges) return beforeCode;
     return beforeCode
@@ -99,7 +96,7 @@ export default function SnapshotDiff({ snapshots }: SnapshotDiffProps) {
   }, [afterCode, onlyChanges]);
 
   if (snapshots.length <= 1) {
-    return null; // Don't show diff if less than 2 snapshots
+    return null;
   }
 
   return (

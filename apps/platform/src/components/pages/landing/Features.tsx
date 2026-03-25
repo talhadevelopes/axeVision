@@ -3,18 +3,17 @@ import {
   Bot,
   Users,
   GitCompare,
-  FileText,
   Eye,
   X,
   Shield,
   Chrome,
   AlertTriangle,
+  LayoutDashboard,
 } from "lucide-react";
 
 const FeatureShowcase = () => {
   const [lightboxImage, setLightboxImage] = useState<any>(null);
 
-  // Organized your 19 screenshots into logical feature groups
   const featureCategories = [
     {
       id: "auth-teams",
@@ -24,28 +23,21 @@ const FeatureShowcase = () => {
       gradient: "from-blue-500 to-blue-600",
       bgGradient: "from-blue-50/50 to-transparent",
       description:
-        "Secure JWT-based authentication with role-based access control. Manage teams, assign roles, and collaborate with QA, Testers, and Developers seamlessly.",
+        "Secure JWT-based authentication with role-based access control. Set up your team profile, assign roles (Admin or Member), and manage permissions from a centralised dashboard.",
       images: [
         {
           id: 1,
           src: "/Img1.png",
-          label: "Login & Authentication",
+          label: "Onboarding & Role Setup",
           description:
-            "Secure JWT login with role-based access control for Admin and Member roles",
+            "Complete Your Profile screen with professional role dropdown (Lead QA Engineer, Frontend Developer, Backend Developer, and more) and account type selection - Team Member or Team Admin",
         },
         {
           id: 2,
           src: "/Img2.png",
-          label: "Team Dashboard",
+          label: "Team Management",
           description:
-            "Centralized team management with member roles and permissions",
-        },
-        {
-          id: 3,
-          src: "/Img3.png",
-          label: "Role Management",
-          description:
-            "Assign and manage team member roles with granular permissions",
+            "Admin panel showing 2 existing members with roles (Frontend Developer, Lead QA Engineer), alongside a Create New Member form for adding a Backend Developer as a Member",
         },
       ],
     },
@@ -57,125 +49,35 @@ const FeatureShowcase = () => {
       gradient: "from-green-500 to-emerald-600",
       bgGradient: "from-green-50/50 to-transparent",
       description:
-        "Powerful Chrome extension that captures complete DOM snapshots, tracks changes, and provides real-time analysis. Install once, test everywhere.",
+        "A lightweight Chrome extension that parses the DOM of any page into a structured content object - capturing headings, paragraphs, links, inputs, buttons, and forms. Provides immediate feedback in the popup before the dashboard even opens.",
       images: [
+        {
+          id: 3,
+          src: "/Img3.png",
+          label: "Snapshot Capture",
+          description:
+            "Extension popup on Wikipedia showing the Snapshot tab - post-capture feedback confirming 7 headings, 12 paragraphs, 75 links, 14 inputs, and 1 form captured instantly",
+        },
         {
           id: 4,
           src: "/Img4.png",
-          label: "Extension Interface",
+          label: "Live Analysis Log",
           description:
-            "Clean, intuitive Chrome extension UI for capturing website snapshots",
-        },
-        {
-          id: 5,
-          src: "/Img5.png",
-          label: "DOM Snapshot",
-          description:
-            "Complete DOM structure capture with element hierarchy and attributes",
-        },
-        {
-          id: 6,
-          src: "/Img6.png",
-          label: "Snapshot History",
-          description:
-            "Track all captured snapshots with timestamps and metadata",
-        },
-        {
-          id: 7,
-          src: "/Img7.png",
-          label: "Visual Comparison",
-          description:
-            "Side-by-side comparison of snapshots to identify changes",
-        },
-      ],
-    },
-    {
-      id: "ai-chatbot",
-      title: "AI-Powered Chatbot & Analysis",
-      icon: Bot,
-      color: "purple",
-      gradient: "from-purple-500 to-purple-600",
-      bgGradient: "from-purple-50/50 to-transparent",
-      description:
-        "Intelligent AI chatbot that understands your DOM structure, answers questions about forms, links, and accessibility issues. Get instant insights about your website.",
-      images: [
-        {
-          id: 8,
-          src: "/Img8.png",
-          label: "AI Chat Interface",
-          description:
-            "Natural language queries about DOM structure, forms, and links",
+            "Accessibility tab with real-time axe-core log showing DOM capture in 8ms, analysis completing in 8638ms, 31 issues detected - summary shows 0 Critical, 1 High, 30 Medium, 0 Low",
         },
         {
           id: 9,
           src: "/Img9.png",
-          label: "Smart Responses",
+          label: "Interactive Elements Breakdown",
           description:
-            "Context-aware AI responses with actionable recommendations",
+            "Detailed breakdown of all interactive elements: 7 buttons (Search, Collapse, Close…), 1 form with GET action, 14 inputs (hidden, search, radio…), and 75 links with their full text",
         },
         {
-          id: 10,
-          src: "/Img10.png",
-          label: "DOM Insights",
+          id: 8,
+          src: "/Img8.png",
+          label: "Snapshot History & Live Preview",
           description:
-            "AI analysis of website structure and potential improvements",
-        },
-      ],
-    },
-    {
-      id: "collaboration",
-      title: "Real-time Team Collaboration",
-      icon: Users,
-      color: "indigo",
-      gradient: "from-indigo-500 to-indigo-600",
-      bgGradient: "from-indigo-50/50 to-transparent",
-      description:
-        "WebSocket-powered real-time chat, online/offline status tracking, and instant team notifications. Collaborate without leaving the platform.",
-      images: [
-        {
-          id: 11,
-          src: "/Img11.png",
-          label: "Live Team Chat",
-          description:
-            "Real-time WebSocket chat for instant team communication",
-        },
-        {
-          id: 12,
-          src: "/Img12.png",
-          label: "Online Status",
-          description: "See who's online with live presence indicators",
-        },
-        {
-          id: 13,
-          src: "/Img13.png",
-          label: "Chat History",
-          description:
-            "Complete conversation history with timestamps and user context",
-        },
-      ],
-    },
-    {
-      id: "diff-tracking",
-      title: "Git-Style Diff & Change Tracking",
-      icon: GitCompare,
-      color: "orange",
-      gradient: "from-orange-500 to-orange-600",
-      bgGradient: "from-orange-50/50 to-transparent",
-      description:
-        "Visual diff tracking with pixel-perfect change detection. See additions in green, removals in red, just like Git diffs but for your UI.",
-      images: [
-        {
-          id: 14,
-          src: "/Img14.png",
-          label: "Visual Diff View",
-          description: "Git-style visual diffs showing additions and removals",
-        },
-        {
-          id: 15,
-          src: "/Img15.png",
-          label: "Change Detection",
-          description:
-            "Pixel-level change detection with highlighted modifications",
+            "Snapshot list showing 2 captures from 11/30/2025, with a live preview panel on the right rendering the actual captured Wikipedia HTML directly in the dashboard",
         },
       ],
     },
@@ -187,46 +89,146 @@ const FeatureShowcase = () => {
       gradient: "from-red-500 to-red-600",
       bgGradient: "from-red-50/50 to-transparent",
       description:
-        "Gemini AI-powered accessibility scanning with 4-level severity classification. Get automated fix recommendations and actionable insights.",
+        "Full WCAG analysis powered by axe-core running in a Puppeteer headless browser on the backend. Issues are categorised by severity. Gemini AI then generates specific code fixes and actionable recommendations for every violation found.",
       images: [
         {
-          id: 16,
-          src: "/Img16.png",
-          label: "A11y Scanner",
-          description: "Comprehensive accessibility scan powered by Gemini AI",
+          id: 11,
+          src: "/Img11.png",
+          label: "Accessibility Analysis",
+          description:
+            "Main analysis view showing 31 total issues - 0 Critical, 1 High, 30 Medium, 0 Low - with Generate Code Fixes and Generate AI Recommendations buttons, and individual issue cards with WCAG context",
+        },
+        {
+          id: 12,
+          src: "/Img12.png",
+          label: "AI Code Fixes",
+          description:
+            "Gemini-generated code fixes for each violation - fix #3 adds an empty alt attribute to a hidden tracking image, fix #4 wraps an unlabelled input with a matching label element",
         },
         {
           id: 17,
           src: "/Img17.png",
-          label: "Issue Severity",
+          label: "AI Recommendations",
           description:
-            "4-level severity classification: Critical, Serious, Moderate, Minor",
+            "AI Recommendations tab with actionable step-by-step guidance for Images Missing Alt Text and Form Inputs Without Labels, including exact corrected HTML code snippets",
+        },
+      ],
+    },
+    {
+      id: "ai-chatbot",
+      title: "A11y Co-Pilot",
+      icon: Bot,
+      color: "purple",
+      gradient: "from-purple-500 to-purple-600",
+      bgGradient: "from-purple-50/50 to-transparent",
+      description:
+        "A context-aware AI assistant that understands the exact snapshot you are reviewing. It builds its responses from the real issue data - the URL, severity counts, and violation categories - so every answer is specific to your page, not generic advice.",
+      images: [
+        {
+          id: 16,
+          src: "/Img16.png",
+          label: "Context-Aware Co-Pilot",
+          description:
+            "Co-Pilot panel explaining the 2 High priority issues on reddit.com - 1 image missing alt text, 2 inputs without labels - with specific context pulled directly from the axe-core scan results",
+        },
+      ],
+    },
+    {
+      id: "diff-tracking",
+      title: "Snapshot Comparison & DOM Diff",
+      icon: GitCompare,
+      color: "orange",
+      gradient: "from-orange-500 to-orange-600",
+      bgGradient: "from-orange-50/50 to-transparent",
+      description:
+        "Compare any two captured snapshots side by side using a custom-built diff engine. Powered by the diffLines algorithm with red highlighting for removals and green for additions - exactly like a Git diff but for your live DOM.",
+      images: [
+        {
+          id: 10,
+          src: "/Img10.png",
+          label: "HTML Diff View",
+          description:
+            "Side-by-side line-by-line diff between Snapshot 1 and Snapshot 2 - left panel shows removed headings (Spain is different, Spinosaurus…) and links in red, right panel shows added Wikipedia language links in green",
+        },
+      ],
+    },
+    {
+      id: "collaboration",
+      title: "Real-Time Team Collaboration",
+      icon: Users,
+      color: "indigo",
+      gradient: "from-indigo-500 to-indigo-600",
+      bgGradient: "from-indigo-50/50 to-transparent",
+      description:
+        "Socket.io-powered real-time messaging with private direct messages, group channels scoped to your organisation, live online presence indicators, and typing notifications.",
+      images: [
+        {
+          id: 19,
+          src: "/Img19.png",
+          label: "Direct Messages",
+          description:
+            "Private DM with Team Member 2 (Offline) showing a sent message ready to collaborate on backend-frontend integration, with delivery confirmation tick and timestamp",
         },
         {
           id: 18,
           src: "/Img18.png",
-          label: "Fix Recommendations",
+          label: "Group Chat",
           description:
-            "AI-generated recommendations with code examples and best practices",
+            "Organisation-scoped Group Chat with 3 members - Admin's welcome message and Team Member 1's reply as Frontend Developer visible, with full conversation history and persistent storage",
         },
       ],
     },
     {
       id: "reports-viz",
-      title: "Reports & DOM Visualization",
-      icon: FileText,
+      title: "Dashboard & DOM Visualisation",
+      icon: LayoutDashboard,
       color: "teal",
       gradient: "from-teal-500 to-teal-600",
       bgGradient: "from-teal-50/50 to-transparent",
       description:
-        "Automated PDF reports, interactive DOM tree visualization, and weekly analytics. Export and share comprehensive QA reports with your team.",
+        "A high-level analytics dashboard across all tracked websites, performance metrics per snapshot, and an interactive Website Mind view that visualises the full DOM structure as a tree and element distribution as charts.",
       images: [
         {
-          id: 19,
-          src: "/Img19.png",
-          label: "DOM Tree & Reports",
+          id: 5,
+          src: "/Img5.png",
+          label: "Analytics Dashboard",
           description:
-            "Interactive DOM tree visualization with automated PDF report generation",
+            "Main dashboard showing 10 tracked websites, 19 snapshots (last 11/30/2025), 0 critical issues (148 total), and 3 team members (1 admin, 2 members) with 7-day trend sparklines",
+        },
+        {
+          id: 6,
+          src: "/Img6.png",
+          label: "Website Inventory",
+          description:
+            "Searchable grid of all 10 tracked properties - WebMD, PayPal, Airbnb, Harvard, HealthCare.gov, Reddit and more - each showing creation date, last snapshot date, and a View Details button",
+        },
+        {
+          id: 7,
+          src: "/Img7.png",
+          label: "Performance Analytics",
+          description:
+            "Snapshot throughput metrics showing 116 elements captured in 4ms at 31,351 elements/sec, with a radar chart of element composition and a linear elements-per-second trend graph",
+        },
+        {
+          id: 15,
+          src: "/Img15.png",
+          label: "DOM Tree View",
+          description:
+            "Full-screen interactive DOM tree in horizontal orientation showing every captured node - anchor tags with href and text, br elements with childrenCount 0 - rooted from the html element",
+        },
+        {
+          id: 14,
+          src: "/Img14.png",
+          label: "Element Statistics",
+          description:
+            "Breakdown of 174 total elements across 11 unique types - a and br both at 75, p at 12, h2 at 5, then html/head/title/style each at 1 - with proportional blue bar indicators",
+        },
+        {
+          id: 13,
+          src: "/Img13.png",
+          label: "Content Distribution",
+          description:
+            "Interactive bar chart showing element type distribution - a and br dominating at 75 each (43.1%), p at 12 (6.9%), h2 at 5 (2.9%) - with Bar/Pie toggle and count axis",
         },
       ],
     },
@@ -256,14 +258,6 @@ const FeatureShowcase = () => {
                 className="w-full h-full object-contain"
               />
             </div>
-            <div className="p-6 bg-white">
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                {lightboxImage.label}
-              </h3>
-              <p className="text-gray-600 text-lg">
-                {lightboxImage.description}
-              </p>
-            </div>
           </div>
         </div>
       </div>
@@ -272,11 +266,9 @@ const FeatureShowcase = () => {
 
   return (
     <section className="py-24 bg-gradient-to-br from-white to-gray-50 relative overflow-hidden">
-      {/* Background Pattern */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#10b98108_1px,transparent_1px),linear-gradient(to_bottom,#10b98108_1px,transparent_1px)] bg-[size:40px_40px] opacity-30"></div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
-        {/* Feature Categories - Alternating Layout */}
         <div className="space-y-32">
           {featureCategories.map((category, index) => {
             const Icon = category.icon;
@@ -284,7 +276,6 @@ const FeatureShowcase = () => {
 
             return (
               <div key={category.id} className="group relative">
-                {/* Floating Background Element */}
                 <div
                   className={`absolute ${isEven ? "-left-20" : "-right-20"} top-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-br ${category.bgGradient} rounded-full blur-3xl opacity-20 group-hover:opacity-30 transition-opacity duration-700`}
                 ></div>
@@ -292,7 +283,6 @@ const FeatureShowcase = () => {
                 <div
                   className={`grid lg:grid-cols-2 gap-12 items-center ${isEven ? "" : "lg:flex-row-reverse"}`}
                 >
-                  {/* Text Content */}
                   <div
                     className={`space-y-6 ${isEven ? "lg:pr-8" : "lg:pl-8 lg:order-2"}`}
                   >
@@ -313,7 +303,6 @@ const FeatureShowcase = () => {
                       {category.description}
                     </p>
 
-                    {/* Feature Tags */}
                     <div className="flex flex-wrap gap-2 pt-4">
                       {category.images.map((img) => (
                         <span
@@ -326,7 +315,6 @@ const FeatureShowcase = () => {
                     </div>
                   </div>
 
-                  {/* Image Grid */}
                   <div
                     className={`relative ${isEven ? "lg:order-2" : "lg:order-1"}`}
                   >
@@ -339,15 +327,10 @@ const FeatureShowcase = () => {
                           onClick={() => setLightboxImage(img)}
                           className={`relative group/img cursor-pointer overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 ${
                             imgIndex === 0 && category.images.length > 1
-                              ? "col-span-2"
-                              : ""
-                          } ${
-                            imgIndex === 0 && category.images.length > 1
-                              ? "aspect-video"
+                              ? "col-span-2 aspect-video"
                               : "aspect-square"
                           }`}
                         >
-                          {/* Placeholder with gradient - replace with actual image */}
                           <div
                             className={`absolute inset-0 bg-gradient-to-br ${category.gradient} opacity-10`}
                           ></div>
@@ -360,7 +343,6 @@ const FeatureShowcase = () => {
                             />
                           </div>
 
-                          {/* Hover Overlay */}
                           <div className="absolute inset-0 bg-black/0 group-hover/img:bg-black/60 transition-all duration-300 flex items-center justify-center">
                             <div className="opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 text-center px-6">
                               <Eye className="h-10 w-10 text-white mx-auto mb-3" />
@@ -373,7 +355,6 @@ const FeatureShowcase = () => {
                             </div>
                           </div>
 
-                          {/* Image Label Badge */}
                           <div className="absolute bottom-4 left-4 right-4">
                             <div className="bg-white/95 backdrop-blur-sm rounded-lg px-4 py-2 shadow-lg">
                               <p className="text-sm font-semibold text-gray-900">
@@ -392,7 +373,6 @@ const FeatureShowcase = () => {
         </div>
       </div>
 
-      {/* Lightbox */}
       <Lightbox />
     </section>
   );

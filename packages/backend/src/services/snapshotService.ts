@@ -1,4 +1,3 @@
-import { Snapshot } from "../models";
 import { gzip, gunzip } from "node:zlib";
 import { promisify } from "node:util";
 
@@ -6,9 +5,8 @@ const gzipAsync = promisify(gzip);
 const gunzipAsync = promisify(gunzip);
 
 export class SnapshotService {
-  /**
-   * Internal logic for preparing snapshot data, including compression of content and metadata.
-   */
+
+  // Internal logic for preparing snapshot data, including compression of content and metadata.
   static async prepareSnapshotData(params: {
     content: string;
     structuredContent?: any;
@@ -67,17 +65,14 @@ export class SnapshotService {
     };
   }
 
-  /**
-   * Decompress snapshot content
-   */
+  // Decompress snapshot content   
   static async decompressContent(compressedBuffer: Buffer): Promise<string> {
     const decompressed = await gunzipAsync(compressedBuffer);
     return decompressed.toString("utf8");
   }
 
-  /**
-   * Decompress snapshot metadata
-   */
+
+  // Decompress snapshot metadata   
   static async decompressMetadata(compressedBuffer: Buffer): Promise<any> {
     const decompressed = await gunzipAsync(compressedBuffer);
     return JSON.parse(decompressed.toString("utf8"));

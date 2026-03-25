@@ -159,7 +159,7 @@ export const messagesService = {
 export const presenceService = {
   getOnline: async () => {
     setupInterceptors();
-    const response = await axios.get(`${API_BASE_URL}/api/presence/online`);
+    const response = await axios.get(`${API_BASE_URL}/api/messages/online`);
     return response.data.data as { online: string[] };
   },
 };

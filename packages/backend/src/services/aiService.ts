@@ -207,11 +207,7 @@ Respond with JSON only, no other text:`;
                 : new Error("Failed to generate AI recommendations");
         }
     }
-
-    /**
-     * Helper method to call Gemini API
-     */
-
+    // Helper method to call Gemini API
     public static async callGeminiAPI(
         input: string | { role: string; parts: { text: string }[] }[],
         apiKeyEnv: string

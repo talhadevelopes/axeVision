@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 import routes from "./routes";
 import { connectDatabase } from "./utils/database";
 import { sendError, sendSuccess } from "./types/response";
-import { redisClient, connectRedis } from "./utils/redis"; // Import from redis.ts
+import { redisClient, connectRedis } from "./utils/redis";
 import hpp from "hpp";
 import helmet from "helmet";
 import mongoSanitize from "express-mongo-sanitize";
@@ -129,8 +129,6 @@ export const startServer = async () => {
         try {
           await mongoose.disconnect();
           console.log("Database disconnected");
-
-          // Upstash redis doesn't need to disconnect
           console.log("Redis ready to exit");
 
           process.exit(0);
@@ -139,8 +137,6 @@ export const startServer = async () => {
           process.exit(1);
         }
       });
-
-      // Force shutdown after 10 seconds if graceful shutdown hangs
       setTimeout(() => {
         console.error("Forcing shutdown after timeout");
         process.exit(1);

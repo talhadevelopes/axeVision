@@ -1,0 +1,32 @@
+Copyright (c) 2025 AxeVision. All rights reserved.
+
+---
+
+PROPRIETARY LICENSE
+
+This software and its source code are the intellectual property of the author.
+Viewing and referencing the code for personal learning or evaluation purposes
+is permitted. Any other use is strictly prohibited without prior written
+permission from the author, including but not limited to:
+
+- Copying, reproducing, or duplicating any part of this codebase
+- Distributing, publishing, or sharing this code in any form
+- Modifying, adapting, or building derivative works based on this code
+- Using this code, in whole or in part, in any commercial or non-commercial
+  product or service
+
+To request permission for any of the above, contact the author via GitHub.
+
+---
+
+ATTRIBUTION
+
+axeVision is an independent reimplementation and full architectural rebuild, inspired by an original MVP concept called Weblenses, developed during the Feuji AI Innovate 2025 Hackathon by Team AIDucate. The original Weblenses project was a prototype consisting solely of a browser extension with snapshot functionality. axeVision shares no code with the original MVP and was designed, architected, and built entirely from scratch.
+
+This attribution is included out of respect for the origin of the idea.
+
+---
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES, OR
+OTHER LIABILITY ARISING FROM OR IN CONNECTION WITH THE SOFTWARE OR ITS USE.

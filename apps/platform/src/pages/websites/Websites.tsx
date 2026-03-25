@@ -1,14 +1,8 @@
+import * as React from "react";
 import { Link } from "react-router-dom";
-import { useState, useMemo } from "react";
 import { useAuthStore } from "../../stores/authStore";
 import { useWebsitesQuery } from "../../queries/useWebsiteQueries";
 import type { WebsiteDTO } from "@axeVision/shared";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-  DropdownMenuItem,
-} from "@axeVision/shared/components/dropdown";
 import {
   Globe,
   Calendar,
@@ -19,25 +13,23 @@ import {
   Search,
   X,
   Sparkles,
+  MoreVertical,
+  Brain,
 } from "lucide-react";
-import {
-  AuthRequiredError,
-  ErrorDisplay,
-  LoadingDisplay,
-} from "../../components";
+import { AuthRequiredError, ErrorDisplay, LoadingDisplay, PageBackground } from "../../components";
 
 export default function Websites() {
   const { user } = useAuthStore();
   const { data: websites, isLoading, isError, error } = useWebsitesQuery();
-  const [searchQuery, setSearchQuery] = useState("");
-  const [filterStatus, setFilterStatus] = useState<
+  const [searchQuery, setSearchQuery] = React.useState("");
+  const [filterStatus, setFilterStatus] = React.useState<
     "all" | "active" | "inactive"
   >("all");
-  const [sortBy, setSortBy] = useState<"name" | "created" | "updated">(
+  const [sortBy, _setSortBy] = React.useState<"name" | "created" | "updated">(
     "created"
   );
 
-  const filteredAndSortedWebsites = useMemo(() => {
+  const filteredAndSortedWebsites = React.useMemo(() => {
     if (!websites) return [];
 
     let filtered = websites.filter((website: any) => {
@@ -90,29 +82,7 @@ export default function Websites() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-green-50/30 to-emerald-50/50 relative overflow-hidden">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-gradient-to-br from-green-200/30 to-emerald-300/20 blur-3xl animate-pulse" />
-        <div
-          className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full bg-gradient-to-br from-green-100/40 to-teal-200/30 blur-3xl animate-pulse"
-          style={{ animationDelay: "1s" }}
-        />
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full bg-gradient-to-br from-green-50/50 to-emerald-100/30 blur-2xl animate-pulse"
-          style={{ animationDelay: "2s" }}
-        />
-      </div>
-
-      {/* Floating grid pattern */}
-      <div className="absolute inset-0 opacity-30">
-        <div
-          className="w-full h-full"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(34, 197, 94, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(34, 197, 94, 0.1) 1px, transparent 1px)",
-            backgroundSize: "40px 40px",
-          }}
-        />
-      </div>
+      <PageBackground />
 
       <div className="relative z-10 p-4 py-24 max-w-7xl mx-auto">
         {/* Header Section */}
@@ -231,7 +201,7 @@ export default function Websites() {
                     )}
                   </div>
 
-                  <div className="flex gap-3">
+                  <div className="flex gap-3 items-center">
                     <Link
                       to={`/websites/${website.id}`}
                       className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-green-600 to-emerald-600 text-white font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200"

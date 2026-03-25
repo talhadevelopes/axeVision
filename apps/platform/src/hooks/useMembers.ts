@@ -3,9 +3,7 @@ import { memberService } from "../services/api";
 import type { Member } from "@axeVision/shared";
 import { useAuthStore } from "../stores/authStore";
 
-/**
- * Hook to fetch all members for the current user's team.
- */
+//Hook to fetch all members for the current user's team. 
 export const useMembersQuery = () => {
   const { token } = useAuthStore();
   return useQuery<Member[], Error>({
@@ -22,9 +20,7 @@ export const useMembersQuery = () => {
   });
 };
 
-/**
- * Hook to create a new team member.
- */
+//Hook to create a new team member.
 export const useCreateMemberMutation = () => {
   const queryClient = useQueryClient();
   return useMutation<Member, Error, { name: string; role: string; type: "Admin" | "Member" }>({
@@ -39,9 +35,7 @@ export const useCreateMemberMutation = () => {
   });
 };
 
-/**
- * Hook to update an existing team member.
- */
+//Hook to update an existing team member.
 export const useUpdateMemberMutation = () => {
   const queryClient = useQueryClient();
   return useMutation<Member, Error, { memberId: string; formData: { name: string; role: string; type: "Admin" | "Member" } }>({
@@ -58,9 +52,7 @@ export const useUpdateMemberMutation = () => {
   });
 };
 
-/**
- * Hook to delete a team member.
- */
+//Hook to delete a team member.
 export const useDeleteMemberMutation = () => {
   const queryClient = useQueryClient();
   return useMutation<string, Error, string>({

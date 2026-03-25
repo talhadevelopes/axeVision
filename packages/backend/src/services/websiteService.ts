@@ -3,9 +3,8 @@ import type { WebsiteDTO } from "@axeVision/shared";
 import { redisClient } from "../utils/redis";
 
 export class WebsiteService {
-  /**
-   * Find a website by URL and user ID
-   */
+  
+  //Find a website by URL and user ID
   static async findWebsiteByUrl(url: string, userId: string) {
     return await Website.findOne({
       url,
@@ -13,9 +12,7 @@ export class WebsiteService {
     });
   }
 
-  /**
-   * Create a new website
-   */
+  //Create a new website   
   static async createWebsite(websiteData: {
     url: string;
     name: string;
@@ -24,7 +21,7 @@ export class WebsiteService {
     isActive: boolean;
   }) {
     const website = await Website.create(websiteData);
-    
+
     // Invalidate cache
     try {
       const cacheKey = `websites:${websiteData.userId}`;
@@ -40,9 +37,7 @@ export class WebsiteService {
     return website;
   }
 
-  /**
-   * Get all websites for a user with their latest snapshot information
-   */
+  //Get all websites for a user with their latest snapshot information   
   static async getUserWebsites(userId: string) {
     const websites = await Website.find({
       userId,
@@ -55,14 +50,14 @@ export class WebsiteService {
           { websiteId: website._id.toString(), userId },
           { capturedAt: 1 }
         ).sort({ capturedAt: -1 });
-        
+
         return {
           id: website._id.toString(),
           url: website.url,
           name: website.name,
           createdAt: website.createdAt.toISOString(),
-          latestSnapshot: latestSnapshot?.capturedAt 
-            ? latestSnapshot.capturedAt.toISOString() 
+          latestSnapshot: latestSnapshot?.capturedAt
+            ? latestSnapshot.capturedAt.toISOString()
             : null,
         } as WebsiteDTO;
       })
@@ -71,9 +66,8 @@ export class WebsiteService {
     return websitesWithSnapshots;
   }
 
-  /**
-   * Cache websites data
-   */
+
+  //Cache websites data   
   static async cacheUserWebsites(userId: string, data: WebsiteDTO[]) {
     try {
       await redisClient.setex(
@@ -89,9 +83,7 @@ export class WebsiteService {
     }
   }
 
-  /**
-   * Get cached websites data
-   */
+  // Get cached websites data   
   static async getCachedUserWebsites(userId: string): Promise<WebsiteDTO[] | null> {
     try {
       const cacheKey = `websites:${userId}`;

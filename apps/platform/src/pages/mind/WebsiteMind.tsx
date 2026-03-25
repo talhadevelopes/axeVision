@@ -122,7 +122,7 @@ export default function WebsiteMindPage() {
         />
       </div>
 
-      <div className="relative z-10 p-4 py-12 max-w-7xl mx-auto">
+      <div className="relative z-10 mt-5 p-4 py-12 max-w-7xl mx-auto">
         {/* Header Section */}
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between mb-8 gap-6"></div>
 

@@ -4,7 +4,6 @@ interface Props {
   text?: string | null;
 }
 
-// Very small markdown-like renderer for headings, lists, hr and fenced code blocks.
 export default function AiResponseRenderer({ text }: Props) {
   if (!text) return null;
 
@@ -19,7 +18,6 @@ export default function AiResponseRenderer({ text }: Props) {
 
   const flushParagraph = (paragraphLines: string[]) => {
     if (paragraphLines.length === 0) return;
-    // Render paragraph with simple inline **bold** support
     const joined = paragraphLines.join(" ");
     const inlineParts: React.ReactNode[] = [];
     const boldRegex = /\*\*(.+?)\*\*/g;
@@ -129,7 +127,6 @@ export default function AiResponseRenderer({ text }: Props) {
       continue;
     }
 
-    // Full-line double-asterisk headings like **Recommendation:** -> render as heading
     const boldHeadingMatch = line.match(/^\s*\*\*(.+?)\*\*\s*$/);
     if (boldHeadingMatch) {
       flushParagraph(paragraphAcc);
@@ -191,7 +188,6 @@ export default function AiResponseRenderer({ text }: Props) {
   flushList();
 
   return (
-    // ensure AI content can expand and won't be visually clipped by ancestor cards
     <div className="prose max-w-none text-slate-700 overflow-visible whitespace-pre-wrap">{nodes}</div>
   );
 }
