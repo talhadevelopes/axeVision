@@ -21,7 +21,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: ./packages/backend/Dockerfile
+          file: ./apps/backend/Dockerfile
           push: true
           tags: talhadevelopes/axevision-backend:latest
 
