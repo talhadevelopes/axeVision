@@ -160,14 +160,14 @@ const FeatureShowcase = () => {
       gradient: "from-indigo-500 to-indigo-600",
       bgGradient: "from-indigo-50/50 to-transparent",
       description:
-        "Socket.io-powered real-time messaging with private direct messages, group channels scoped to your organisation, live online presence indicators, and typing notifications.",
+        "Socket.io-powered real-time messaging with private direct messages, group channels scoped to your organisation, and typing notifications.",
       images: [
         {
           id: 19,
           src: "/Img19.png",
           label: "Direct Messages",
           description:
-            "Private DM with Team Member 2 (Offline) showing a sent message ready to collaborate on backend-frontend integration, with delivery confirmation tick and timestamp",
+            "Private DM with Team Member 2 showing a sent message ready to collaborate on backend-frontend integration, with delivery confirmation tick and timestamp",
         },
         {
           id: 18,

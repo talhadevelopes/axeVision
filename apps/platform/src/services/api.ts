@@ -155,16 +155,6 @@ export const messagesService = {
   },
 };
 
-// Presence Service
-export const presenceService = {
-  getOnline: async () => {
-    setupInterceptors();
-    const response = await axios.get(`${API_BASE_URL}/api/messages/online`);
-    return response.data.data as { online: string[] };
-  },
-};
-
-
 // Utility Service
 export const utilityService = {
   // Generate code fixes for accessibility issues

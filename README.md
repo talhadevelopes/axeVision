@@ -140,7 +140,7 @@ A demo account is pre-loaded with real websites, snapshots, and accessibility sc
 
 ```
 Email:    demo@axevision.dev
-Password: Demo@1234
+Password: demo@1234
 ```
 
 ---

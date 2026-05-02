@@ -1,0 +1,117 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum MemberType {
+  Admin
+  Member
+}
+
+enum ChatKind {
+  group
+  dm
+}
+
+model User {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  email      String   @unique
+  password   String
+  onboarded  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("users")
+  @@index([createdAt])
+}
+
+model Member {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String
+  memberId  String     @unique
+  name      String
+  role      String
+  type      MemberType @default(Member)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@map("members")
+  @@unique([userId, memberId])
+  @@index([type])
+}
+
+model Website {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  url       String
+  name      String
+  userId    String
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("websites")
+  @@unique([url, userId])
+  @@index([isActive])
+}
+
+model Snapshot {
+  id                     String    @id @default(auto()) @map("_id") @db.ObjectId
+  websiteId              String
+  userId                 String
+  capturedAt             DateTime  @default(now())
+  contentPreview         String?
+  contentCompressed      Bytes?
+  contentEncoding        String?
+  contentSize            Int?
+  contentCompressedSize  Int?
+  metadataCompressed     Bytes?
+  metadataEncoding       String?
+  metadataSize           Int?
+  metadataCompressedSize Int?
+  analyzedAt             DateTime?
+  title                  String?
+  url                    String?
+  changesOnly            Json?
+  createdAt              DateTime  @default(now())
+  updatedAt              DateTime  @updatedAt
+
+  @@map("snapshots")
+  @@index([websiteId])
+  @@index([userId])
+  @@index([capturedAt])
+}
+
+model AccessibilityIssue {
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  snapshotId String
+  type       String
+  message    String
+  source     String?
+  context    String?
+  selector   String?
+
+  @@map("accessibility_issues")
+  @@index([snapshotId])
+  @@index([type])
+}
+
+model ChatMessage {
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId         String
+  type           ChatKind
+  fromMemberId   String
+  toMemberId     String?
+  conversationId String?
+  content        String
+  readBy         String[]  @default([])
+  createdAt      DateTime  @default(now())
+
+  @@map("chat_messages")
+  @@index([userId, type, createdAt(sort: Desc)])
+  @@index([conversationId, createdAt(sort: Desc)])
+}

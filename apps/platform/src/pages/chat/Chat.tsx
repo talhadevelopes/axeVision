@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useAuthStore } from '../../stores/authStore';
-import { memberService, messagesService, presenceService } from '../../services/api';
+import { memberService, messagesService } from '../../services/api';
 import { getChatSocket } from '../../services/chatSocket';
 import type { Member } from '@axeVision/shared';
 import { Search, Phone, Video, User, Send, Paperclip, Smile } from 'lucide-react';
@@ -24,7 +24,6 @@ const ChatPage: React.FC = () => {
   const selfMemberId = user?.memberId || '';
 
   const [members, setMembers] = useState<Member[]>([]);
-  const [online, setOnline] = useState<Set<string>>(new Set());
   const [selected, setSelected] = useState<ChatTarget>({ kind: 'group' });
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
@@ -53,10 +52,7 @@ const ChatPage: React.FC = () => {
   useEffect(() => {
     const init = async () => {
       try {
-        const [membersRes, presenceRes] = await Promise.all([
-          memberService.getMembersByUser(),
-          presenceService.getOnline(),
-        ]);
+        const membersRes = await memberService.getMembersByUser();
         
         // Correctly handle the member response structure
         const memberList = Array.isArray(membersRes) 
@@ -64,7 +60,6 @@ const ChatPage: React.FC = () => {
           : (membersRes?.members || []);
           
         setMembers(memberList);
-        setOnline(new Set(presenceRes.online || []));
       } catch (err) {
         console.error("Failed to initialize chat data:", err);
       }
@@ -74,17 +69,6 @@ const ChatPage: React.FC = () => {
 
   // Socket listeners (rebind when selection changes to update scoping)
   useEffect(() => {
-    const onPresenceList = (payload: { online: string[] }) => {
-      setOnline(new Set(payload.online || []));
-    };
-    const onPresenceOnline = (p: { memberId: string }) => setOnline((prev) => new Set(prev).add(p.memberId));
-    const onPresenceOffline = (p: { memberId: string }) => {
-      setOnline((prev) => {
-        const next = new Set(prev);
-        next.delete(p.memberId);
-        return next;
-      });
-    };
     const onGroupNew = (payload: { message: ChatMessage }) => {
       setMessages((prev) => (selected.kind === 'group' ? [...prev, payload.message] : prev));
       if (selected.kind === 'group') scrollToBottom();
@@ -112,9 +96,6 @@ const ChatPage: React.FC = () => {
       });
     };
 
-    socket.on('presence:list', onPresenceList);
-    socket.on('presence:online', onPresenceOnline);
-    socket.on('presence:offline', onPresenceOffline);
     socket.on('group:new', onGroupNew);
     socket.on('dm:new', onDmNew);
     socket.on('typing', onTyping);
@@ -135,9 +116,6 @@ const ChatPage: React.FC = () => {
     });
 
     return () => {
-      socket.off('presence:list', onPresenceList);
-      socket.off('presence:online', onPresenceOnline);
-      socket.off('presence:offline', onPresenceOffline);
       socket.off('group:new', onGroupNew);
       socket.off('dm:new', onDmNew);
       socket.off('typing', onTyping);
@@ -395,12 +373,10 @@ const ChatPage: React.FC = () => {
                 <div className="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center">
                   <User className="w-7 h-7 text-blue-600" />
                 </div>
-                <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-white rounded-full" />
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex justify-between items-start mb-1">
                   <h3 className="font-semibold text-gray-900">Group Chat</h3>
-                  <span className="text-xs text-gray-400">Active</span>
                 </div>
                 <p className="text-sm text-gray-600 truncate">{members.length} members</p>
               </div>
@@ -409,7 +385,6 @@ const ChatPage: React.FC = () => {
 
           {/* Member Cards */}
           {filteredMembers.map(m => {
-            const isOnline = online.has(m.memberId);
             const unread = getUnreadCount(m.memberId);
             
             return (
@@ -429,7 +404,6 @@ const ChatPage: React.FC = () => {
                     <div className="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center">
                       <User className="w-7 h-7 text-blue-600" />
                     </div>
-                    {isOnline && <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-white rounded-full" />}
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex justify-between items-start mb-1">
@@ -472,7 +446,8 @@ const ChatPage: React.FC = () => {
                   ) : selected.kind === 'group' ? (
                     `${members.length} members`
                   ) : (
-                    online.has((selected as any).peerMemberId) ? 'Active now' : 'Offline'
+                    members.find((mm) => mm.memberId === (selected as { kind: 'dm'; peerMemberId: string }).peerMemberId)?.role ||
+                    'Direct message'
                   )}
                 </p>
               </div>
@@ -569,7 +544,9 @@ const ChatPage: React.FC = () => {
                       </div>
                       <div>
                         <p className="font-medium text-gray-900">@{m.name}</p>
-                        <p className="text-xs text-gray-500">{online.has(m.memberId) ? 'Online' : 'Offline'}</p>
+                        {m.role ? (
+                          <p className="text-xs text-gray-500">{m.role}</p>
+                        ) : null}
                       </div>
                     </div>
                   ))}

@@ -13,7 +13,6 @@ interface ChatInputProps {
   pickMention: (m: Member) => void;
   handleMentionNav: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   selected: ChatTarget;
-  online: Set<string>;
 }
 
 export const ChatInput: React.FC<ChatInputProps> = ({
@@ -26,7 +25,6 @@ export const ChatInput: React.FC<ChatInputProps> = ({
   pickMention,
   handleMentionNav,
   selected,
-  online
 }) => {
   return (
     <div className="p-4 border-t border-gray-200 mt-auto flex-shrink-0">
@@ -68,7 +66,9 @@ export const ChatInput: React.FC<ChatInputProps> = ({
                 </div>
                 <div>
                   <p className="font-medium text-gray-900">@{m.name}</p>
-                  <p className="text-xs text-gray-500">{online.has(m.memberId) ? 'Online' : 'Offline'}</p>
+                  {m.role ? (
+                    <p className="text-xs text-gray-500">{m.role}</p>
+                  ) : null}
                 </div>
               </div>
             ))}

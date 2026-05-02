@@ -152,13 +152,12 @@ This means the Co-Pilot answers are always grounded in the actual issues found i
 
 ## Real-Time Chat
 
-Socket.io is initialised via `initChatSockets(io, redisClient)` on the same HTTP server as Express. It handles organisation-scoped messaging with:
+Socket.io is initialised via `initChatSockets(io)` on the same HTTP server as Express. It handles organisation-scoped messaging with:
 
 - Private direct message channels between two members
 - Group channels scoped to the organisation
 - Live typing indicator events
-- Message persistence to MongoDB via the messages model
-- Redis used for presence and active room state
+- Message persistence to MongoDB (Prisma) via the `ChatMessage` model
 
 ---
 

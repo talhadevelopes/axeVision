@@ -9,7 +9,6 @@ interface ChatSidebarProps {
   selected: ChatTarget;
   onSelectChat: (target: ChatTarget) => void;
   members: Member[];
-  online: Set<string>;
   messages: ChatMessage[];
   selfMemberId: string;
 }
@@ -20,7 +19,6 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
   selected,
   onSelectChat,
   members,
-  online,
   messages,
   selfMemberId
 }) => {
@@ -87,12 +85,10 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
               <div className="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center">
                 <User className="w-7 h-7 text-blue-600" />
               </div>
-              <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-white rounded-full" />
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex justify-between items-start mb-1">
                 <h3 className="font-semibold text-gray-900">Group Chat</h3>
-                <span className="text-xs text-gray-400">Active</span>
               </div>
               <p className="text-sm text-gray-600 truncate">{members.length} members</p>
             </div>
@@ -101,7 +97,6 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
 
         {/* Member Cards */}
         {filteredMembers.map(m => {
-          const isOnline = online.has(m.memberId);
           const unread = getUnreadCount(m.memberId);
 
           return (
@@ -115,7 +110,6 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
                   <div className="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center">
                     <User className="w-7 h-7 text-blue-600" />
                   </div>
-                  {isOnline && <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-white rounded-full" />}
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex justify-between items-start mb-1">

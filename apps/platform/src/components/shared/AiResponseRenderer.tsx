@@ -4,6 +4,61 @@ interface Props {
   text?: string | null;
 }
 
+/** Parses inline markdown: **bold**, `code`, [link](url) */
+function parseInline(text: string, keyPrefix: string): React.ReactNode[] {
+  const parts: React.ReactNode[] = [];
+  // matches **bold**, `code`, [label](url) — in that precedence
+  const inlineRegex = /(\*\*(.+?)\*\*|`([^`]+)`|\[([^\]]+)\]\((https?:\/\/[^)]+)\))/g;
+  let last = 0;
+  let m: RegExpExecArray | null;
+
+  while ((m = inlineRegex.exec(text)) !== null) {
+    if (m.index > last) {
+      parts.push(text.slice(last, m.index));
+    }
+
+    if (m[2] !== undefined) {
+      // **bold**
+      parts.push(
+        <strong key={`${keyPrefix}-b-${m.index}`} className="font-semibold">
+          {m[2]}
+        </strong>
+      );
+    } else if (m[3] !== undefined) {
+      // `inline code`
+      parts.push(
+        <code
+          key={`${keyPrefix}-c-${m.index}`}
+          className="bg-slate-100 text-rose-600 px-1 py-0.5 rounded text-xs font-mono"
+        >
+          {m[3]}
+        </code>
+      );
+    } else if (m[4] !== undefined && m[5] !== undefined) {
+      // [label](url)
+      parts.push(
+        <a
+          key={`${keyPrefix}-l-${m.index}`}
+          href={m[5]}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 underline hover:text-blue-800 transition-colors"
+        >
+          {m[4]}
+        </a>
+      );
+    }
+
+    last = m.index + m[0].length;
+  }
+
+  if (last < text.length) {
+    parts.push(text.slice(last));
+  }
+
+  return parts;
+}
+
 export default function AiResponseRenderer({ text }: Props) {
   if (!text) return null;
 
@@ -14,46 +69,35 @@ export default function AiResponseRenderer({ text }: Props) {
   let inCode = false;
   let codeBuffer: string[] = [];
   let listMode: "ul" | "ol" | null = null;
-  let listItems: string[] = [];
+  let listItems: React.ReactNode[] = [];
+  let paragraphAcc: string[] = [];
 
-  const flushParagraph = (paragraphLines: string[]) => {
-    if (paragraphLines.length === 0) return;
-    const joined = paragraphLines.join(" ");
-    const inlineParts: React.ReactNode[] = [];
-    const boldRegex = /\*\*(.+?)\*\*/g;
-    let lastIndex = 0;
-    let m: RegExpExecArray | null;
-    while ((m = boldRegex.exec(joined)) !== null) {
-      if (m.index > lastIndex) {
-        inlineParts.push(joined.slice(lastIndex, m.index));
-      }
-      inlineParts.push(<strong key={`b-${nodes.length}-${inlineParts.length}`} className="font-semibold">{m[1]}</strong>);
-      lastIndex = m.index + m[0].length;
-    }
-    if (lastIndex < joined.length) inlineParts.push(joined.slice(lastIndex));
-
+  const flushParagraph = (acc: string[]) => {
+    if (acc.length === 0) return;
+    const joined = acc.join(" ");
     nodes.push(
-      <p key={`p-${i}-${nodes.length}`} className="text-sm text-slate-700 leading-relaxed mb-3">
-        {inlineParts}
+      <p key={`p-${nodes.length}`} className="text-sm text-slate-700 leading-relaxed mb-3">
+        {parseInline(joined, `p-${nodes.length}`)}
       </p>
     );
   };
 
   const flushList = () => {
     if (!listMode || listItems.length === 0) return;
+    const key = `list-${nodes.length}`;
     if (listMode === "ul") {
       nodes.push(
-        <ul key={`ul-${nodes.length}`} className="list-disc pl-6 mb-3 text-sm text-slate-700">
+        <ul key={key} className="list-disc pl-6 mb-3 text-sm text-slate-700 space-y-1">
           {listItems.map((it, idx) => (
-            <li key={idx} className="mb-1">{it}</li>
+            <li key={idx}>{it}</li>
           ))}
         </ul>
       );
     } else {
       nodes.push(
-        <ol key={`ol-${nodes.length}`} className="list-decimal pl-6 mb-3 text-sm text-slate-700">
+        <ol key={key} className="list-decimal pl-6 mb-3 text-sm text-slate-700 space-y-1">
           {listItems.map((it, idx) => (
-            <li key={idx} className="mb-1">{it}</li>
+            <li key={idx}>{it}</li>
           ))}
         </ol>
       );
@@ -63,9 +107,12 @@ export default function AiResponseRenderer({ text }: Props) {
   };
 
   const flushCode = () => {
-    if (!inCode && codeBuffer.length === 0) return;
+    if (codeBuffer.length === 0) return;
     nodes.push(
-      <pre key={`code-${nodes.length}`} className="bg-slate-900 text-slate-100 rounded-md p-3 overflow-x-auto text-xs mb-3 font-mono">
+      <pre
+        key={`code-${nodes.length}`}
+        className="bg-slate-900 text-slate-100 rounded-md p-3 overflow-x-auto text-xs mb-3 font-mono"
+      >
         {codeBuffer.join("\n")}
       </pre>
     );
@@ -73,18 +120,15 @@ export default function AiResponseRenderer({ text }: Props) {
     inCode = false;
   };
 
-  let paragraphAcc: string[] = [];
-
   while (i < lines.length) {
     const raw = lines[i];
     const line = raw.replace(/\t/g, "    ");
 
-    if (line.trim().startsWith("```") ) {
+    // --- fenced code block ---
+    if (line.trim().startsWith("```")) {
       if (inCode) {
-        // closing
         flushCode();
       } else {
-        // opening
         flushParagraph(paragraphAcc);
         paragraphAcc = [];
         flushList();
@@ -101,7 +145,7 @@ export default function AiResponseRenderer({ text }: Props) {
       continue;
     }
 
-    // horizontal rule
+    // --- horizontal rule ---
     if (/^\s*-{3,}\s*$/.test(line)) {
       flushParagraph(paragraphAcc);
       paragraphAcc = [];
@@ -111,29 +155,46 @@ export default function AiResponseRenderer({ text }: Props) {
       continue;
     }
 
-    // heading
-    const headingMatch = line.match(/^#{1,6}\s+(.*)/);
+    // --- headings (# / ## / ###) ---
+    const headingMatch = line.match(/^(#{1,6})\s+(.*)/);
     if (headingMatch) {
       flushParagraph(paragraphAcc);
       paragraphAcc = [];
       flushList();
-      const textContent = headingMatch[1];
-      nodes.push(
-        <h4 key={`h-${i}`} className="text-lg font-semibold text-slate-800 mb-2">
-          {textContent}
-        </h4>
-      );
+      const level = headingMatch[1].length;
+      const content = headingMatch[2];
+      const key = `h-${i}`;
+      if (level === 1) {
+        nodes.push(
+          <h2 key={key} className="text-xl font-bold text-slate-900 mb-3 mt-5 first:mt-0">
+            {parseInline(content, key)}
+          </h2>
+        );
+      } else if (level === 2) {
+        nodes.push(
+          <h3 key={key} className="text-lg font-semibold text-slate-800 mb-2 mt-4 first:mt-0">
+            {parseInline(content, key)}
+          </h3>
+        );
+      } else {
+        nodes.push(
+          <h4 key={key} className="text-base font-medium text-slate-700 mb-1 mt-3 first:mt-0">
+            {parseInline(content, key)}
+          </h4>
+        );
+      }
       i++;
       continue;
     }
 
+    // --- standalone **bold line** treated as a sub-heading ---
     const boldHeadingMatch = line.match(/^\s*\*\*(.+?)\*\*\s*$/);
     if (boldHeadingMatch) {
       flushParagraph(paragraphAcc);
       paragraphAcc = [];
       flushList();
       nodes.push(
-        <h3 key={`bh-${i}`} className="text-xl font-bold text-slate-900 mb-2">
+        <h3 key={`bh-${i}`} className="text-lg font-bold text-slate-900 mb-2 mt-4 first:mt-0">
           {boldHeadingMatch[1].trim()}
         </h3>
       );
@@ -141,34 +202,27 @@ export default function AiResponseRenderer({ text }: Props) {
       continue;
     }
 
-    // ordered list
+    // --- ordered list ---
     const olMatch = line.match(/^\s*\d+\.\s+(.*)/);
     if (olMatch) {
-      paragraphAcc.length && (flushParagraph(paragraphAcc), (paragraphAcc = []));
-      if (listMode !== "ol") {
-        flushList();
-        listMode = "ol";
-        listItems = [];
-      }
-      listItems.push(olMatch[1]);
+      if (paragraphAcc.length) { flushParagraph(paragraphAcc); paragraphAcc = []; }
+      if (listMode !== "ol") { flushList(); listMode = "ol"; listItems = []; }
+      listItems.push(<>{parseInline(olMatch[1], `oli-${i}`)}</>);
       i++;
       continue;
     }
 
-    // unordered list
+    // --- unordered list ---
     const ulMatch = line.match(/^\s*[-*]\s+(.*)/);
     if (ulMatch) {
-      paragraphAcc.length && (flushParagraph(paragraphAcc), (paragraphAcc = []));
-      if (listMode !== "ul") {
-        flushList();
-        listMode = "ul";
-        listItems = [];
-      }
-      listItems.push(ulMatch[1]);
+      if (paragraphAcc.length) { flushParagraph(paragraphAcc); paragraphAcc = []; }
+      if (listMode !== "ul") { flushList(); listMode = "ul"; listItems = []; }
+      listItems.push(<>{parseInline(ulMatch[1], `uli-${i}`)}</>);
       i++;
       continue;
     }
 
+    // --- blank line ---
     if (line.trim() === "") {
       flushParagraph(paragraphAcc);
       paragraphAcc = [];
@@ -177,17 +231,17 @@ export default function AiResponseRenderer({ text }: Props) {
       continue;
     }
 
-    // normal text line -> accumulate
+    // --- normal text ---
     paragraphAcc.push(line.trim());
     i++;
   }
 
-  // flush remaining
+  // flush any remaining buffers
   if (inCode) flushCode();
   flushParagraph(paragraphAcc);
   flushList();
 
   return (
-    <div className="prose max-w-none text-slate-700 overflow-visible whitespace-pre-wrap">{nodes}</div>
+    <div className="prose max-w-none text-slate-700 overflow-visible">{nodes}</div>
   );
 }

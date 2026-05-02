@@ -118,7 +118,7 @@ const Login: React.FC = () => {
 
       {/* Floating grid pattern */}
       <div className="absolute inset-0 opacity-30">
-        <div 
+        <div
           className="w-full h-full"
           style={{
             backgroundImage: 'linear-gradient(rgba(34, 197, 94, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(34, 197, 94, 0.1) 1px, transparent 1px)',
@@ -164,11 +164,10 @@ const Login: React.FC = () => {
                   >
                     <div className="flex items-center justify-between relative z-10">
                       <div className="flex items-center gap-4">
-                        <div className={`w-12 h-12 rounded-xl flex items-center justify-center shadow-lg ${
-                          member.type === 'Admin' 
-                            ? 'bg-gradient-to-br from-amber-500 to-orange-600' 
+                        <div className={`w-12 h-12 rounded-xl flex items-center justify-center shadow-lg ${member.type === 'Admin'
+                            ? 'bg-gradient-to-br from-amber-500 to-orange-600'
                             : 'bg-gradient-to-br from-green-500 to-emerald-600'
-                        }`}>
+                          }`}>
                           {member.type === 'Admin' ? (
                             <Crown className="w-6 h-6 text-white" />
                           ) : (
@@ -214,7 +213,7 @@ const Login: React.FC = () => {
               <form onSubmit={handleSubmit} noValidate className="space-y-6">
                 <div className="space-y-2">
                   <label className="block text-sm font-semibold text-slate-700" htmlFor="email">
-                    Email Address
+                    Email Address (demo: demo@axevision.dev)
                   </label>
                   <div className="relative">
                     <input
@@ -223,7 +222,7 @@ const Login: React.FC = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value.trim())}
                       className="w-full px-4 py-3 rounded-xl border border-green-200/50 bg-white/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:border-green-400 transition-all duration-200 placeholder:text-slate-400 disabled:opacity-50 disabled:cursor-not-allowed"
-                      placeholder="testuser@gmail.com"
+                      placeholder="demo@axevision.dev"
                       required
                       disabled={isLoading}
                       autoComplete="email"
@@ -234,7 +233,7 @@ const Login: React.FC = () => {
 
                 <div className="space-y-2">
                   <label className="block text-sm font-semibold text-slate-700" htmlFor="password">
-                    Password (for Demo:testuser123)
+                    Password (demo: demo@1234)
                   </label>
                   <div className="relative">
                     <input

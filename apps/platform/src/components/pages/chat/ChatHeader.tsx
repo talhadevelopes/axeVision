@@ -7,10 +7,9 @@ interface ChatHeaderProps {
   selected: ChatTarget;
   members: Member[];
   typingPeers: Set<string>;
-  online: Set<string>;
 }
 
-export const ChatHeader: React.FC<ChatHeaderProps> = ({ selected, members, typingPeers, online }) => {
+export const ChatHeader: React.FC<ChatHeaderProps> = ({ selected, members, typingPeers }) => {
   const selectedTitle = selected.kind === 'group'
     ? 'Group Chat'
     : `${members.find(m => m.memberId === (selected as any).peerMemberId)?.name || (selected as any).peerMemberId}`;
@@ -34,7 +33,8 @@ export const ChatHeader: React.FC<ChatHeaderProps> = ({ selected, members, typin
             ) : selected.kind === 'group' ? (
               `${members.length} members`
             ) : (
-              online.has((selected as any).peerMemberId) ? 'Active now' : 'Offline'
+              members.find((mm) => mm.memberId === (selected as { kind: 'dm'; peerMemberId: string }).peerMemberId)?.role ||
+              'Direct message'
             )}
           </p>
         </div>
