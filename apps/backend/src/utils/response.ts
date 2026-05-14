@@ -1,6 +1,6 @@
 import type { Response } from "express";
 
-export { MemberType, ChatKind } from "../generated/prisma/enums";
+export { MemberType, ChatKind } from "@prisma/client";
 
 export interface ApiSuccessResponse<T> {
   success: true;

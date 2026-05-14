@@ -2,7 +2,7 @@ app = "axe-vision-backend"
 primary_region = "bom"
 
 [build]
-  image = "talhadevelopes/axevision-backend:latest"
+  dockerfile = "apps/backend/Dockerfile"
 
 [env]
   NODE_ENV = "production"

@@ -1,10 +1,13 @@
 import type React from "react"
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { Terminal, Shield, Code2, Eye, EyeOff, ArrowRight, GitBranch, Zap, User, Crown } from "lucide-react"
+import { Terminal, Shield, Code2, Eye, EyeOff, ArrowRight, GitBranch, Zap, User, Crown, Sparkles } from "lucide-react"
 import { useAuthStore } from "../../stores/authStore"
 import type { MemberProfile } from "@axeVision/shared"
 import { useLoginMutation, useSelectMemberMutation } from "../../mutations/useAuthMutations"
+
+const DEMO_EMAIL = "demo@axevision.dev"
+const DEMO_PASSWORD = "demo@1234"
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("")
@@ -83,6 +86,14 @@ const Login: React.FC = () => {
     }
 
     loginMutation.mutate({ email, password })
+  }
+
+  const handleContinueAsDemo = () => {
+    setError("")
+    setMemberChoices([])
+    setEmail(DEMO_EMAIL)
+    setPassword(DEMO_PASSWORD)
+    loginMutation.mutate({ email: DEMO_EMAIL, password: DEMO_PASSWORD })
   }
 
   const handleMemberSelect = async (memberId: string) => {
@@ -262,6 +273,18 @@ const Login: React.FC = () => {
                     <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-green-500/0 via-green-500/5 to-emerald-500/0 opacity-0 focus-within:opacity-100 transition-opacity pointer-events-none" />
                   </div>
                 </div>
+
+                <button
+                  type="button"
+                  onClick={handleContinueAsDemo}
+                  disabled={isLoading}
+                  className="group w-full py-3 px-6 rounded-xl border-2 border-green-500/60 bg-white/70 backdrop-blur-sm text-green-800 font-semibold shadow-md hover:bg-gradient-to-r hover:from-green-50 hover:to-emerald-50 hover:border-green-500 hover:shadow-lg hover:scale-[1.01] active:scale-[0.99] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 focus:outline-none focus:ring-2 focus:ring-green-500/40 focus:ring-offset-2"
+                >
+                  <div className="flex items-center justify-center gap-2">
+                    <Sparkles className="w-5 h-5 text-emerald-600 group-hover:rotate-12 transition-transform" />
+                    <span>Continue as demo</span>
+                  </div>
+                </button>
 
                 <button
                   type="submit"

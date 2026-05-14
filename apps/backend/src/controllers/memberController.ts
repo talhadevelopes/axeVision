@@ -6,7 +6,7 @@ import { prisma } from "../utils/prisma";
 import { sendError, sendSuccess } from "../utils/response";
 import { MemberType } from "../models";
 import type { MemberDTO } from "@axeVision/shared";
-import type { MemberType as MemberTypeEnum } from "../generated/prisma/enums";
+import type { MemberType as MemberTypeEnum } from "@prisma/client";
 import {
   createMemberValidation,
   updateMemberValidation,

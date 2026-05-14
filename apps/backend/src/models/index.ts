@@ -1,1 +1,1 @@
-export { MemberType, ChatKind } from "../generated/prisma/enums";
+export { MemberType, ChatKind } from "@prisma/client";

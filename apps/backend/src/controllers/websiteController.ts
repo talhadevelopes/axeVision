@@ -3,7 +3,7 @@ import { AuthRequest } from "../middleware/authMiddleware";
 import { sendError, sendSuccess } from "../utils/response";
 import type { WebsiteDTO } from "@axeVision/shared";
 import { WebsiteService } from "../services/websiteService";
-import { Prisma } from "../generated/prisma/client";
+import { Prisma } from "@prisma/client";
 
 //this is the parent container for all snapshots and accessibility
 export class WebsiteController {

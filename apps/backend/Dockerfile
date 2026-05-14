@@ -3,7 +3,10 @@ FROM node:20-alpine
 WORKDIR /app
 RUN corepack enable && corepack prepare pnpm@10.4.1 --activate
 COPY . .
-RUN pnpm install --frozen-lockfile
+# pnpm default store under /root can hit EROFS during Docker Desktop/BuildKit builds; /tmp is reliably writable
+RUN mkdir -p /tmp/pnpm-store \
+  && printf "store-dir=/tmp/pnpm-store\n" >> /root/.npmrc \
+  && pnpm install --frozen-lockfile
 WORKDIR /app/apps/backend
 RUN DATABASE_URL="mongodb://localhost:27017/build" pnpm build
 
