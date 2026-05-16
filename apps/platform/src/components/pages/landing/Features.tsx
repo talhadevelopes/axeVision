@@ -240,7 +240,7 @@ const FeatureShowcase = () => {
     return (
       <div
         onClick={() => setLightboxImage(null)}
-        className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4 animate-in fade-in duration-200"
+        className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-2 sm:p-4 animate-in fade-in duration-200"
       >
         <button
           onClick={() => setLightboxImage(null)}
@@ -265,11 +265,11 @@ const FeatureShowcase = () => {
   };
 
   return (
-    <section className="py-24 bg-gradient-to-br from-white to-gray-50 relative overflow-hidden">
+    <section className="py-12 md:py-24 bg-gradient-to-br from-white to-gray-50 relative overflow-hidden">
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#10b98108_1px,transparent_1px),linear-gradient(to_bottom,#10b98108_1px,transparent_1px)] bg-[size:40px_40px] opacity-30"></div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="space-y-32">
+        <div className="space-y-16 md:space-y-32">
           {featureCategories.map((category, index) => {
             const Icon = category.icon;
             const isEven = index % 2 === 0;
@@ -281,25 +281,25 @@ const FeatureShowcase = () => {
                 ></div>
 
                 <div
-                  className={`grid lg:grid-cols-2 gap-12 items-center ${isEven ? "" : "lg:flex-row-reverse"}`}
+                  className={`grid lg:grid-cols-2 gap-8 lg:gap-12 items-center ${isEven ? "" : "lg:flex-row-reverse"}`}
                 >
                   <div
                     className={`space-y-6 ${isEven ? "lg:pr-8" : "lg:pl-8 lg:order-2"}`}
                   >
                     <div className="inline-flex items-center space-x-3 mb-4">
                       <div
-                        className={`w-14 h-14 bg-gradient-to-br ${category.gradient} rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110`}
+                        className={`w-11 h-11 sm:w-14 sm:h-14 bg-gradient-to-br ${category.gradient} rounded-xl sm:rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 md:group-hover:scale-110 shrink-0`}
                       >
                         <Icon className="h-7 w-7 text-white" />
                       </div>
                       <div>
-                        <h3 className="text-3xl lg:text-4xl font-heading font-bold text-gray-900">
+                        <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-gray-900">
                           {category.title}
                         </h3>
                       </div>
                     </div>
 
-                    <p className="text-lg text-gray-600 leading-relaxed">
+                    <p className="text-sm sm:text-base md:text-lg text-gray-600 leading-relaxed">
                       {category.description}
                     </p>
 
@@ -319,7 +319,7 @@ const FeatureShowcase = () => {
                     className={`relative ${isEven ? "lg:order-2" : "lg:order-1"}`}
                   >
                     <div
-                      className={`grid gap-4 ${category.images.length === 1 ? "grid-cols-1" : "grid-cols-2"}`}
+                      className={`grid gap-3 md:gap-4 ${category.images.length === 1 ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2"}`}
                     >
                       {category.images.map((img, imgIndex) => (
                         <div
@@ -327,7 +327,7 @@ const FeatureShowcase = () => {
                           onClick={() => setLightboxImage(img)}
                           className={`relative group/img cursor-pointer overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 ${
                             imgIndex === 0 && category.images.length > 1
-                              ? "col-span-2 aspect-video"
+                              ? "sm:col-span-2 aspect-video"
                               : "aspect-square"
                           }`}
                         >

@@ -69,7 +69,7 @@ const OnboardingPage: React.FC = () => {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-green-50/30 to-emerald-50/50 flex items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-green-50/30 to-emerald-50/50 flex items-center justify-center px-4 pt-24 pb-8 md:pt-4 md:pb-4 relative overflow-hidden">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full bg-gradient-to-br from-green-200/30 to-emerald-300/20 blur-3xl animate-pulse" />
@@ -97,14 +97,14 @@ const OnboardingPage: React.FC = () => {
             </div>
             <div className="absolute -inset-2 rounded-2xl bg-green-400/20 blur-lg animate-pulse opacity-60" />
           </div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-green-700 via-green-600 to-emerald-600 bg-clip-text text-transparent font-heading">
+          <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-green-700 via-green-600 to-emerald-600 bg-clip-text text-transparent font-heading">
             Welcome to axeVision
           </h1>
           <p className="text-slate-600 font-medium mt-2">Let's set up your profile to get started</p>
         </div>
 
         {/* Main card */}
-        <div className="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-green-100/50 p-8 relative overflow-hidden transition-all duration-300 hover:shadow-3xl hover:-translate-y-2">
+        <div className="bg-white/80 backdrop-blur-xl rounded-2xl md:rounded-3xl shadow-2xl border border-green-100/50 p-5 sm:p-8 relative overflow-hidden transition-all duration-300 md:hover:shadow-3xl md:hover:-translate-y-2">
           {/* Card background pattern */}
           <div className="absolute inset-0 opacity-5">
             <div className="w-full h-full bg-gradient-to-br from-green-500/10 to-emerald-600/10" />
@@ -112,7 +112,7 @@ const OnboardingPage: React.FC = () => {
 
           <div className="relative z-10">
             <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold font-heading text-slate-800 mb-2">Complete Your Profile</h2>
+              <h2 className="text-xl sm:text-2xl font-bold font-heading text-slate-800 mb-2">Complete Your Profile</h2>
               <p className="text-slate-600">Set up your team member profile to continue</p>
             </div>
 

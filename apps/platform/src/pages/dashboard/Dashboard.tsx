@@ -164,7 +164,7 @@ export default function Dashboard() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-green-50/30 to-emerald-50/50 relative overflow-hidden">
       <PageBackground />
 
-      <div className="relative z-10 p-4 py-8 mt-20 max-w-7xl mx-auto">
+      <div className="relative z-10 px-3 pt-24 pb-6 md:p-4 md:py-8 md:pt-20 max-w-7xl mx-auto">
         {isLoading ? (
           <div className="flex items-center justify-center py-16">
             <div className="text-center">
@@ -179,9 +179,9 @@ export default function Dashboard() {
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6 md:mb-8">
               {/* Websites Card */}
-              <div className="group relative overflow-hidden bg-gradient-to-br from-white/90 to-white/60 backdrop-blur-2xl rounded-3xl border border-white/60 shadow-2xl hover:shadow-3xl hover:-translate-y-2 transition-all duration-500 p-6">
+              <div className="group relative overflow-hidden bg-gradient-to-br from-white/90 to-white/60 backdrop-blur-2xl rounded-3xl border border-white/60 shadow-2xl hover:shadow-3xl md:hover:-translate-y-2 transition-all duration-500 p-4 md:p-6">
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-50/40 via-transparent to-blue-100/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-blue-200/20 blur-3xl" />
 
@@ -198,7 +198,7 @@ export default function Dashboard() {
                   <h3 className="text-sm font-semibold text-slate-700 mb-1 tracking-wide">
                     WEBSITES
                   </h3>
-                  <p className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent mb-3">
+                  <p className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent mb-3">
                     {websites.length}
                   </p>
 
@@ -242,7 +242,7 @@ export default function Dashboard() {
               </div>
 
               {/* Snapshots Card */}
-              <div className="group relative overflow-hidden bg-gradient-to-br from-white/90 to-white/60 backdrop-blur-2xl rounded-3xl border border-white/60 shadow-2xl hover:shadow-3xl hover:-translate-y-2 transition-all duration-500 p-6">
+              <div className="group relative overflow-hidden bg-gradient-to-br from-white/90 to-white/60 backdrop-blur-2xl rounded-3xl border border-white/60 shadow-2xl hover:shadow-3xl md:hover:-translate-y-2 transition-all duration-500 p-4 md:p-6">
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-50/40 via-transparent to-purple-100/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-purple-200/20 blur-3xl" />
 
@@ -259,7 +259,7 @@ export default function Dashboard() {
                   <h3 className="text-sm font-semibold text-slate-700 mb-1 tracking-wide">
                     SNAPSHOTS
                   </h3>
-                  <p className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-purple-700 bg-clip-text text-transparent mb-3">
+                  <p className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-600 to-purple-700 bg-clip-text text-transparent mb-3">
                     {snapshots.length}
                   </p>
 
@@ -301,7 +301,7 @@ export default function Dashboard() {
               </div>
 
               {/* Issues Card */}
-              <div className="group relative overflow-hidden bg-gradient-to-br from-white/90 to-white/60 backdrop-blur-2xl rounded-3xl border border-white/60 shadow-2xl hover:shadow-3xl hover:-translate-y-2 transition-all duration-500 p-6">
+              <div className="group relative overflow-hidden bg-gradient-to-br from-white/90 to-white/60 backdrop-blur-2xl rounded-3xl border border-white/60 shadow-2xl hover:shadow-3xl md:hover:-translate-y-2 transition-all duration-500 p-4 md:p-6">
                 <div className="absolute inset-0 bg-gradient-to-br from-red-50/40 via-transparent to-red-100/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-red-200/20 blur-3xl" />
 
@@ -318,7 +318,7 @@ export default function Dashboard() {
                   <h3 className="text-sm font-semibold text-slate-700 mb-1 tracking-wide">
                     ISSUES
                   </h3>
-                  <p className="text-4xl font-bold bg-gradient-to-r from-red-600 to-red-700 bg-clip-text text-transparent mb-3">
+                  <p className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-red-600 to-red-700 bg-clip-text text-transparent mb-3">
                     {criticalAccessibilityIssues}
                   </p>
 
@@ -362,7 +362,7 @@ export default function Dashboard() {
               </div>
 
               {/* Team Members Card */}
-              <div className="group relative overflow-hidden bg-gradient-to-br from-white/90 to-white/60 backdrop-blur-2xl rounded-3xl border border-white/60 shadow-2xl hover:shadow-3xl hover:-translate-y-2 transition-all duration-500 p-6">
+              <div className="group relative overflow-hidden bg-gradient-to-br from-white/90 to-white/60 backdrop-blur-2xl rounded-3xl border border-white/60 shadow-2xl hover:shadow-3xl md:hover:-translate-y-2 transition-all duration-500 p-4 md:p-6">
                 <div className="absolute inset-0 bg-gradient-to-br from-emerald-50/40 via-transparent to-emerald-100/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-emerald-200/20 blur-3xl" />
 
@@ -379,7 +379,7 @@ export default function Dashboard() {
                   <h3 className="text-sm font-semibold text-slate-700 mb-1 tracking-wide">
                     TEAM MEMBERS
                   </h3>
-                  <p className="text-4xl font-bold bg-gradient-to-r from-emerald-600 to-emerald-700 bg-clip-text text-transparent mb-3">
+                  <p className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-emerald-600 to-emerald-700 bg-clip-text text-transparent mb-3">
                     {members.length}
                   </p>
 
@@ -428,7 +428,7 @@ export default function Dashboard() {
               <div className="mb-8">
                 <div className="flex items-center justify-between mb-6">
                   <div>
-                    <h2 className="text-2xl font-bold font-heading text-slate-900">
+                    <h2 className="text-xl md:text-2xl font-bold font-heading text-slate-900">
                       Your Websites
                     </h2>
                     <p className="text-slate-600 mt-1">
@@ -436,12 +436,12 @@ export default function Dashboard() {
                     </p>
                   </div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                   {websites.map((website) => (
                     <Link
                       key={website.id}
                       to={`/websites/${website.id}`}
-                      className="group relative overflow-hidden bg-gradient-to-br from-white/80 to-white/50 backdrop-blur-xl rounded-2xl border border-green-100/50 shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 p-6"
+                      className="group relative overflow-hidden bg-gradient-to-br from-white/80 to-white/50 backdrop-blur-xl rounded-2xl border border-green-100/50 shadow-lg hover:shadow-2xl md:hover:-translate-y-1 transition-all duration-300 p-4 md:p-6"
                     >
                       <div className="absolute inset-0 bg-gradient-to-br from-emerald-50/0 via-transparent to-emerald-100/0 group-hover:from-emerald-50/40 group-hover:via-transparent group-hover:to-emerald-100/40 transition-all duration-500" />
 
@@ -510,7 +510,7 @@ export default function Dashboard() {
             {/* Members Section */}
             {members.length > 0 && (
               <div className="mb-12">
-                <h2 className="text-2xl font-bold font-heading text-slate-900 mb-6">
+                <h2 className="text-xl md:text-2xl font-bold font-heading text-slate-900 mb-4 md:mb-6">
                   Team Members
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -518,7 +518,7 @@ export default function Dashboard() {
                     <Link
                       key={member.memberId}
                       to={`/members/${member.memberId}`}
-                      className="group relative overflow-hidden bg-gradient-to-br from-white/80 to-white/50 backdrop-blur-xl rounded-2xl border border-green-100/50 shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 p-6"
+                      className="group relative overflow-hidden bg-gradient-to-br from-white/80 to-white/50 backdrop-blur-xl rounded-2xl border border-green-100/50 shadow-lg hover:shadow-2xl md:hover:-translate-y-1 transition-all duration-300 p-4 md:p-6"
                     >
                       <div className="absolute inset-0 bg-gradient-to-br from-blue-50/0 via-transparent to-blue-100/0 group-hover:from-blue-50/40 group-hover:via-transparent group-hover:to-blue-100/40 transition-all duration-500" />
 

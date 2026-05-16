@@ -208,28 +208,28 @@ export default function SnapshotList({
 
         {/* Right: Preview panel */}
         <div>
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center">
+          <div className="flex flex-col gap-4 mb-6">
+            <div className="flex items-start gap-3 min-w-0">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shrink-0">
                 <Monitor className="w-4 h-4 text-white" />
               </div>
-              <div>
-                <h2 className="text-xl font-bold font-heading text-slate-800">
+              <div className="min-w-0">
+                <h2 className="text-lg sm:text-xl font-bold font-heading text-slate-800">
                   Live Preview
                 </h2>
-                <p className="text-sm text-slate-500">
+                <p className="text-sm text-slate-500 break-words">
                   {previewSnapshot ? `Selected: Snapshot from ${new Date(previewSnapshot.capturedAt).toLocaleDateString()}` : "Select a snapshot to preview"}
                 </p>
               </div>
             </div>
             
             {snapshots.length > 1 && (
-              <div className="flex items-center gap-3">
-                <label className="text-sm text-slate-600 font-medium">Quick select:</label>
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3 w-full">
+                <label className="text-sm text-slate-600 font-medium shrink-0">Quick select:</label>
                 <select
                   value={selectedSnapshotForPreview || snapshots[0].id}
                   onChange={(e) => handleSnapshotClick(e.target.value)}
-                  className="appearance-none bg-white/70 backdrop-blur-sm border border-slate-200 rounded-xl px-4 py-2 pr-8 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200 cursor-pointer text-sm"
+                  className="w-full sm:flex-1 appearance-none bg-white/70 backdrop-blur-sm border border-slate-200 rounded-xl px-4 py-2 pr-8 focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200 cursor-pointer text-sm"
                 >
                   {snapshots.map((s, idx) => (
                     <option key={s.id} value={s.id}>

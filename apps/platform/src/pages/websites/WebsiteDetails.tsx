@@ -72,14 +72,14 @@ export default function WebsiteDetailsPage() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-green-50/30 to-emerald-50/50 relative overflow-hidden">
       <PageBackground />
 
-      <div className="relative z-10 max-w-7xl mx-auto p-4 py-24">
+      <div className="relative z-10 max-w-7xl mx-auto px-3 pt-24 pb-16 md:p-4 md:py-24">
         {/* Header Section with enhanced styling */}
         <div className="mb-8">
-          <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-green-100/50 p-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-xl">
-                  <Globe className="w-8 h-8 text-white" />
+          <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-green-100/50 p-4 md:p-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="flex items-center gap-3 md:gap-4">
+                <div className="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-xl shrink-0">
+                  <Globe className="w-6 h-6 md:w-8 md:h-8 text-white" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2 text-sm text-slate-500 mb-2">
@@ -90,7 +90,7 @@ export default function WebsiteDetailsPage() {
                       <ArrowLeft className="w-4 h-4" /> Back to Websites
                     </Link>
                   </div>
-                  <h1 className="text-3xl font-bold font-heading bg-gradient-to-r from-green-700 to-emerald-600 bg-clip-text text-transparent">
+                  <h1 className="text-xl sm:text-2xl md:text-3xl font-bold font-heading bg-gradient-to-r from-green-700 to-emerald-600 bg-clip-text text-transparent">
                     Website Details
                   </h1>
                   <p className="text-slate-600 flex items-center gap-2 mt-1">
@@ -101,12 +101,12 @@ export default function WebsiteDetailsPage() {
               </div>
 
               {/* Quick action button */}
-              <div className="hidden sm:flex items-center gap-3">
+              <div className="flex w-full sm:w-auto">
                 <Link
                   to={`/mind/${websiteId}`}
-                  className="flex items-center gap-2 px-4 py-2 rounded-xl bg-purple-50 text-purple-700 border border-purple-200 hover:bg-purple-100 transition-colors"
+                  className="flex w-full sm:w-auto items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-purple-50 text-purple-700 border border-purple-200 hover:bg-purple-100 transition-colors"
                 >
-                  <Brain className="w-4 h-4" />
+                  <Brain className="w-4 h-4 shrink-0" />
                   <span className="text-sm font-medium">View Mind</span>
                 </Link>
               </div>

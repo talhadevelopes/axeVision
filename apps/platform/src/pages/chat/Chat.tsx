@@ -3,7 +3,7 @@ import { useAuthStore } from '../../stores/authStore';
 import { memberService, messagesService } from '../../services/api';
 import { getChatSocket } from '../../services/chatSocket';
 import type { Member } from '@axeVision/shared';
-import { Search, Phone, Video, User, Send, Paperclip, Smile } from 'lucide-react';
+import { Search, Phone, Video, User, Send, Paperclip, Smile, ChevronLeft } from 'lucide-react';
 
 interface ChatMessage {
   _id: string;
@@ -36,6 +36,7 @@ const ChatPage: React.FC = () => {
   const [typingPeers, setTypingPeers] = useState<Set<string>>(new Set());
   const [viewKey, setViewKey] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
+  const [mobileInChat, setMobileInChat] = useState(false);
 
   const socket = useMemo(() => getChatSocket(), []);
   const listRef = useRef<HTMLDivElement | null>(null);
@@ -339,11 +340,15 @@ const ChatPage: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className="flex h-[100dvh] bg-gray-50 overflow-hidden">
       {/* Sidebar */}
-      <div className="w-96 p-4">
+      <div
+        className={`${
+          mobileInChat ? 'hidden md:flex' : 'flex'
+        } flex-col w-full md:w-96 flex-shrink-0 p-3 md:p-4`}
+      >
         <div className="mb-4">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Messages</h1>
+          <h1 className="text-xl md:text-2xl font-bold text-gray-900 mb-3 md:mb-4">Messages</h1>
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
             <input
@@ -356,7 +361,7 @@ const ChatPage: React.FC = () => {
           </div>
         </div>
         
-        <div className="space-y-2 overflow-y-auto h-[calc(100vh-140px)]">
+        <div className="space-y-2 overflow-y-auto flex-1 min-h-0 md:h-[calc(100vh-140px)]">
           {/* Group Chat Card */}
           <div
             onClick={() => {
@@ -365,6 +370,7 @@ const ChatPage: React.FC = () => {
               setIsLoading(true);
               setHasMore(true);
               setViewKey((k) => k + 1);
+              setMobileInChat(true);
             }}
             className={`bg-white rounded-xl p-4 cursor-pointer border border-gray-200 hover:shadow-md transition-shadow ${selected.kind === 'group' ? 'ring-2 ring-blue-500' : ''}`}
           >
@@ -396,6 +402,7 @@ const ChatPage: React.FC = () => {
                   setIsLoading(true);
                   setHasMore(true);
                   setViewKey((k) => k + 1);
+                  setMobileInChat(true);
                 }}
                 className={`bg-white rounded-xl p-4 cursor-pointer border border-gray-200 hover:shadow-md transition-shadow ${selected.kind === 'dm' && selected.peerMemberId === m.memberId ? 'ring-2 ring-blue-500' : ''}`}
               >
@@ -425,16 +432,28 @@ const ChatPage: React.FC = () => {
       </div>
       
       {/* Main Chat Area */}
-      <div className="flex-1 flex flex-col p-4">
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 h-full flex flex-col">
+      <div
+        className={`${
+          mobileInChat ? 'flex' : 'hidden md:flex'
+        } flex-1 flex-col p-2 md:p-4 min-w-0`}
+      >
+        <div className="bg-white rounded-xl md:rounded-2xl shadow-sm border border-gray-200 h-full flex flex-col min-h-0">
           {/* Header */}
-          <div className="p-4 border-b border-gray-200 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                <User className="w-6 h-6 text-blue-600" />
+          <div className="p-3 md:p-4 border-b border-gray-200 flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2 md:gap-3 min-w-0 flex-1">
+              <button
+                type="button"
+                aria-label="Back to conversations"
+                onClick={() => setMobileInChat(false)}
+                className="md:hidden p-2 -ml-1 rounded-lg hover:bg-gray-50 flex-shrink-0"
+              >
+                <ChevronLeft className="w-5 h-5 text-gray-700" />
+              </button>
+              <div className="w-10 h-10 md:w-12 md:h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                <User className="w-5 h-5 md:w-6 md:h-6 text-blue-600" />
               </div>
-              <div>
-                <h2 className="font-semibold text-gray-900">{selectedTitle}</h2>
+              <div className="min-w-0">
+                <h2 className="font-semibold text-gray-900 truncate text-sm md:text-base">{selectedTitle}</h2>
                 <p className="text-sm text-gray-500">
                   {typingPeers.size > 0 ? (
                     <>
@@ -452,14 +471,14 @@ const ChatPage: React.FC = () => {
                 </p>
               </div>
             </div>
-            <div className="flex gap-1">
-              <button className="p-2 hover:bg-gray-50 rounded-lg"><Phone className="w-5 h-5 text-gray-600" /></button>
-              <button className="p-2 hover:bg-gray-50 rounded-lg"><Video className="w-5 h-5 text-gray-600" /></button>
+            <div className="hidden sm:flex gap-1 flex-shrink-0">
+              <button type="button" className="p-2 hover:bg-gray-50 rounded-lg"><Phone className="w-5 h-5 text-gray-600" /></button>
+              <button type="button" className="p-2 hover:bg-gray-50 rounded-lg"><Video className="w-5 h-5 text-gray-600" /></button>
             </div>
           </div>
           
           {/* Messages */}
-          <div key={viewKey} ref={listRef} onScroll={onScrollList} className="flex-1 overflow-y-auto p-6 space-y-4">
+          <div key={viewKey} ref={listRef} onScroll={onScrollList} className="flex-1 overflow-y-auto p-3 md:p-6 space-y-4 min-h-0">
             {isLoading && messages.length === 0 && (
               <div className="text-sm text-gray-500 text-center">Loading messages...</div>
             )}
@@ -479,7 +498,7 @@ const ChatPage: React.FC = () => {
                     </div>
                   )}
                   <div className={`flex ${mine ? 'justify-end' : 'justify-start'}`}>
-                    <div className={`max-w-lg ${mine ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-900'} rounded-2xl px-5 py-3 shadow-sm`}>
+                    <div className={`max-w-[85%] md:max-w-lg ${mine ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-900'} rounded-2xl px-4 py-2.5 md:px-5 md:py-3 shadow-sm`}>
                       {!mine && (
                         <div className="text-xs opacity-70 mb-1 font-medium">
                           {members.find((mm) => mm.memberId === m.fromMemberId)?.name || m.fromMemberId}
@@ -505,7 +524,7 @@ const ChatPage: React.FC = () => {
           </div>
           
           {/* Input */}
-          <div className="p-4 border-t border-gray-200">
+          <div className="p-3 md:p-4 border-t border-gray-200">
             <div className="relative">
               <div className="flex items-center gap-3 bg-gray-50 rounded-xl p-2">
                 <button className="p-2 hover:bg-white rounded-lg"><Paperclip className="w-5 h-5 text-gray-600" /></button>

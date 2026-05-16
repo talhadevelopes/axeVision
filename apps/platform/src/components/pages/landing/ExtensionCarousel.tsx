@@ -43,32 +43,32 @@ export default function ExtensionCarousel() {
   };
 
   return (
-    <div className="w-full max-w-5xl mx-auto px-4 mt-12">
+    <div className="w-full min-w-0 max-w-full mx-auto px-3 sm:px-4 mt-6 md:mt-12">
       {/* Carousel Header */}
 
       {/* Carousel Container */}
-      <div className="relative">
+      <div className="w-full">
         {/* Extension Display */}
-        <div className="relative overflow-hidden">
+        <div className="relative overflow-hidden w-full">
           <div
             className="flex transition-transform duration-500 ease-out"
             style={{ transform: `translateX(-${currentSlide * 100}%)` }}
           >
             {extensions.map((ext, index) => (
-              <div key={index} className="w-full flex-shrink-0 px-4">
-                <div className="flex flex-col items-center">
+              <div key={index} className="w-full flex-shrink-0">
+                <div className="flex flex-col items-stretch w-full">
                   {/* Extension Title */}
-                  <div className="mb-6 text-center">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                  <div className="mb-4 sm:mb-6 text-center px-1">
+                    <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-2">
                       {ext.name}
                     </h3>
-                    <p className="text-green-600 font-medium">
+                    <p className="text-sm sm:text-base text-green-600 font-medium">
                       {ext.description}
                     </p>
                   </div>
 
                   {/* Extension Component */}
-                  <div className="w-full flex justify-center">
+                  <div className="w-full">
                     {ext.component}
                   </div>
                 </div>
@@ -77,26 +77,29 @@ export default function ExtensionCarousel() {
           </div>
         </div>
 
-        {/* Navigation Buttons */}
-        <button
-          onClick={prevSlide}
-          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white hover:bg-gray-50 text-gray-700 rounded-full p-3 shadow-xl border border-gray-200 transition-all hover:scale-110 z-10"
-          aria-label="Previous extension"
-        >
-          <ChevronLeft className="w-6 h-6" />
-        </button>
-
-        <button
-          onClick={nextSlide}
-          className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white hover:bg-gray-50 text-gray-700 rounded-full p-3 shadow-xl border border-gray-200 transition-all hover:scale-110 z-10"
-          aria-label="Next extension"
-        >
-          <ChevronRight className="w-6 h-6" />
-        </button>
+        {/* Prev / Next — below extension */}
+        <div className="flex items-center justify-center gap-4 mt-5">
+          <button
+            type="button"
+            onClick={prevSlide}
+            className="bg-white hover:bg-gray-50 text-gray-700 rounded-full p-2.5 sm:p-3 shadow-lg border border-gray-200 transition-all md:hover:scale-105"
+            aria-label="Previous extension"
+          >
+            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+          </button>
+          <button
+            type="button"
+            onClick={nextSlide}
+            className="bg-white hover:bg-gray-50 text-gray-700 rounded-full p-2.5 sm:p-3 shadow-lg border border-gray-200 transition-all md:hover:scale-105"
+            aria-label="Next extension"
+          >
+            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+          </button>
+        </div>
       </div>
 
       {/* Carousel Indicators */}
-      <div className="flex justify-center items-center gap-3 mt-8">
+      <div className="flex justify-center items-center gap-3 mt-4">
         {extensions.map((_, index) => (
           <button
             key={index}
@@ -144,9 +147,9 @@ function AxeVisionAIExtension({ inputValue, setInputValue }: any) {
   ];
 
   return (
-    <div className="relative animate-float">
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-3xl blur-2xl scale-110"></div>
-      <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-200/50 overflow-hidden relative z-10 hover:shadow-3xl transition-all duration-500 w-full max-w-md">
+    <div className="relative w-full max-w-full md:animate-float">
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-3xl blur-2xl scale-110 max-md:hidden pointer-events-none"></div>
+      <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-200/50 overflow-hidden relative z-10 hover:shadow-3xl transition-all duration-500 w-full max-w-full lg:max-w-md lg:mx-auto">
         {/* Chat Header */}
         <div className="px-4 py-3 bg-gradient-to-r from-purple-600 to-pink-600 flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -189,7 +192,7 @@ function AxeVisionAIExtension({ inputValue, setInputValue }: any) {
         </div>
 
         {/* Messages */}
-        <div className="h-80 overflow-y-auto p-4 space-y-4 bg-gray-50/50">
+        <div className="h-56 sm:h-64 md:h-80 overflow-y-auto p-3 md:p-4 space-y-4 bg-gray-50/50">
           {/* Welcome Message */}
           <div className="text-center py-4">
             <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center">
@@ -279,10 +282,10 @@ function AxeVisionExtension() {
   const [activeTab, setActiveTab] = useState("snapshot");
 
   return (
-    <div className="relative animate-float-delayed w-full max-w-md mx-auto">
-      <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/20 to-teal-400/20 rounded-3xl blur-2xl scale-110"></div>
+    <div className="relative w-full max-w-full lg:max-w-md lg:mx-auto md:animate-float-delayed">
+      <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/20 to-teal-400/20 rounded-3xl blur-2xl scale-110 max-md:hidden pointer-events-none"></div>
 
-      <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-200/50 overflow-hidden relative z-10 hover:shadow-3xl transition-all duration-500 w-full max-w-md">
+      <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-200/50 overflow-hidden relative z-10 hover:shadow-3xl transition-all duration-500 w-full max-w-full lg:max-w-md lg:mx-auto">
         {/* Extension Header */}
         <div className="bg-gradient-to-r from-gray-50 to-gray-100 px-4 py-3 border-b border-gray-200/50">
           <div className="flex items-center justify-between">
@@ -368,7 +371,7 @@ function AxeVisionExtension() {
         </div>
 
         {/* Tab Content */}
-        <div className="h-96 overflow-y-auto p-5 bg-gray-50/50">
+        <div className="h-64 sm:h-80 md:h-96 overflow-y-auto p-3 md:p-5 bg-gray-50/50">
           {activeTab === "snapshot" ? (
             <div className="space-y-4">
               <button className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white px-4 py-3 rounded-lg font-medium hover:from-emerald-600 hover:to-emerald-700 transition-all shadow-lg">

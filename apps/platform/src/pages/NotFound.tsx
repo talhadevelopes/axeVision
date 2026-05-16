@@ -3,15 +3,15 @@ import { Link } from "react-router-dom";
 
 const NotFound = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center space-y-6 animate-slide-up">
+    <div className="min-h-screen flex items-center justify-center bg-background px-4 py-8">
+      <div className="text-center space-y-4 md:space-y-6 animate-slide-up max-w-md w-full">
         {/* 404 Number */}
         <div className="relative">
-          <h1 className="text-9xl font-bold font-heading text-primary opacity-10">
+          <h1 className="text-7xl sm:text-9xl font-bold font-heading text-primary opacity-10">
             404
           </h1>
           <div className="absolute inset-0 flex items-center justify-center">
-            <h2 className="text-2xl font-semibold text-foreground">
+            <h2 className="text-lg sm:text-2xl font-semibold text-foreground px-2">
               Page Not Found
             </h2>
           </div>
@@ -28,7 +28,7 @@ const NotFound = () => {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex gap-4 justify-center pt-4">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center pt-4 w-full sm:w-auto">
           <Button asChild variant="outline">
             <Link to="/dashboard">
               📊 Go to Dashboard

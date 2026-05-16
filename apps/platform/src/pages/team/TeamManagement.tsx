@@ -110,15 +110,15 @@ const TeamManagementPage: React.FC = () => {
 
   return (
     <div
-      className="min-h-screen py-20 bg-gradient-to-br from-green-50 via-white to-emerald-50"
+      className="min-h-screen py-16 md:py-20 bg-gradient-to-br from-green-50 via-white to-emerald-50"
       style={{ fontFamily: "Space Grotesk, sans-serif" }}
     >
-      <div className="max-w-7xl mx-auto p-6">
+      <div className="max-w-7xl mx-auto px-4 py-4 md:p-6">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2 bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2 bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
             Team Management
           </h1>
-          <p className="text-gray-600 text-lg">
+          <p className="text-gray-600 text-base md:text-lg">
             Manage your team members and permissions
           </p>
         </div>
@@ -161,10 +161,10 @@ const TeamManagementPage: React.FC = () => {
 
         <div className="grid lg:grid-cols-2 gap-8">
           <div className="space-y-6">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div className="flex items-center">
                 <Users className="w-6 h-6 text-green-500 mr-3" />
-                <h2 className="text-2xl font-semibold text-gray-900">
+                <h2 className="text-xl md:text-2xl font-semibold text-gray-900">
                   Team Members ({members.length})
                 </h2>
               </div>

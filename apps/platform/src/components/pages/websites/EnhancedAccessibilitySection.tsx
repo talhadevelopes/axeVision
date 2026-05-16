@@ -164,10 +164,10 @@ export default function EnhancedAccessibilitySection({
     <div className="space-y-6">
 
       {/* ── Header  */}
-      <div className="flex items-start justify-between gap-4 flex-wrap">
-        <div>
-          <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-            <Zap className="w-6 h-6 text-green-500" />
+      <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+        <div className="min-w-0">
+          <h2 className="text-xl md:text-2xl font-bold text-gray-900 flex items-center gap-2">
+            <Zap className="w-5 h-5 md:w-6 md:h-6 text-green-500 shrink-0" />
             Accessibility Analysis
           </h2>
           <p className="text-gray-500 text-sm mt-1">
@@ -176,11 +176,11 @@ export default function EnhancedAccessibilitySection({
         </div>
 
         {hasIssues && (
-          <div className="flex items-center gap-3 flex-shrink-0">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto md:flex-shrink-0">
             <button
               onClick={generateCodeFixes}
               disabled={loadingFixes}
-              className="px-4 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 transition-colors text-sm"
+              className="w-full sm:w-auto justify-center px-4 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 transition-colors text-sm"
             >
               {loadingFixes
                 ? <><RefreshCw className="w-4 h-4 animate-spin" />Generating Fixes...</>
@@ -191,7 +191,7 @@ export default function EnhancedAccessibilitySection({
             <button
               onClick={handleGenerateRecommendations}
               disabled={loadingAi}
-              className="px-4 py-2 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 transition-colors text-sm"
+              className="w-full sm:w-auto justify-center px-4 py-2 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 transition-colors text-sm"
             >
               {loadingAi
                 ? <><RefreshCw className="w-4 h-4 animate-spin" />Generating...</>
@@ -211,8 +211,8 @@ export default function EnhancedAccessibilitySection({
       )}
 
       {/* ── Tab navigation  */}
-      <div className="border-b border-gray-200">
-        <nav className="flex space-x-8">
+      <div className="border-b border-gray-200 overflow-x-auto -mx-1 px-1">
+        <nav className="flex gap-6 md:gap-8 min-w-max md:min-w-0 whitespace-nowrap">
           {([
             { key: 'issues', icon: <Bug className="w-4 h-4" />, label: `Issues (${accessibilityIssues?.length || 0})` },
             { key: 'fixes', icon: <Wrench className="w-4 h-4" />, label: `Code Fixes (${codeFixes.length})` },
@@ -221,7 +221,7 @@ export default function EnhancedAccessibilitySection({
             <button
               key={key}
               onClick={() => setActiveTab(key)}
-              className={`py-2 px-1 border-b-2 font-medium text-sm transition-colors flex items-center gap-2 ${activeTab === key
+              className={`py-2 px-1 border-b-2 font-medium text-sm transition-colors flex items-center gap-2 flex-shrink-0 ${activeTab === key
                 ? 'border-green-500 text-green-600'
                 : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                 }`}

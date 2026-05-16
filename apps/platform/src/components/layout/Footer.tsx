@@ -41,9 +41,9 @@ export default function Footer(): JSX.Element {
   return (
     <footer className="relative bg-emerald-50">
       {/* Floating CTA card — glassy look (remove backdrop-blur and gradient classes if you don't want glass) */}
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4 sm:px-6">
         <motion.div
-          className="mx-auto -translate-y-12 max-w-5xl rounded-3xl bg-gradient-to-r from-white/70 to-emerald-50/60 backdrop-blur-md border border-emerald-100 shadow-xl p-6 md:p-8 flex flex-col md:flex-row items-center gap-4"
+          className="mx-auto -translate-y-8 md:-translate-y-12 max-w-5xl rounded-2xl md:rounded-3xl bg-gradient-to-r from-white/70 to-emerald-50/60 backdrop-blur-md border border-emerald-100 shadow-xl p-4 sm:p-6 md:p-8 flex flex-col md:flex-row items-center gap-4 text-center md:text-left"
           initial="hidden"
           animate="show"
           variants={cardVariants}
@@ -54,7 +54,7 @@ export default function Footer(): JSX.Element {
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold text-slate-900">
+              <h3 className="text-base sm:text-lg font-semibold text-slate-900">
                 Ship higher-quality web experiences
               </h3>
               <p className="text-sm text-slate-600 max-w-xl">
@@ -63,7 +63,7 @@ export default function Footer(): JSX.Element {
             </div>
           </div>
 
-          <div className="ml-auto flex gap-3">
+          <div className="w-full md:w-auto md:ml-auto flex gap-3 justify-center md:justify-end">
             <a
               href="#install"
               className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-emerald-600 hover:bg-emerald-500 text-white font-medium shadow"

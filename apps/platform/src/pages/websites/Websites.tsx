@@ -84,11 +84,11 @@ export default function Websites() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-green-50/30 to-emerald-50/50 relative overflow-hidden">
       <PageBackground />
 
-      <div className="relative z-10 p-4 py-24 max-w-7xl mx-auto">
+      <div className="relative z-10 px-3 pt-24 pb-16 md:p-4 md:py-24 max-w-7xl mx-auto">
         {/* Header Section */}
         <div className="mb-8">
           {/* Search and Filter Section */}
-          <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-green-100/50 p-6 mb-8">
+          <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-green-100/50 p-4 md:p-6 mb-6 md:mb-8">
             <div className="flex flex-col lg:flex-row gap-4">
               {/* Search Bar */}
               <div className="flex-1 relative">
@@ -144,7 +144,7 @@ export default function Websites() {
             {filteredAndSortedWebsites.map((website: WebsiteDTO) => (
               <div
                 key={website.id}
-                className="group relative bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-green-100/50 p-6 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 overflow-hidden"
+                className="group relative bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-green-100/50 p-4 md:p-6 hover:shadow-2xl md:hover:-translate-y-2 transition-all duration-300 overflow-hidden"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-emerald-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
 
@@ -161,7 +161,7 @@ export default function Websites() {
                         >
                           {website.name || website.url}
                         </Link>
-                        <p className="text-sm text-slate-500 mt-1 truncate max-w-[200px]">
+                        <p className="text-sm text-slate-500 mt-1 truncate max-w-full sm:max-w-[200px]">
                           {website.url}
                         </p>
                       </div>

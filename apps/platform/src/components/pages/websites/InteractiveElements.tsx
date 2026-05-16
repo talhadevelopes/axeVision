@@ -26,9 +26,9 @@ export default function InteractiveElements({ snapshot }: InteractiveElementsPro
 
   return (
     <div className="rounded-2xl bg-white/80 backdrop-blur-xl border border-green-100/50 p-4">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-xl font-semibold text-slate-800">Interactive Elements</h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div className="flex flex-col gap-4 mb-4">
+        <h3 className="text-lg sm:text-xl font-semibold text-slate-800">Interactive Elements</h3>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 w-full">
           <Stat label="Buttons" value={buttons?.length || 0} icon={<MousePointer2 className="w-4 h-4" />} />
           <Stat label="Forms" value={forms?.length || 0} icon={<FormInput className="w-4 h-4" />} />
           <Stat label="Inputs" value={inputs?.length || 0} icon={<AlignLeft className="w-4 h-4" />} />

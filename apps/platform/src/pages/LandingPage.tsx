@@ -15,7 +15,7 @@ import FeatureShowcase from "../components/pages/landing/Features";
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-white relative overflow-hidden">
+    <div className="min-h-screen bg-white relative overflow-x-hidden">
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-br from-green-50/30 via-white to-emerald-50/20"></div>
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#10b98108_1px,transparent_1px),linear-gradient(to_bottom,#10b98108_1px,transparent_1px)] bg-[size:40px_40px] animate-pulse opacity-30"></div>
@@ -28,13 +28,13 @@ export default function LandingPage() {
       <Header />
 
       {/* Revolutionary Hero Section */}
-      <section className="relative pt-20 pb-16 overflow-hidden">
+      <section className="relative pt-24 md:pt-20 pb-10 md:pb-16 overflow-x-hidden max-w-full">
         <div className="absolute inset-0 bg-gradient-to-br from-green-50/60 via-white to-blue-50/40"></div>
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#10b98115_1px,transparent_1px),linear-gradient(to_bottom,#10b98115_1px,transparent_1px)] bg-[size:32px_32px] animate-pulse"></div>
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-green-500/10 via-transparent to-emerald-500/10"></div>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(16,185,129,0.15),transparent_50%)]"></div>
 
-        <div className="absolute top-32 left-10 opacity-20 font-mono text-xs text-green-600 animate-float">
+        <div className="hidden md:block absolute top-32 left-10 opacity-20 font-mono text-xs text-green-600 animate-float">
           <div className="bg-white/50 backdrop-blur-sm rounded-lg p-3 border border-green-200/30">
             <div>const accessibility = true;</div>
             <div>if (accessibility) &#123;</div>
@@ -42,7 +42,7 @@ export default function LandingPage() {
             <div>&#125;</div>
           </div>
         </div>
-        <div className="absolute top-48 right-16 opacity-20 font-mono text-xs text-blue-600 animate-float-delayed">
+        <div className="hidden md:block absolute top-48 right-16 opacity-20 font-mono text-xs text-blue-600 animate-float-delayed">
           <div className="bg-white/50 backdrop-blur-sm rounded-lg p-3 border border-blue-200/30">
             <div>$ qag --analyze</div>
             <div>✓ DOM captured</div>
@@ -51,13 +51,13 @@ export default function LandingPage() {
           </div>
         </div>
 
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[85vh]">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative max-w-full">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-0 lg:min-h-[85vh]">
             {/* Left Side - Content */}
-            <div className="space-y-8 animate-slide-up">
+            <div className="space-y-6 md:space-y-8 animate-slide-up min-w-0 w-full max-w-full">
               {/* Main Headline */}
               <div className="space-y-6">
-                <h1 className="text-5xl lg:text-7xl font-heading font-bold text-gray-900 leading-tight">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-heading font-bold text-gray-900 leading-tight break-words">
                   <span className="block relative">
                     Ship Perfect
                     <div className="absolute -bottom-2 left-0 w-24 h-1 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full opacity-60"></div>
@@ -66,22 +66,22 @@ export default function LandingPage() {
                     Accessibility
                     <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full animate-ping opacity-60"></div>
                   </span>
-                  <span className="block text-3xl lg:text-5xl font-medium text-gray-600 mt-2">
+                  <span className="block text-xl sm:text-2xl md:text-3xl lg:text-5xl font-medium text-gray-600 mt-2">
                     Every Time
                   </span>
                 </h1>
 
-                <p className="text-xl lg:text-2xl text-gray-600 leading-relaxed max-w-2xl">
+                <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 leading-relaxed max-w-2xl break-words">
                   Enterprise platform with{" "}
-                  <span className="text-green-600 font-semibold bg-green-50 px-2 py-1 rounded-md">
+                  <span className="inline-block text-green-600 font-semibold bg-green-50 px-2 py-1 rounded-md my-0.5">
                     JWT authentication
                   </span>
                   ,{" "}
-                  <span className="text-green-600 font-semibold bg-green-50 px-2 py-1 rounded-md">
+                  <span className="inline-block text-green-600 font-semibold bg-green-50 px-2 py-1 rounded-md my-0.5">
                     team collaboration
                   </span>
                   , and{" "}
-                  <span className="text-green-600 font-semibold bg-green-50 px-2 py-1 rounded-md">
+                  <span className="inline-block text-green-600 font-semibold bg-green-50 px-2 py-1 rounded-md my-0.5">
                     AI-powered insights
                   </span>{" "}
                   for modern development teams.
@@ -91,15 +91,15 @@ export default function LandingPage() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r cursor-pointer from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-8 py-6 text-lg font-mono group shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 relative overflow-hidden"
+                  className="w-full max-w-full sm:w-auto bg-gradient-to-r cursor-pointer from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-4 py-3 sm:px-6 sm:py-4 md:px-8 md:py-6 text-sm sm:text-base md:text-lg font-mono group shadow-xl hover:shadow-2xl transition-all duration-300 md:hover:scale-105 relative overflow-hidden"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
-                  <Chrome className="mr-3 h-5 w-5 group-hover:scale-110 transition-transform relative z-10" />
-                  <span className="relative z-10">chrome.install()</span>
+                  <Chrome className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 group-hover:scale-110 transition-transform relative z-10 shrink-0" />
+                  <span className="relative z-10 truncate">chrome.install()</span>
                 </Button>
               </div>
 
-              <div className="flex flex-wrap items-center gap-8 text-sm text-gray-500 font-mono">
+              <div className="flex flex-wrap items-center gap-3 sm:gap-4 md:gap-8 text-xs sm:text-sm text-gray-500 font-mono">
                 <div className="flex items-center space-x-2 bg-white/60 backdrop-blur-sm rounded-full px-4 py-2 border border-green-100">
                   <Star className="w-4 h-4 text-green-500 fill-green-500" />
                   <span className="font-medium">--trial=14d</span>
@@ -116,31 +116,33 @@ export default function LandingPage() {
             </div>
 
             {/* Right Side - Enhanced Chrome Extension UI */}
-            <ExtensionCarousel />
+            <div className="min-w-0 w-full max-w-full overflow-hidden">
+              <ExtensionCarousel />
+            </div>
           </div>
         </div>
       </section>
 
       <section
         id="features"
-        className="py-24 bg-gradient-to-br from-gray-50 to-white relative"
+        className="py-12 md:py-24 bg-gradient-to-br from-gray-50 to-white relative"
       >
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#f1f5f912_1px,transparent_1px),linear-gradient(to_bottom,#f1f5f912_1px,transparent_1px)] bg-[size:60px_60px] opacity-30"></div>
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="text-center mb-20">
+          <div className="text-center mb-10 md:mb-20">
             <Badge className="mb-6 bg-gradient-to-r from-green-100 to-emerald-100 text-green-700 border-green-200 shadow-lg">
               <Cpu className="w-4 h-4 mr-2" />
               Enterprise Features
             </Badge>
-            <h2 className="text-4xl lg:text-6xl font-heading font-bold text-gray-900 mb-8 leading-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-heading font-bold text-gray-900 mb-4 md:mb-8 leading-tight px-2">
               Complete QA platform for{" "}
               <span className="text-green-600 relative">
                 modern teams
                 <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full opacity-40"></div>
               </span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto px-2">
               From JWT authentication to AI-powered insights, everything you
               need for enterprise-grade accessibility testing.
             </p>

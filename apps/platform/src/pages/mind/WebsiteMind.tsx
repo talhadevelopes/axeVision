@@ -122,13 +122,13 @@ export default function WebsiteMindPage() {
         />
       </div>
 
-      <div className="relative z-10 mt-5 p-4 py-12 max-w-7xl mx-auto">
+      <div className="relative z-10 mt-16 md:mt-5 px-3 py-8 md:p-4 md:py-12 max-w-7xl mx-auto">
         {/* Header Section */}
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between mb-8 gap-6"></div>
 
         {/* Snapshot Info Card */}
         {snapshot && (
-          <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-green-100/50 p-6 mb-8">
+          <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-green-100/50 p-4 md:p-6 mb-6 md:mb-8">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center shadow-lg">
